@@ -132,10 +132,7 @@ if __name__ == '__main__':
     question_tallies = tally_answers(results, inreader.fieldnames)
         
     if arguments.brigade:
-        bot_checking.bot_check(results, question_tallies)
-        brigade_checking.general_brigade_check(results, question_tallies)
-        brigade_checking.chk_brigade_basilisk(results, question_tallies)
-        quit()
+        brigade_checking.main()
     elif arguments.botcheck and arguments.structure:
         bot_checking.main()
     elif arguments.botcheck:
