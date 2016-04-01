@@ -207,6 +207,16 @@ def filter_rm_emailaddr(row):
     del(row["EmailAddress"])
     return row
 
+def filter_rm_coppa(row):
+    """Remove data entries for survey respondents who reported themselves as being
+    under 13 years of age to comply with COPPA."""
+    if not row["Age"] or row["Age"] == "N/A":
+        return row
+    elif float(row["Age"]) > 12:
+        return row
+    else:
+        return False
+
 def strip_data_for_partner_release(results):
     """Strip the survey data so that it is suitable for release to trusted 
     partners. This is almost the same thing as the public release, but includes
@@ -221,6 +231,7 @@ def strip_data_for_partner_release(results):
             stripped_row = filter_mod_datestamps(stripped_row)
             stripped_row = filter_rm_misc(stripped_row)
             stripped_row = filter_rm_emailaddr(stripped_row)
+            stripped_row = filter_rm_coppa(stripped_row)
             stripped.append(stripped_row)
         else:
             continue
