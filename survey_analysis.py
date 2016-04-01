@@ -226,12 +226,16 @@ def strip_data_for_partner_release(results):
     stripped = []
     results = filter_mod_ipaddrs(results)
     for row in results:
-        if filter_rm_non_public(row):
-            stripped_row = filter_rm_section_time(row)
+        try:
+            stripped_row = filter_rm_non_public(row)
+            stripped_row = filter_rm_section_time(stripped_row)
             stripped_row = filter_mod_datestamps(stripped_row)
             stripped_row = filter_rm_misc(stripped_row)
             stripped_row = filter_rm_emailaddr(stripped_row)
             stripped_row = filter_rm_coppa(stripped_row)
+        except AttributeError:
+            continue
+        if stripped_row:
             stripped.append(stripped_row)
         else:
             continue
