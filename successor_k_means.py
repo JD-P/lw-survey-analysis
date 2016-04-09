@@ -56,6 +56,10 @@ for centroid in range(K):
     for observation in clusters[centroid]:
         for choice in enumerate(observation):
             answer_grid[choice[0]][choice[1]] += 1
+    for answer in answer_grid:
+        answer_copy = answer[:-1]
+        for choice in enumerate(answer_copy):
+            answer[choice[0]] = round(choice[1] / sum(answer_copy), 2)
     grids.append((len(clusters[centroid]), answer_grid))
 grids.sort()
 for grid in grids:
