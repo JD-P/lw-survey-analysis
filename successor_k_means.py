@@ -1,12 +1,14 @@
 import sqlite3
 from scipy.cluster import vq
-from numpy import array 
+from numpy import array
+import json 
 import argparse
 
 parser = argparse.ArgumentParser()
 parser.add_argument("filepath", help="Filepath to the input file db file.")
 parser.add_argument("-o", "--output", help="Filepath to write the output to.")
 parser.add_argument("-k", default=6, type=int, help="The number of clusters.")
+parser.add_argument("--json", action="store_true", help="Output the data in JSON format.")
 arguments = parser.parse_args()
 
 db_conn = sqlite3.connect(arguments.filepath)
@@ -62,11 +64,14 @@ for centroid in range(K):
             answer[choice[0]] = round(choice[1] / sum(answer_copy), 2)
     grids.append((len(clusters[centroid]), answer_grid))
 grids.sort()
-for grid in grids:
-    print("Cluster Size: " + str(grid[0]))
-    for row in grid[1]:
-        print(row)
-    print("----")
+if arguments.json:
+    print(json.dumps(grids))
+else:
+    for grid in grids:
+        print("Cluster Size: " + str(grid[0]))
+        for row in grid[1]:
+            print(row)
+        print("----")
     
 
 
