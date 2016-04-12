@@ -40,6 +40,7 @@ print("Average IQ among those whose IQ isn't a multiple of five:", nmof_average)
 # Turns out we don't really have a sample size large enough to get useful results
 # from this.
 cursor.execute("select EmailAddress, IQ from data where IQ;")
+# Filter out non answers
 email_addrs = [(row[0],row[1]) for row in cursor.fetchall() if row[0]]
 providers = {}
 for address in email_addrs:
