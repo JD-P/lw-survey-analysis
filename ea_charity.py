@@ -119,3 +119,54 @@ if arguments.sanity:
                                       [charity for charity in row[8:24] if charity])
     print("Respondents who donated more than their income or charity portion:", fishy)
     print("How much money is in this category:", money_involved)
+print("\n\nEffective Altruism:\n")
+
+# Effective Altruism Statistics
+
+# How much money donated
+cursor.execute("select " + ','.join(keys) + " from data where EAIdentity=?;",
+               ["Yes"])
+rows = cursor.fetchall()
+# Calculate total amount of money donated to charity
+# If somebody lists their IncomeCharityPortion, skip further probing, otherwise tally
+# individual charity contributions.
+income_total = 0
+charity_total = 0
+for row in rows:
+    if row[6]:
+        income_total += row[6]
+    elif row[7]:
+        income_total += row[7]
+    else:
+        for charity in row[8:24]:
+            if charity:
+                income_total += charity
+    if row[7]:
+        charity_total += row[7]
+    else:
+        for charity in row[8:24]:
+            if charity:
+                charity_total += charity
+print("Total EA respondents:", len(rows))
+print("Total income of EA participants:", income_total)
+print("Total amount of money donated to charity by EA participants:", charity_total)
+print("Relative portion of income donated to charity by EA participants:", 
+      charity_total / income_total)
+# EA effectiveness
+cursor.execute('select count(EADonations) from data where EADonations !="N/A";')
+total_EA_donation_respondents = cursor.fetchone()[0]
+cursor.execute('select count(EADonations) from data where EADonations="Yes"');
+total_new_donations = cursor.fetchone()[0]
+print("Number of respondents who made new donations as a result of EA:",
+      total_new_donations / total_EA_donation_respondents)
+total_EAs = len(rows)
+cursor.execute('select count(EADonations) from data where EAIdentity="Yes" ' + 
+               'AND EADonations="Yes";')
+ea_new_donations = cursor.fetchone()[0]
+print("Number of EA respondents who made new donations as a result of EA:",
+      ea_new_donations / total_EAs)
+
+# Anxiety versus donations
+# EA versus communities
+# EA versus political affiliation
+# EA and Xrisk
