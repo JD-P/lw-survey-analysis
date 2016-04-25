@@ -151,22 +151,119 @@ print("Total EA respondents:", len(rows))
 print("Total income of EA participants:", income_total)
 print("Total amount of money donated to charity by EA participants:", charity_total)
 print("Relative portion of income donated to charity by EA participants:", 
-      charity_total / income_total)
+      charity_total / income_total, end="\n\n")
 # EA effectiveness
+print("EA Effectiveness:", end="\n\n")
 cursor.execute('select count(EADonations) from data where EADonations !="N/A";')
 total_EA_donation_respondents = cursor.fetchone()[0]
 cursor.execute('select count(EADonations) from data where EADonations="Yes"');
 total_new_donations = cursor.fetchone()[0]
-print("Number of respondents who made new donations as a result of EA:",
+print("Percentage of respondents who made new donations as a result of EA:",
       total_new_donations / total_EA_donation_respondents)
 total_EAs = len(rows)
 cursor.execute('select count(EADonations) from data where EAIdentity="Yes" ' + 
                'AND EADonations="Yes";')
 ea_new_donations = cursor.fetchone()[0]
-print("Number of EA respondents who made new donations as a result of EA:",
-      ea_new_donations / total_EAs)
+print("Percentage of EA respondents who made new donations as a result of EA:",
+      ea_new_donations / total_EAs, end="\n\n")
 
 # Anxiety versus donations
+cursor.execute('select ' + ','.join(keys) + ' from data where ' +
+               'EAIdentity="No" AND EAAnxiety="Yes";')
+anxious_rows = cursor.fetchall()
+cursor.execute('select ' + ','.join(keys) + ' from data where ' +
+               'EAIdentity="No" AND EAAnxiety="No";')
+calm_rows = cursor.fetchall()
+
+def calc_donations(rows, indices):
+    """Calculate the total amount of money donated in <rows> to the charities 
+    indicated by <indices>.
+
+    rows is a list of rows taken from the database.
+    indices is a list of the fields to take from each row of the rows.
+
+    returns a dictionary of indices and their donation totals"""
+    indice_dict = {}.fromkeys(indices, 0)
+    for row in rows:
+        for indice in indices:
+            if row[indice]:
+                indice_dict[indice] += row[indice]
+    return indice_dict
+
+indices = list(range(9,24))
+anxious_donations = calc_donations(anxious_rows,indices)
+calm_donations = calc_donations(calm_rows,indices)
+
+anxious_donation_total = sum(anxious_donations.values())
+print("Sample Size:", len(anxious_rows))
+print("Average amount of money donated by people anxious about EA who aren't EAs:", 
+      anxious_donation_total / len(anxious_rows))
+calm_donation_total = sum(calm_donations.values())
+print("Sample Size:", len(calm_rows))
+print("Average amount of money donated by people who aren't anxious about EA " +
+      "who aren't EAs:",
+      calm_donation_total / len(calm_rows), end="\n\n")
+
+cursor.execute('select ' + ','.join(keys) + ' from data where ' + 
+               'EAIdentity="Yes" AND EAAnxiety="Yes";')
+EA_anxious_rows = cursor.fetchall()
+cursor.execute('select ' + ','.join(keys) + ' from data where ' +
+               'EAIdentity="Yes" AND EAAnxiety="No";')
+EA_calm_rows = cursor.fetchall()
+EA_anxious_donations = calc_donations(EA_anxious_rows, indices)
+EA_calm_donations = calc_donations(EA_calm_rows, indices)
+
+EA_anxious_donation_total = sum(EA_anxious_donations.values())
+print("Sample Size:", len(EA_anxious_rows))
+print("Average amount of money donated by EAs anxious about EA:",
+      EA_anxious_donation_total / len(EA_anxious_rows))
+EA_calm_donation_total = sum(EA_calm_donations.values())
+print("Sample Size:", len(EA_calm_rows))
+print("Average amount of money donated by EAs not anxious about EA:",
+      EA_calm_donation_total / len(EA_calm_rows),end="\n\n")
+
+# Probability of EA given anxiety
+cursor.execute("select count(*) from data where EAAnxiety is not null;")
+total_respondents = cursor.fetchone()[0]
+cursor.execute('select count(*) from data where EAIdentity="Yes";')
+total_EAs = cursor.fetchone()[0]
+cursor.execute('select count(*) from data where EAAnxiety="Yes";')
+total_EA_anxiety = cursor.fetchone()[0]
+cursor.execute('select count(*) from data where EAIdentity="Yes" AND EAAnxiety="Yes";')
+EA_EA_anxiety = cursor.fetchone()[0]
+cursor.execute('select count(*) from data where EAIdentity="No" AND EAAnxiety="Yes";')
+EA_calm = cursor.fetchone()[0]
+P_ea_given_anxiety = (((EA_EA_anxiety / total_EAs) * (total_EAs / total_respondents)) 
+                      / (total_EA_anxiety / total_respondents))
+print("Sample Size:", total_respondents)
+print("P(Effective Altruist):", total_EAs / total_respondents)
+print("P(EA Anxiety):", total_EA_anxiety / total_respondents)
+print("P(Effective Altruist | EA Anxiety):", P_ea_given_anxiety, end="\n\n")
+
+givewell_charities_indices = [9,10,11,12]
+givewell_charities_donations = calc_donations(rows, givewell_charities_indices)
+givewell_charities_total = sum(givewell_charities_donations.values())
+print("Amount of EA money sent to top four GiveWell charities:", 
+      givewell_charities_total)
+charity_labels = {9:"Against Malaria Foundation",
+                  10:"Schistosomiasis Control Initiative",
+                  11:"Deworm the World Initiative",
+                  12:"GiveDirectly"}
+print("Breakdown By Charity:", end="\n\n")
+for indice in sorted(givewell_charities_donations.keys()):
+    print(charity_labels[indice] + ":", givewell_charities_donations[indice])
+print("\n")
+
+miri_cfar_indices = [15,18]
+miri_cfar_donations = calc_donations(rows, miri_cfar_indices)
+miri_cfar_total = sum(miri_cfar_donations.values())
+print("Amount of EA money sent to MIRI and CFAR:", miri_cfar_total)
+charity_labels = {15:"Machine Intelligence Research Institute",
+                  18:"Center For Applied Rationality"}
+print("Breakdown By Charity:", end="\n\n")
+for indice in sorted(miri_cfar_donations.keys()):
+    print(charity_labels[indice] + ":", miri_cfar_donations[indice])
+
 # EA versus communities
 # EA versus political affiliation
 # EA and Xrisk
