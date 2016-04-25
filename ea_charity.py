@@ -262,8 +262,85 @@ charity_labels = {15:"Machine Intelligence Research Institute",
                   18:"Center For Applied Rationality"}
 print("Breakdown By Charity:", end="\n\n")
 for indice in sorted(miri_cfar_donations.keys()):
-    print(charity_labels[indice] + ":", miri_cfar_donations[indice])
+    print(charity_labels[indice] + ":", miri_cfar_donations[indice], end="\n\n")
 
 # EA versus communities
+def calc_con_by_community(condition):
+    community_names = ["LessWrong", "LessWrong Meetups", "LessWrong Facebook Group",
+                       "LessWrong Slack", "SlateStarCodex", "Rationalist Tumblr", 
+                       "Rationalist Facebook", "Rationalist Twitter", 
+                       "Effective Altruism Hub", "FortForecast", 
+                       "Good Judgement(TM) Open", "PredictionBook", "Omnilibrium", 
+                       "Hacker News", "#lesswrong on freenode", 
+                       "#slatestarcodex on freenode", "#hplusroadmap on freenode", 
+                       "#chapelperilous on freenode", "/r/rational", "/r/HPMOR", 
+                       "/r/SlateStarCodex", 
+                       "One or more private 'rationalist' groups"]
+    counts = {}.fromkeys(range(1,23), None)
+    for i in range(1,23):
+        try:
+            community_name = community_names[i - 1]
+        except IndexError:
+            print(len(community_names), i)
+        cursor.execute("select count(*) from data where ActiveMemberships_" +
+                       str(i) + ' is "Yes";')
+        sample_size = cursor.fetchone()[0]
+        cursor.execute('select count(*) from data where ' 
+                       + condition + " AND ActiveMemberships_" 
+                       + str(i) + ' is "Yes";')
+        condition_count = cursor.fetchone()[0]
+        counts[i] = (community_name, sample_size, condition_count)
+    return counts
+
+EA_communities = calc_con_by_community('EAIdentity="Yes"')
+print("Number of Effective Altruists in the diaspora communities:", end="\n\t")
+for community in sorted(EA_communities.keys()):
+    (community_name, sample_size, EAs) = EA_communities[community]
+    print("Sample Size:", sample_size, end="\n\t\t")
+    print(community_name + ":", EAs, end="\n\t\t")
+    print("Percentage of Effective Altruists in", community_name + ":",
+          EAs / sample_size, end="\n\n\t")
+print("\n")
+
 # EA versus political affiliation
+print("Effective Altruist donations by political affiliation:",end="\n\t")
+# EA Donation statistics by political affiliation
+cursor.execute("select ComplexAffiliation from data;")
+# Concatenate the single valued rows, grab their unique values with set() and then
+# convert back into a list so we can guaruntee an output order.
+affiliations = []
+for row in cursor.fetchall():
+    if row[0]:
+        affiliations += row
+affiliations = list(set(affiliations))
+affiliations.sort()
+for affiliation in affiliations:
+    cursor.execute("select " + ",".join(keys) 
+                   + ' from data where ComplexAffiliation == ? ' + 
+                   'AND EAIdentity=?;', (affiliation,"Yes"))
+    affil_rows = cursor.fetchall()
+    affil_income = 0
+    affil_charity = 0
+    for row in affil_rows:
+        if row[6]:
+            affil_income += row[6]
+        elif row[7]:
+            affil_income += row[7]
+        else:
+            for charity in row[8:24]:
+                if charity:
+                    affil_income += charity
+        if row[7]:
+            affil_charity += row[7]
+        else:
+            for charity in row[8:24]:
+                if charity:
+                    affil_charity += charity
+    print("Sample size:", len(affil_rows), end="\n\t\t") # Naive sample size
+    # ^ A better version would only count those members who actually answered the
+    # charity section.
+    print("Total EA income for political affiliation '" + affiliation + 
+          "':", affil_income, end="\n\t\t")
+    print("Total EA charity contributions for political affiliation '" 
+          + affiliation + "':", affil_charity, end="\n\n\t")
 # EA and Xrisk
