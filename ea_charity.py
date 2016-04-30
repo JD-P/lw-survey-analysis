@@ -6,6 +6,9 @@ parser = argparse.ArgumentParser()
 parser.add_argument("filepath", help="The filepath to the db file to analyze.")
 parser.add_argument("-s", "--sanity", action="store_true", 
                     help="Sanity check figures such as total donated to charity.")
+parser.add_argument("-r", "--restricted", type=int, default=10,
+                    help="Restrict results to sample sizes with at least n or "
+                    + "more members.")
 arguments = parser.parse_args()
 
 db_conn = sqlite3.connect(arguments.filepath)
@@ -53,6 +56,8 @@ for row in cursor.fetchall():
         affiliations += row
 affiliations = list(set(affiliations))
 affiliations.sort()
+print(end="\n")
+print("Charity donations by political affilation:", end="\n")
 for affiliation in affiliations:
     cursor.execute("select " + ",".join(keys) 
                    + " from data where ComplexAffiliation == ?;", (affiliation,))
@@ -74,7 +79,9 @@ for affiliation in affiliations:
             for charity in row[8:24]:
                 if charity:
                     affil_charity += charity
-    print("\n")
+    if len(affil_rows) < arguments.restricted:
+        continue
+    print(end="\n")
     print("Sample size:", len(affil_rows)) # Naive sample size
     # ^ A better version would only count those members who actually answered the
     # charity section.
@@ -296,7 +303,10 @@ EA_communities = calc_con_by_community('EAIdentity="Yes"')
 print("Number of Effective Altruists in the diaspora communities:", end="\n\t")
 for community in sorted(EA_communities.keys()):
     (community_name, sample_size, EAs) = EA_communities[community]
-    print("Sample Size:", sample_size, end="\n\t\t")
+    if sample_size >= arguments.restricted:
+        print("Sample Size:", sample_size, end="\n\t\t")
+    else:
+        continue
     print(community_name + ":", EAs, end="\n\t\t")
     print("Percentage of Effective Altruists in", community_name + ":",
           EAs / sample_size, end="\n\n\t")
@@ -336,6 +346,8 @@ for affiliation in affiliations:
             for charity in row[8:24]:
                 if charity:
                     affil_charity += charity
+    if len(affil_rows) < arguments.restricted:
+        continue
     print("Sample size:", len(affil_rows), end="\n\t\t") # Naive sample size
     # ^ A better version would only count those members who actually answered the
     # charity section.
