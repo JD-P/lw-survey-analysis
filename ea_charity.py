@@ -88,7 +88,7 @@ for affiliation in affiliations:
     print("Total income for political affiliation '" + affiliation + "':", affil_income)
     print("Total charity contributions for political affiliation '" 
           + affiliation + "':", affil_charity)
-    print("Percentage of income donated to charity:", affil_charity / affil_income)
+    print("Fraction of income donated to charity:", affil_charity / affil_income)
     print("Portion of total charity contributions for all survey respondents:",
           affil_charity / charity_total)
 #Sanity checking the above figures, if sanity check flag is on
@@ -165,13 +165,13 @@ cursor.execute('select count(EADonations) from data where EADonations !="N/A";')
 total_EA_donation_respondents = cursor.fetchone()[0]
 cursor.execute('select count(EADonations) from data where EADonations="Yes"');
 total_new_donations = cursor.fetchone()[0]
-print("Percentage of respondents who made new donations as a result of EA:",
+print("Fraction of respondents who made new donations as a result of EA:",
       total_new_donations / total_EA_donation_respondents)
 total_EAs = len(rows)
 cursor.execute('select count(EADonations) from data where EAIdentity="Yes" ' + 
                'AND EADonations="Yes";')
 ea_new_donations = cursor.fetchone()[0]
-print("Percentage of EA respondents who made new donations as a result of EA:",
+print("Fraction of EA respondents who made new donations as a result of EA:",
       ea_new_donations / total_EAs, end="\n\n")
 
 # Anxiety versus donations
@@ -308,7 +308,7 @@ for community in sorted(EA_communities.keys()):
     else:
         continue
     print(community_name + ":", EAs, end="\n\t\t")
-    print("Percentage of Effective Altruists in", community_name + ":",
+    print("Fraction of Effective Altruists in", community_name + ":",
           EAs / sample_size, end="\n\n\t")
 print("\n")
 
