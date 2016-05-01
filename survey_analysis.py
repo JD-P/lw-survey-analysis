@@ -273,6 +273,43 @@ def strip_data_for_partner_release(results):
         else:
             continue
     return stripped
+
+def filter_rm_ipaddrs(results):
+    """Remove IP addresses from the result rows."""
+    for row in results:
+        del(row["ipaddr"])
+    return results
+
+def filter_rm_datestamps(row):
+    """Remove datestamps from a result row."""
+    del(row["datestamp"])
+    del(row["submitdate"])
+    del(row["startdate"])
+    return row    
+
+def strip_data_for_public_release(results):
+    """Strip the survey data so that it is suitable for release to trusted 
+    partners. This is almost the same thing as the public release, but includes
+    just a few more potentially identifying pieces of information such as the
+    date the survey was started and the date it was submitted, a unique number
+    representing an anonymized IP address, etc."""
+    stripped = []
+    results = filter_rm_ipaddrs(results)
+    for row in results:
+        try:
+            stripped_row = filter_rm_non_public(row)
+            stripped_row = filter_rm_section_time(stripped_row)
+            stripped_row = filter_rm_datestamps(stripped_row)
+            stripped_row = filter_rm_misc(stripped_row)
+            stripped_row = filter_rm_emailaddr(stripped_row)
+            stripped_row = filter_rm_coppa(stripped_row)
+        except AttributeError:
+            continue
+        if stripped_row:
+            stripped.append(stripped_row)
+        else:
+            continue
+    return stripped
     
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -327,6 +364,25 @@ if __name__ == '__main__':
                              " in dataset. Must be between this number and zero.")
         sample = sample_results(results, arguments.partner_release)
         stripped = strip_data_for_partner_release(sample)
+        if arguments.output:
+            outfile = open(arguments.output, mode="w", newline='')
+        else:
+            outfile = sys.stdout
+        fieldnames = []
+        for field in inreader.fieldnames:
+            if field in stripped[0]:
+                fieldnames.append(field)
+        outwriter = csv.DictWriter(outfile, fieldnames=fieldnames)
+        outwriter.writeheader()
+        for row in stripped:
+            outwriter.writerow(row)
+        quit()
+    elif arguments.public_release:
+        if arguments.public_release > len(results):
+            raise ValueError("Currently only" + str(len(results)) +
+                             " in dataset. Must be between this number and zero.")
+        sample = sample_results(results, arguments.public_release)
+        stripped = strip_data_for_public_release(sample)
         if arguments.output:
             outfile = open(arguments.output, mode="w", newline='')
         else:
