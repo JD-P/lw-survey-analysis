@@ -1,5 +1,6 @@
 import sys
 import csv
+import sqlite3
 import argparse
 import time
 import calendar
@@ -95,6 +96,38 @@ def import_survey_structure(filepath):
         elif values[0].lower() == "a":
             questions[question].append(values[3])
     return questions
+
+def import_survey_results_as_sqlite(filepath):
+    """Take the survey results file at [filepath] and import it as rows and columns
+    in a sqlite database."""
+    infile = open(filepath, newline='')
+    inreader = csv.reader(infile)
+    results = []
+    fieldnames = inreader.__next__()
+    for row in inreader:
+        results.append(row)
+    print(results)
+    infile.close()
+    # Dangerous sql-injectionable string concat because it's assumed fieldnames
+    # are safe
+    db_conn = sqlite3.connect(":memory:")
+    cursor = db_conn.cursor()
+    fields_converted = []
+    for field in fieldnames:
+        fields_converted.append(" " + field + " text,")
+    fields_converted[-1] = " " + field + " text)"
+    cursor.execute("CREATE TABLE survey (" + ''.join(fields_converted) + ";")
+    template = "insert into survey values (" + ("?," * (len(fieldnames) - 1)) + "?);"
+    for row in results:
+        try:
+            cursor.execute(template, row)
+        except:
+            print(row)
+    cursor.commit()
+    cursor.close()
+    return db_conn
+    
+        
 
 def binary_search_dates(unix_timestamps, date_indexes):
     """Determine the index of the results for each unix_timestamp beyond which
@@ -251,8 +284,11 @@ if __name__ == '__main__':
                         help="Only output entries that have opted into the "
                         "public dataset.")
     parser.add_argument("--partner-release", dest="partner_release", type=int,
-                        help="Release a sample of size n appropriate for " +
+                        metavar="N", help="Release a sample of size n appropriate for " +
                         "release to trusted partners.")
+    parser.add_argument("--public-release", dest="public_release", type=int,
+                        metavar="N", help="Release a sample of size n appropriate for " +
+                        "release to the public.")
     parser.add_argument("-b", "--brigade", action="store_true", help="Do brigading analysis.")
     parser.add_argument("--botcheck", action="store_true", help="Analyze possible bot replies.")
     parser.add_argument("--count-rise", dest="count_rise",
@@ -278,6 +314,13 @@ if __name__ == '__main__':
         
     if arguments.brigade:
         brigade_checking.main()
+    elif arguments.t:
+        print(arguments.filepath)
+        db_conn = import_survey_results_as_sqlite(arguments.filepath)
+        cursor = db_conn.cursor()
+        cursor.execute("select * from survey;")
+        print(len(cursor.fetchall()))
+        quit()
     elif arguments.partner_release:
         if arguments.partner_release > len(results):
             raise ValueError("Currently only" + str(len(results)) +
