@@ -126,11 +126,17 @@ for group_tuple in groups:
                 for answer in answers:
                     (count, fraction) = answer_counts[answer]
                     print(answer + ":", count, fraction, end=end)
+                for subquestion in question_data["sub_questions"]:
+                    (count, fraction) = answer_counts[subquestion["label"]]
+                    print(subquestion["label"] + ":", count, fraction, end=end)
             else:
                 answer_counts = count_answers(question_rows, question_data, cursor)
                 for answer in answers:
                     (count, fraction) = answer_counts[answer["label"]]
                     print(answer["label"] + ":", count, fraction, end=end)
+                for subquestion in question_data["sub_questions"]:
+                    (count, fraction) = answer_counts[subquestion["label"]]
+                    print(subquestion["label"] + ":", count, fraction, end=end)
                 if "N/A" in answer_counts:
                     (count, fraction) = answer_counts["N/A"]
                     print("N/A:", count, fraction, end=end)
