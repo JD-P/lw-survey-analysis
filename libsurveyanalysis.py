@@ -29,7 +29,7 @@ class SurveyStructure:
                 elif row_type.upper() == "Q":
                     code = values[2]
                     question_indice += 1
-                    questions[question_indice] = []
+                    questions.append([])
                     questions[question_indice].append(("Q",row))
                     groups[group_indice][1].append(code)
                 elif row_type.upper() == "SQ":
@@ -48,7 +48,8 @@ class SurveyStructure:
                 if question_tuple[0] == "Q":
                     data_type = values[1]
                     code = values[2]
-                    label = values[3]
+                    unknown = values[3]
+                    label = values[4]
                     question_data = (data_type, code, label)
                 elif question_tuple[0] == "A":
                     data_type = values[1]
@@ -81,5 +82,3 @@ class SurveyStructure:
     def groups(self):
         """Return the groups in this SurveyStructure."""
         return self._groups
-
-
