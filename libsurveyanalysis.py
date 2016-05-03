@@ -54,7 +54,7 @@ class SurveyStructure:
                 elif question_tuple[0] == "A":
                     data_type = values[1]
                     code = values[2]
-                    label = values[3]
+                    label = values[4]
                     answers.append({"dtype":data_type,
                                     "code":code,
                                     "label":label})
