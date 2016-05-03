@@ -6,6 +6,9 @@ import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument("structure", help="Filepath to the survey structure.")
 parser.add_argument("database", help="The sqlite3 database containing the results.")
+parser.add_argument("-n", "--no-null", dest="no_null", 
+                    help="Only calculate results on each question for those who "
+                    + "answered it.")
 arguments = parser.parse_args()
 
 structure = SurveyStructure(arguments.structure)
@@ -19,6 +22,52 @@ conditions = {
     "SAT":"where SAT <= 1600 AND SAT > 0",
     "SAT2":"where SAT2 <= 2400 AND SAT2 > 0",
     "ACT":"where ACT <= 36"}
+
+def count_answers(rows, question_data, cursor, no_null=False):
+    """Count the distinct answers in the given rows and return a count and 
+    fraction for each answer. 
+
+    no_null - Determines whether to count non-answers in the polling or not."""
+    answers = question_data["answers"]
+    answer_labels = []
+    for answer in answers:
+        answer_labels.append(answer["label"])
+    answers_dict = {}.fromkeys(answer_labels)
+    if no_null:
+        data = [value[0] for value in rows if value[0]]
+        for answer in answer_labels:
+            count = data.count(answer)
+            fraction = round(data.count(answer) / len(data), 3)
+            answers_dict[answer] = (count, fraction)
+    else:
+        data = [value[0] for value in rows]
+        for answer in answer_labels:
+            count = data.count(answer)
+            fraction = round(data.count(answer) / len(data), 3)
+            answers_dict[answer] = (count, fraction)
+        if data.count("N/A") > 0:
+            count = data.count("N/A")
+            fraction = round(data.count("N/A") / len(data), 3)
+            answers_dict["N/A"] = (count, fraction)
+        else:
+            count = data.count(None)
+            fraction = round(data.count(None) / len(data), 3)
+            answers_dict[None] = (count, fraction)
+    if len(question_data["sub_questions"]) > 1:
+        raise ValueError("Received more than one subquestion when counting 'L'" + 
+                         " type question.")
+    elif len(question_data["sub_questions"]) == 1:
+        for subquestion in question_data["sub_questions"]:
+            cursor.execute("select count(" + question_data["code"] + 
+                           "_" + subquestion["code"] + ") from data;")
+            count = cursor.fetchone()[0]
+            if arguments.no_null:
+                data = [value[0] for value in rows if value[0]]
+                fraction = count / len(data)
+            else:
+                fraction = count / len(rows)
+        answers_dict[subquestion["label"]] = (count, fraction)
+    return answers_dict
 
 for group_tuple in groups:
     (group_name, keys) = group_tuple
@@ -45,4 +94,47 @@ for group_tuple in groups:
                 print("Mode:", statistics.mode(data), end=end)
             except statistics.StatisticsError:
                 print("Mode:", "All values found equally likely.")
+        elif question_data["dtype"] == "Y":
+            answers = ("Yes", "No")
+            cursor.execute("select " + key + " from data;")
+            question_rows = cursor.fetchall()
+            if arguments.no_null:
+                data = [value[0] for value in question_rows if value[0]]
+                for answer in answers:
+                    print(answer + ":", 
+                          data.count(answer), 
+                          round(data.count(answer) / len(data), 3), 
+                          end=end)
+            else:
+                data = [value[0] for value in question_rows]
+                for answer in answers:
+                    print(answer + ":", 
+                          data.count(answer),
+                          round(data.count(answer) / len(data), 3),
+                          end=end)
+                print("N/A:",
+                      data.count("N/A"),
+                      round(data.count("N/A") / len(data), 3),
+                      end=end)
+        elif question_data["dtype"] == "L":
+            answers = question_data["answers"]
+            cursor.execute("select " + key + " from data;")
+            question_rows = cursor.fetchall()
+            if arguments.no_null:
+                answer_counts = count_answers(question_rows, question_data, 
+                                              cursor, True)
+                for answer in answers:
+                    (count, fraction) = answer_counts[answer]
+                    print(answer + ":", count, fraction, end=end)
+            else:
+                answer_counts = count_answers(question_rows, question_data, cursor)
+                for answer in answers:
+                    (count, fraction) = answer_counts[answer["label"]]
+                    print(answer["label"] + ":", count, fraction, end=end)
+                if "N/A" in answer_counts:
+                    (count, fraction) = answer_counts["N/A"]
+                    print("N/A:", count, fraction, end=end)
+                else:
+                    (count, fraction) = answer_counts[None]
+                    print("None:", count, fraction, end=end)
         print(end="\n\t")
