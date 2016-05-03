@@ -145,4 +145,33 @@ for group_tuple in groups:
                 else:
                     (count, fraction) = answer_counts[None]
                     print("None:", count, fraction, end=end)
+        elif question_data["dtype"] == "M":
+            for subquestion in question_data["sub_questions"]:
+                print(subquestion["label"] + ":", end=end)
+                code = question_data["code"] + "_" + subquestion["code"]
+                cursor.execute("select " + code + " from data;")
+                subquestion_rows = cursor.fetchall()
+                if arguments.no_null:
+                    data = [value[0] for value in subquestion_rows if value[0]]
+                    (count1, fraction1, count2, fraction2) = (
+                        data.count("Yes"),
+                        data.count("Yes") / len(data),
+                        data.count("No"),
+                        data.count("No") / len(data))
+                    print("Yes:", count1, fraction1, end=end)
+                    print("No:", count2, fraction2, end=end)
+                else:
+                    data = [value[0] for value in subquestion_rows]
+                    (count1, fraction1, 
+                     count2, fraction2,
+                     count3, fraction3) = (
+                         data.count("Yes"),
+                         data.count("Yes") / len(data),
+                         data.count("No"),
+                         data.count("No") / len(data),
+                         data.count("N/A"),
+                         data.count("N/A") / len(data))
+                    print("Yes:", count1, fraction1, end=end)
+                    print("No:", count2, fraction2, end=end)
+                    print("N/A:", count3, fraction3, end=end)
         print(end="\n\t")
