@@ -6,7 +6,7 @@ import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument("structure", help="Filepath to the survey structure.")
 parser.add_argument("database", help="The sqlite3 database containing the results.")
-parser.add_argument("-n", "--no-null", dest="no_null", 
+parser.add_argument("-n", "--no-null", action="store_true", dest="no_null", 
                     help="Only calculate results on each question for those who "
                     + "answered it.")
 arguments = parser.parse_args()
@@ -34,7 +34,7 @@ def count_answers(rows, question_data, cursor, no_null=False):
         answer_labels.append(answer["label"])
     answers_dict = {}.fromkeys(answer_labels)
     if no_null:
-        data = [value[0] for value in rows if value[0]]
+        data = [value[0] for value in rows if value[0] and value[0] != "N/A"]
         for answer in answer_labels:
             count = data.count(answer)
             fraction = round(data.count(answer) / len(data), 3)
@@ -62,7 +62,8 @@ def count_answers(rows, question_data, cursor, no_null=False):
                            "_" + subquestion["code"] + ") from data;")
             count = cursor.fetchone()[0]
             if arguments.no_null:
-                data = [value[0] for value in rows if value[0]]
+                data = [value[0] for value in rows if value[0] 
+                        and value[0] != "N/A"]
                 fraction = count / len(data)
             else:
                 fraction = count / len(rows)
@@ -99,7 +100,8 @@ for group_tuple in groups:
             cursor.execute("select " + key + " from data;")
             question_rows = cursor.fetchall()
             if arguments.no_null:
-                data = [value[0] for value in question_rows if value[0]]
+                data = [value[0] for value in question_rows if value[0] and 
+                        value[0] != "N/A"]
                 for answer in answers:
                     print(answer + ":", 
                           data.count(answer), 
@@ -124,8 +126,8 @@ for group_tuple in groups:
                 answer_counts = count_answers(question_rows, question_data, 
                                               cursor, True)
                 for answer in answers:
-                    (count, fraction) = answer_counts[answer]
-                    print(answer + ":", count, fraction, end=end)
+                    (count, fraction) = answer_counts[answer["label"]]
+                    print(answer["label"] + ":", count, fraction, end=end)
                 for subquestion in question_data["sub_questions"]:
                     (count, fraction) = answer_counts[subquestion["label"]]
                     print(subquestion["label"] + ":", count, fraction, end=end)
