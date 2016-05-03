@@ -72,6 +72,7 @@ class SurveyStructure:
                                      question_tuple[0] + 
                                      " found in question set.")
             self._questions[question_data[1]] = {"dtype":question_data[0],
+                                                 "code":question_data[1],
                                                  "label":question_data[2],
                                                  "answers":answers,
                                                  "sub_questions":sub_questions}
