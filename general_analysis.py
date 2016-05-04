@@ -174,4 +174,40 @@ for group_tuple in groups:
                     print("Yes:", count1, fraction1, end=end)
                     print("No:", count2, fraction2, end=end)
                     print("N/A:", count3, fraction3, end=end)
+        elif question_data["dtype"] == "F":
+            for subquestion in question_data["sub_questions"]:
+                print(subquestion["label"] + ":", end=end)
+                answers = question_data["answers"]
+                code = question_data["code"] + "_" + subquestion["code"]
+                cursor.execute("select " + code + " from data;")
+                subquestion_rows = cursor.fetchall()
+                if arguments.no_null:
+                    data = [value[0] for value in subquestion_rows if value[0]]
+                    for answer in answers:
+                        (count, fraction) = (
+                            data.count(answer["label"]),
+                            data.count(answer["label"]) / len(data)
+                        )
+                        print(answer["label"] + ":", count, fraction, end=end)
+                else:
+                    data = [value[0] for value in subquestion_rows]
+                    for answer in answers:
+                        (count, fraction) = (
+                            data.count(answer["label"]),
+                            data.count(answer["label"]) / len(data)
+                        )
+                        print(answer["label"] + ":", count, fraction, end=end)
+                    if "N/A" in data:
+                        (count, fraction) = (
+                            data.count("N/A"),
+                            data.count("N/A") / len(data)
+                        )
+                        print("N/A:", count, fraction, end=end)
+                    else:
+                        (count, fraction) = (
+                            data.count(None),
+                            data.count(None) / len(data)
+                        )
+                        print("None:", count, fraction, end=end)
+
         print(end="\n\t")
