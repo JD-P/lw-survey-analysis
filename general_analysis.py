@@ -82,6 +82,7 @@ for group_tuple in groups:
             print(key + ":", end=end)
         end = "\n\t\t"
         if question_data["dtype"] == "N":
+            # Numeric question. eg. Age.
             if key in conditions:
                 condition = conditions[key]
                 cursor.execute("select " + key + " from data " + condition + ";")
@@ -94,8 +95,9 @@ for group_tuple in groups:
             try:
                 print("Mode:", statistics.mode(data), end=end)
             except statistics.StatisticsError:
-                print("Mode:", "All values found equally likely.")
+                print("Mode:", "All values found equally likely.", end=end)
         elif question_data["dtype"] == "Y":
+            # Binary Question
             answers = ("Yes", "No")
             cursor.execute("select " + key + " from data;")
             question_rows = cursor.fetchall()
@@ -119,6 +121,7 @@ for group_tuple in groups:
                       round(data.count("N/A") / len(data), 3),
                       end=end)
         elif question_data["dtype"] == "L":
+            # Radio button
             answers = question_data["answers"]
             cursor.execute("select " + key + " from data;")
             question_rows = cursor.fetchall()
@@ -146,6 +149,7 @@ for group_tuple in groups:
                     (count, fraction) = answer_counts[None]
                     print("None:", count, fraction, end=end)
         elif question_data["dtype"] == "M":
+            # Multiple choice with checkbox/binary answers
             for subquestion in question_data["sub_questions"]:
                 print(subquestion["label"] + ":", end=end)
                 code = question_data["code"] + "_" + subquestion["code"]
@@ -175,6 +179,7 @@ for group_tuple in groups:
                     print("No:", count2, fraction2, end=end)
                     print("N/A:", count3, fraction3, end=end)
         elif question_data["dtype"] == "F":
+            # Multiple choice with multiple answers
             for subquestion in question_data["sub_questions"]:
                 print(subquestion["label"] + ":", end=end)
                 answers = question_data["answers"]
@@ -210,6 +215,7 @@ for group_tuple in groups:
                         )
                         print("None:", count, fraction, end=end)
         elif question_data["dtype"] == "!":
+            # Drop down list datatype
             answers = question_data["answers"]
             cursor.execute("select " + question_data["code"] + " from data;")
             question_rows = cursor.fetchall()
@@ -232,4 +238,19 @@ for group_tuple in groups:
                 else:
                     (count, fraction) = answer_counts[None]
                     print("None:", count, fraction, end=end)
+        elif question_data["dtype"] == "K":
+            # Multiple numeric questions. eg. Charity section.
+            print(question_data["label"] + ":", end=end)
+            for subquestion in question_data["sub_questions"]:
+                print(subquestion["label"] + ":", end=end)
+                code = question_data["code"] + "_" + subquestion["code"]
+                cursor.execute("select " + code + " from data;")
+                subquestion_rows = cursor.fetchall()
+                data = [value[0] for value in subquestion_rows if value[0]]
+                print("Mean:", statistics.mean(data), end=end)
+                print("Median:", statistics.median(data), end=end)
+                try:
+                    print("Mode:", statistics.mode(data), end=end)
+                except statistics.StatisticsError:
+                    print("Mode:", "All values found equally likely.", end=end)
         print(end="\n\t")
