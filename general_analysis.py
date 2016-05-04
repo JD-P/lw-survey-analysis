@@ -209,5 +209,27 @@ for group_tuple in groups:
                             data.count(None) / len(data)
                         )
                         print("None:", count, fraction, end=end)
-
+        elif question_data["dtype"] == "!":
+            answers = question_data["answers"]
+            cursor.execute("select " + question_data["code"] + " from data;")
+            question_rows = cursor.fetchall()
+            print(question_data["label"] + ":", end=end)
+            if arguments.no_null:
+                data = [value[0] for value in question_rows if value[0]]
+                for answer in answers:
+                    (count, fraction) = (data.count(answer["label"]),
+                                         data.count(answer["label"]) / len(data))
+                    print(answer["label"] + ":", count, fraction, end=end)
+            else:
+                answer_counts = count_answers(question_rows, 
+                                               question_data, cursor)
+                for answer in answers:
+                    (count, fraction) = answer_counts[answer["label"]]
+                    print(answer["label"] + ":", count, fraction, end=end)
+                if "N/A" in answer_counts:
+                    (count, fraction) = answer_counts["N/A"]
+                    print("N/A:", count, fraction, end=end)
+                else:
+                    (count, fraction) = answer_counts[None]
+                    print("None:", count, fraction, end=end)
         print(end="\n\t")
