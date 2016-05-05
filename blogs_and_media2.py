@@ -69,7 +69,8 @@ if arguments.text:
     for cluster_ans_indice in enumerate(cluster_answer_sets):
         cluster_indice = cluster_ans_indice[0]
         cluster_answers = cluster_ans_indice[1]
-        print("\nCluster " + str(cluster_indice) + ":", end="\n\t")
+        print("\nCluster " + str(cluster_indice) + ":")
+        print("Sample Size:", len(clusters[str(cluster_indice)]), end="\n\t")
         for key_enumerated in enumerate(keys):
             key = key_enumerated[1]
             indice = key_enumerated[0]
@@ -86,7 +87,7 @@ if arguments.text:
             if column_type == int or column_type == float:
                 values = [value for value in cluster_answers[key] if value]
                 if values:
-                    print("Average", label + ":", statistics.mean(values))
+                    print("Average", label + ":", round(statistics.mean(values),3))
                 else:
                     print("Average", label + ": No Answers Provided")
             else:
@@ -95,7 +96,9 @@ if arguments.text:
                     if answer == None:
                         answer = "None"
                     answer_count = cluster_answers[key].count(answer)
-                    print(answer + ":", answer_count / len(cluster_answers[key]),
+                    print(answer + ":", 
+                          round(answer_count / 
+                                len(cluster_answers[key]), 3),
                           end="\n\t\t")
             print(end="\n\t")
 
@@ -185,7 +188,7 @@ if arguments.text:
         for results in cluster_results[1]:
             if cluster_results[0] == str:
                 for result in enumerate(results):
-                    columns[result[0]].append(str(result[1]))
+                    columns[result[0]].append(str(round(result[1], 3)))
             else:
                 columns[0].append(str(results))
         print(label)
@@ -197,7 +200,16 @@ if arguments.text:
 
             for column in enumerate(columns):
                 try:
-                    print(column[1][cluster], end=" | ")
+                    try:
+                        print(round(float(column[1][cluster]),3), end=" | ")
+                    except ValueError:
+                        try:
+                            correction = float(column[1][cluster][1:-1])
+                        except:
+                            if column[1][cluster] == "None":
+                                print("N/A", end=" | ")
+                        if column[1][cluster] != "None":
+                            print(round(correction, 3), end=" | ")
                 except IndexError:
                     print("N/A", end=" | ")
             print(end="\n")
