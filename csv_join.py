@@ -1,5 +1,6 @@
 import sys
 import csv
+import re
 import argparse
 
 parser = argparse.ArgumentParser()
@@ -21,9 +22,11 @@ for row in csv_2:
         if key in joined_row:
             joined_row[key] = row[key]
         else:
-            if "BlogsRead[" in key:
+            if re.match("BlogsRead\[[0-9]+\]", key):
                 nkey = "BlogsRead2[" + str(int(key.split("[")[1][:-1]) - 9) + "]"
-            elif "StoriesRead[" in key:
+            elif re.match("BlogsRead\[SQ[0-9]+\]", key):
+                nkey = re.sub("BlogsRead\[(SQ[0-9]+)\]", "BlogsReadWriteIn[\g<1>]", key)
+            elif re.match("StoriesRead\[[0-9]+\]", key):
                 nkey = "StoriesRead2[" + str(int(key.split("[")[1][:-1]) - 9) + "]"
             if nkey in joined_row:
                 joined_row[nkey] = row[key]
