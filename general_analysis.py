@@ -90,6 +90,7 @@ for group_tuple in groups:
                 cursor.execute("select " + key + " from data;")
             data_wrapped = cursor.fetchall()
             data = [float(value[0]) for value in data_wrapped if value[0]]
+            print("Sum:", sum(data), end=end)
             print("Mean:", statistics.mean(data), end=end)
             print("Median:", statistics.median(data), end=end)
             try:
@@ -247,6 +248,7 @@ for group_tuple in groups:
                 cursor.execute("select " + code + " from data;")
                 subquestion_rows = cursor.fetchall()
                 data = [value[0] for value in subquestion_rows if value[0]]
+                print("Sum:", sum(data), end=end)
                 print("Mean:", statistics.mean(data), end=end)
                 print("Median:", statistics.median(data), end=end)
                 try:
