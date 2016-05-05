@@ -1,6 +1,6 @@
 import sqlite3
 from scipy.cluster import vq
-from numpy import array
+import numpy as np
 import json 
 import argparse
 
@@ -45,6 +45,7 @@ blogs_read_answers = {"Regular Reader":1,
                       "Almost Never":(1/6) * 3,
                       "Never":(1/6) * 2,
                       "Never Heard Of It":(1/6),
+                      "http://kajsotala.fi/":0, # Unprincipled Exception
                       None:0}
 
 stories_read_answers = {"Whole Thing":1,
@@ -111,18 +112,27 @@ for observation in observations:
     for answer in enumerate(observation):
         if answer[0] in include_indices:
             try:
-                observation[answer[0]] = conversion_dict[columns[answer[0]]][answer[1]]
+                observation[answer[0]] = float(
+                    conversion_dict[columns[answer[0]]][answer[1]]
+                )
             except:
                 print(conversion_dict, answer, columns[answer[0]])
         else:
             if answer[0] in range(36,54):
-                observation[answer[0]] = blogs_read_answers[observation[answer[0]]]
+                try:
+                    observation[answer[0]] = float(
+                        blogs_read_answers[observation[answer[0]]]
+                    )
+                except KeyError:
+                    pass
             elif answer[0] in range(54, 71):
-                observation[answer[0]] = stories_read_answers[observation[answer[0]]]
+                observation[answer[0]] = float(
+                    stories_read_answers[observation[answer[0]]]
+                )
             else:
-                observation[answer[0]] = 1
+                observation[answer[0]] = 0
             
-observations = array(observations)
+observations = np.array(observations)
 
 K = arguments.k
 clusters = {}
