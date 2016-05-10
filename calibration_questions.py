@@ -133,6 +133,7 @@ for answers_indice in range(1,16,2):
         print("Modal prediction:", statistics.mode(confidences))
     except statistics.StatisticsError:
         print("Modal prediction: Multiple Values Found Equally Likely")
+    print(end="\n")
 
 row_scores = []
 for row in rows:
@@ -205,7 +206,7 @@ def assign_groups(data, stdevs=3, two_tailed=True):
         row_score_tuple = row_score_tuple_indice[1]
         indice = row_score_tuple_indice[0]
         if row_score_tuple[1] > target:
-            indice_pairs.append((previous, indice))
+            indice_pairs.append((previous, indice, target))
             previous = indice
             try:
                 target = next(intervals_iter)
@@ -270,5 +271,6 @@ if arguments.json:
                                     conditions, view_name)
         json.dump((printout,) + groups,outfile)
         print(view_name.upper())
+        print("BRIER SCORE INTERVAL:", group_indices[2])
         print("SAMPLE SIZE:", len(group))
         print(printout)
