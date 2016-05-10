@@ -400,6 +400,20 @@ def analyze_key(key, connection, structure, conditions, view, no_null=False):
                 key_printout +=("Mode:" + str(statistics.mode(data)) + end)
             except statistics.StatisticsError:
                 key_printout +=("Mode:" + "All values found equally likely." + end)
+    elif question_data["dtype"] == "5":
+        # Five point rating scale
+        answers = (1.0, 2.0, 3.0, 4.0, 5.0)
+        code = question_data["code"]
+        cursor.execute("select " + code + " from " + view + ";")
+        question_rows = cursor.fetchall()
+        data = [value[0] for value in question_rows]
+        for answer in answers:
+            (count, fraction) = (data.count(answer), 
+                                 data.count(answer) / len(data))
+            key_printout += (str(answer) + ": " + str(count) + " " + str(fraction) + end)
+        (count, fraction) = (data.count(None),
+                             data.count(None) / len(data))
+        key_printout += (str(answer) + ": " + str(count) + " " + str(fraction) + end)
     key_printout += "\n\t"
     return key_printout
 
