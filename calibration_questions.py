@@ -10,6 +10,7 @@ import argparse
 
 parser = argparse.ArgumentParser()
 parser.add_argument("database", help="The database to read the survey results from")
+parser.add_argument("--structure", help="The survey structure file.")
 parser.add_argument("-j", "--json", 
                     help="Filepath to output JSON representing question " + 
                     "stdevs to.")
@@ -21,7 +22,8 @@ cursor = db_conn.cursor()
 change_date = "Fri Mar 25 19:50:41 PDT 2016" # Questions had ranges added on this date
 ch_timestamp = time.mktime(time.strptime(change_date, "%a %b %d %H:%M:%S %Z %Y"))
 
-keys = ['InstructionsConfirm',
+keys = ['rowid',
+        'InstructionsConfirm',
         'CalibrationQuestions_1',
         'CalibrationQuestions_2',
         'CalibrationQuestions_3',
@@ -44,7 +46,7 @@ cursor.execute("select " + ','.join(keys) +
                (ch_timestamp, ch_timestamp))
 rows = cursor.fetchall()
 
-column_answers = [[] for i in range(len(keys[1:]))]
+column_answers = [[] for i in range(len(keys[2:]))]
 
 column_labels = [
     "Are you smiling right now?",
@@ -92,8 +94,8 @@ def calc_brier(prediction,confidence,
 for row in rows:
     for column_indice in range(1,16,2):
         prev_indice = int((column_indice - 1))
-        answer = row[1:][prev_indice]
-        confidence = lsa.val_prob_ans(row[1:][column_indice])
+        answer = row[2:][prev_indice]
+        confidence = lsa.val_prob_ans(row[2:][column_indice])
         if confidence:
             column_answers[prev_indice][1].append(answer)
             column_answers[column_indice].append(confidence)
@@ -134,7 +136,7 @@ for answers_indice in range(1,16,2):
 
 row_scores = []
 for row in rows:
-    row = row[1:]
+    row = row[2:]
     row_prediction_scores = []
     for column_indice in range(1,16,2):
         question_indice = int((column_indice - 1) / 2)
@@ -214,5 +216,59 @@ def assign_groups(data, stdevs=3, two_tailed=True):
 if arguments.json:
     groups = assign_groups(brier_non_empty)
     outfile = open(arguments.json,"w")
-    json.dump(groups,outfile)
-    
+    struct_keys = ['MIRIMission', 'MIRIEffectiveness', 
+                   'CFARKnowledge', 'CFARAttendance',
+                   'CFAROpinion', 'EAKnowledge', 
+                   'EAIdentity', 'EACommunity', 
+                   'EADonations', 'EAAnxiety', 
+                   'EAOpinion', 'ComplexAffiliation', 
+                   'Voting', 'AmericanParties', 
+                   'PoliticalInterest', 'AbortionLaws', 
+                   'Immigration', 'Taxes', 
+                   'MinimumWage', 'Feminism', 
+                   'SocialJustice', 'HumanBiodiversity', 
+                   'BasicIncome', 'GreatStagnation', 
+                   'InstructionsConfirm', 'CalibrationQuestions', 
+                   'ProbabilityQuestions','Cryonics', 
+                   'CryonicsNow', 'CryonicsPossibility', 
+                   'SingularityText', 'SingularityYear', 
+                   'SingularityHealth', 'SuperbabiesText', 
+                   'ModifyOffspring', 'GeneticTreament', 
+                   'GeneticImprovement', 'GeneticCosmetic', 
+                   'GeneticOpinionD', 'GeneticOpinionI', 
+                   'GeneticOpinionC', 'LudditeFallacy', 
+                   'UnemploymentYear', 'EndOfWork', 
+                   'EndOfWorkConcerns', 'XRiskType']
+    for group_indices_indice in enumerate(groups[1]):
+        data = groups[0]
+        view_name = "group_" + str(group_indices_indice[0])
+        group_indices = group_indices_indice[1]
+        if not (abs(group_indices[0] - group_indices[1]) > 2):
+            continue
+        row_indices = data[group_indices[0]:group_indices[1]]
+        # This one deserves some explanation. You grab the row id from the 
+        # score tuple, and then you look up the row it corresponds to with it
+        # in rows, and then you look up the *database* row id within the row
+        # you retrieved.
+        group = [rows[score_tuple[0]][0] for score_tuple in row_indices]
+        cursor.execute("CREATE TEMP VIEW " + view_name +  
+                       " AS SELECT *" + " FROM data WHERE (startdate >  " 
+                       + str(ch_timestamp) + " OR submitdate > " + str(ch_timestamp) +  
+                       ") AND rowid IN " + "(" +  ','.join(str(id_) for id_ in group) +
+                       ")")
+        conditions = {
+            "Age":"where Age <= 122",
+            "IQ":"where 65 < IQ AND IQ < 250",
+            "SAT":"where SAT <= 1600 AND SAT > 0",
+            "SAT2":"where SAT2 <= 2400 AND SAT2 > 0",
+            "ACT":"where ACT <= 36"}
+        if not arguments.structure:
+            raise ValueError("--json argument requires --structure argument too.")
+        else:
+            structure = lsa.SurveyStructure(arguments.structure)
+        printout = lsa.analyze_keys(struct_keys, db_conn, structure, 
+                                    conditions, view_name)
+        json.dump((printout,) + groups,outfile)
+        print(view_name.upper())
+        print("SAMPLE SIZE:", len(group))
+        print(printout)
