@@ -80,6 +80,50 @@ class SurveyStructure:
     def __getitem__(self, key):
         return self._questions[key]
 
+    def keys(self):
+        """Return the keys in this SurveyStructure."""
+        return self._questions.keys()
+
+    def csv_keys(self):
+        """Return the keys that will be found in the CSV files."""
+        keys = []
+        for group in self._groups:
+            for key_base in group[1]:
+                question_data = self[key_base]
+                if question_data["sub_questions"]:
+                    if len(question_data["sub_questions"]) == 1:
+                        keys.append(question_data["code"])
+                        for subquestion in question_data["sub_questions"]:
+                            keys.append(question_data["code"] + "[" 
+                                        + subquestion["code"] + "]")
+                    else:
+                        for subquestion in question_data["sub_questions"]:
+                            keys.append(question_data["code"] + "["
+                                        + subquestion["code"] + "]")
+                else:
+                    keys.append(question_data["code"])
+        return keys
+
+    def sql_keys(self):
+        """Return the keys that will be found in the sqlite files."""
+        keys = []
+        for group in self._groups:
+            for key_base in group[1]:
+                question_data = self[key_base]
+                if question_data["sub_questions"]:
+                    if len(question_data["sub_questions"]) == 1:
+                        keys.append(question_data["code"])
+                        for subquestion in question_data["sub_questions"]:
+                            keys.append(question_data["code"] + "_" 
+                                        + subquestion["code"])
+                    else:
+                        for subquestion in question_data["sub_questions"]:
+                            keys.append(question_data["code"] + "_"
+                                        + subquestion["code"])
+                else:
+                    keys.append(question_data["code"])
+        return keys
+
     def groups(self):
         """Return the groups in this SurveyStructure."""
         return self._groups
