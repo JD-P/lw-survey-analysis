@@ -1,3 +1,4 @@
+import statistics
 import sqlite3
 import csv
 import re
@@ -145,3 +146,260 @@ def val_prob_ans(answer):
         return float(answer_string)
     else:
         return False
+
+def _count_answers(rows, question_data, cursor, no_null=False):
+    """Count the distinct answers in the given rows and return a count and 
+    fraction for each answer. 
+
+    no_null - Determines whether to count non-answers in the polling or not."""
+    answers = question_data["answers"]
+    answer_labels = []
+    for answer in answers:
+        answer_labels.append(answer["label"])
+    answers_dict = {}.fromkeys(answer_labels)
+    if no_null:
+        data = [value[0] for value in rows if value[0] and value[0] != "N/A"]
+        for answer in answer_labels:
+            count = data.count(answer)
+            fraction = round(data.count(answer) / len(data), 3)
+            answers_dict[answer] = (count, fraction)
+    else:
+        data = [value[0] for value in rows]
+        for answer in answer_labels:
+            count = data.count(answer)
+            fraction = round(data.count(answer) / len(data), 3)
+            answers_dict[answer] = (count, fraction)
+        if data.count("N/A") > 0:
+            count = data.count("N/A")
+            fraction = round(data.count("N/A") / len(data), 3)
+            answers_dict["N/A"] = (count, fraction)
+        else:
+            count = data.count(None)
+            fraction = round(data.count(None) / len(data), 3)
+            answers_dict[None] = (count, fraction)
+    if len(question_data["sub_questions"]) > 1:
+        raise ValueError("Received more than one subquestion when counting 'L'" + 
+                         " type question.")
+    elif len(question_data["sub_questions"]) == 1:
+        for subquestion in question_data["sub_questions"]:
+            cursor.execute("select count(" + question_data["code"] + 
+                           "_" + subquestion["code"] + ") from data;")
+            count = cursor.fetchone()[0]
+            if no_null:
+                data = [value[0] for value in rows if value[0] 
+                        and value[0] != "N/A"]
+                fraction = count / len(data)
+            else:
+                fraction = count / len(rows)
+        answers_dict[subquestion["label"]] = (count, fraction)
+    return answers_dict
+
+def analyze_key(key, connection, structure, conditions, no_null=False):
+    """The core of general_analysis.py packed into a reusable function. Returns
+    the printable representation of the key analysis.
+
+    key - The key to analyze.
+    connection - The database connection to pull rows from.
+    structure - The survey structure file to use."""
+    key_printout = ""
+    cursor = connection.cursor()
+    question_data = structure[key]
+    end = "\n\t"
+    if question_data["label"]:
+        key_printout +=(question_data["label"] + ":" + end)
+    else:
+        key_printout +=(key + ":" + end)
+    end = "\n\t\t"
+    if question_data["dtype"] == "N":
+        # Numeric question. eg. Age.
+        if key in conditions:
+            condition = conditions[key]
+            cursor.execute("select " + key + " from data " + condition + ";")
+        else:
+            cursor.execute("select " + key + " from data;")
+        data_wrapped = cursor.fetchall()
+        data = [float(value[0]) for value in data_wrapped if value[0]]
+        key_printout +=("Sum:" + str(sum(data)) + end)
+        key_printout +=("Mean:" + str(statistics.mean(data)) + end)
+        key_printout +=("Median:" + str(statistics.median(data)) + end)
+        try:
+            key_printout +=("Mode:" + str(statistics.mode(data)) + end)
+        except statistics.StatisticsError:
+            key_printout +=("Mode:" + "All values found equally likely." + end)
+    elif question_data["dtype"] == "Y":
+        # Binary Question
+        answers = ("Yes", "No")
+        cursor.execute("select " + key + " from data;")
+        question_rows = cursor.fetchall()
+        if no_null:
+            data = [value[0] for value in question_rows if value[0] and 
+                    value[0] != "N/A"]
+            for answer in answers:
+                key_printout +=(answer + ":" +
+                      str(data.count(answer)) +
+                      str(round(data.count(answer) / len(data), 3))
+                      + end)
+        else:
+            data = [value[0] for value in question_rows]
+            for answer in answers:
+                key_printout +=(answer + ":" +
+                      str(data.count(answer)) +
+                      str(round(data.count(answer) / len(data), 3))
+                      + end)
+            key_printout +=("N/A:" +
+                  str(data.count("N/A")) +
+                  str(round(data.count("N/A") / len(data), 3))
+                  + end)
+    elif question_data["dtype"] == "L":
+        # Radio button
+        answers = question_data["answers"]
+        cursor.execute("select " + key + " from data;")
+        question_rows = cursor.fetchall()
+        if no_null:
+            answer_counts = _count_answers(question_rows, question_data, 
+                                          cursor, True)
+            for answer in answers:
+                (count, fraction) = answer_counts[answer["label"]]
+                key_printout += (answer["label"] + ":" + str(count) + str(fraction) + end)
+            for subquestion in question_data["sub_questions"]:
+                (count, fraction) = answer_counts[subquestion["label"]]
+                key_printout += (subquestion["label"] + ":" + str(count) + str(fraction) + end)
+        else:
+            answer_counts = _count_answers(question_rows, question_data, cursor)
+            for answer in answers:
+                (count, fraction) = answer_counts[answer["label"]]
+                key_printout += (answer["label"] + ":" + str(count) + str(fraction) + end)
+            for subquestion in question_data["sub_questions"]:
+                (count, fraction) = answer_counts[subquestion["label"]]
+                key_printout += (subquestion["label"] + ":" + str(count) + str(fraction) + end)
+            if "N/A" in answer_counts:
+                (count, fraction) = answer_counts["N/A"]
+                key_printout +=("N/A:" + str(count) + str(fraction) + end)
+            else:
+                (count, fraction) = answer_counts[None]
+                key_printout +=("None:" + str(count) + str(fraction) + end)
+    elif question_data["dtype"] == "M":
+        # Multiple choice with checkbox/binary answers
+        for subquestion in question_data["sub_questions"]:
+            key_printout += (subquestion["label"] + ":" + end)
+            code = question_data["code"] + "_" + subquestion["code"]
+            cursor.execute("select " + code + " from data;")
+            subquestion_rows = cursor.fetchall()
+            if no_null:
+                data = [value[0] for value in subquestion_rows if value[0]]
+                (count1, fraction1, count2, fraction2) = (
+                    data.count("Yes"),
+                    data.count("Yes") / len(data),
+                    data.count("No"),
+                    data.count("No") / len(data))
+                key_printout +=("Yes:" + str(count1) + str(fraction1) + end)
+                key_printout +=("No:" + str(count2) + str(fraction2) + end)
+            else:
+                data = [value[0] for value in subquestion_rows]
+                (count1, fraction1, 
+                 count2, fraction2,
+                 count3, fraction3) = (
+                     data.count("Yes"),
+                     data.count("Yes") / len(data),
+                     data.count("No"),
+                     data.count("No") / len(data),
+                     data.count("N/A"),
+                     data.count("N/A") / len(data))
+                key_printout +=("Yes:" + str(count1) + str(fraction1) + end)
+                key_printout +=("No:" + str(count2) + str(fraction2) + end)
+                key_printout +=("N/A:" + str(count3) + str(fraction3) + end)
+    elif question_data["dtype"] == "F":
+        # Multiple choice with multiple answers
+        for subquestion in question_data["sub_questions"]:
+            key_printout += (subquestion["label"] + ":" + end)
+            answers = question_data["answers"]
+            code = question_data["code"] + "_" + subquestion["code"]
+            cursor.execute("select " + code + " from data;")
+            subquestion_rows = cursor.fetchall()
+            if no_null:
+                data = [value[0] for value in subquestion_rows if value[0]]
+                for answer in answers:
+                    (count, fraction) = (
+                        data.count(answer["label"]),
+                        data.count(answer["label"]) / len(data)
+                    )
+                    key_printout += (answer["label"] + ":" + str(count) + str(fraction) + end)
+            else:
+                data = [value[0] for value in subquestion_rows]
+                for answer in answers:
+                    (count, fraction) = (
+                        data.count(answer["label"]),
+                        data.count(answer["label"]) / len(data)
+                    )
+                    key_printout += (answer["label"] + ":" + str(count) + str(fraction) + end)
+                if "N/A" in data:
+                    (count, fraction) = (
+                        data.count("N/A"),
+                        data.count("N/A") / len(data)
+                    )
+                    key_printout += ("N/A:" + str(count) + str(fraction) + end)
+                else:
+                    (count, fraction) = (
+                        data.count(None),
+                        data.count(None) / len(data)
+                    )
+                    key_printout += ("None:" + str(count) + str(fraction) + end)
+    elif question_data["dtype"] == "!":
+        # Drop down list datatype
+        answers = question_data["answers"]
+        cursor.execute("select " + question_data["code"] + " from data;")
+        question_rows = cursor.fetchall()
+        key_printout += (question_data["label"] + ":" + end)
+        if no_null:
+            data = [value[0] for value in question_rows if value[0]]
+            for answer in answers:
+                (count, fraction) = (data.count(answer["label"]),
+                                     data.count(answer["label"]) / len(data))
+                key_printout +=(answer["label"] + ":" + str(count) + str(fraction) + end)
+        else:
+            answer_counts = _count_answers(question_rows, 
+                                           question_data, cursor)
+            for answer in answers:
+                (count, fraction) = answer_counts[answer["label"]]
+                key_printout +=(answer["label"] + ":" + str(count) + str(fraction) + end)
+            if "N/A" in answer_counts:
+                (count, fraction) = answer_counts["N/A"]
+                key_printout +=("N/A:" + str(count) + str(fraction) + end)
+            else:
+                (count, fraction) = answer_counts[None]
+                key_printout +=("None:" + str(count) + str(fraction) + end)
+    elif question_data["dtype"] == "K":
+        # Multiple numeric questions. eg. Charity section.
+        key_printout +=(question_data["label"] + ":" + end)
+        for subquestion in question_data["sub_questions"]:
+            key_printout +=(subquestion["label"] + ":" + end)
+            code = question_data["code"] + "_" + subquestion["code"]
+            cursor.execute("select " + code + " from data;")
+            subquestion_rows = cursor.fetchall()
+            data = [value[0] for value in subquestion_rows if value[0]]
+            key_printout +=("Sum:" + str(sum(data)) + end)
+            key_printout +=("Mean:" + str(statistics.mean(data)) + end)
+            key_printout +=("Median:"+ str(statistics.median(data)) + end)
+            try:
+                key_printout +=("Mode:" + str(statistics.mode(data)) + end)
+            except statistics.StatisticsError:
+                key_printout +=("Mode:" + "All values found equally likely." + end)
+    key_printout += "\n\t"
+    return key_printout
+
+def analyze_keys(keys, connection, structure, conditions, no_null=False):
+    """Analyze a set of keys and return the printable representation of the 
+    analysis.
+
+    keys - An iterable containing the keys. It should be noted that survey 
+    structure keys do not contain subquestions. So instead of ExampleKey[4] 
+    you would just give "ExampleKey" and let the analysis program handle 
+    subquestions. You can get a list of such keys using the .keys() call of a 
+    survey structure object."""
+    full_printout = ""
+    for group in structure.groups():
+        keys = group[1]
+        for key in keys:
+            full_printout += analyze_key(key, connection, structure, conditions,
+                                         no_null=no_null)
+    return full_printout
