@@ -83,7 +83,10 @@ class SurveyStructure:
 
     def keys(self):
         """Return the keys in this SurveyStructure."""
-        return self._questions.keys()
+        keys = []
+        for group in self._groups:
+            keys += group[1]
+        return keys
 
     def csv_keys(self):
         """Return the keys that will be found in the CSV files."""
