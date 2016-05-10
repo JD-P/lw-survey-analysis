@@ -83,3 +83,21 @@ class SurveyStructure:
     def groups(self):
         """Return the groups in this SurveyStructure."""
         return self._groups
+
+def val_prob_ans(answer):
+    """Validate whether an answer to a probability question is legitimate or not."""
+    validator = re.compile("delta|epsilon|[0-9]*\.[0-9]+|[0-9]+")
+    try:
+        valid = validator.search(answer)
+    except TypeError:
+        if answer == None:
+            return False
+    if valid:
+        answer_string = answer[valid.start():valid.end()]
+        if answer_string == "delta":
+            answer_string = "99." + "9" * 50
+        elif answer_string == "epsilon":
+            answer_string = "0." + ("0" * 49) + "1"
+        return float(answer_string)
+    else:
+        return False
