@@ -95,7 +95,7 @@ class SurveyStructure:
             for key_base in group[1]:
                 question_data = self[key_base]
                 if question_data["sub_questions"]:
-                    if len(question_data["sub_questions"]) == 1:
+                    if question_data["sub_questions"][0]["code"] == "other":
                         keys.append(question_data["code"])
                         for subquestion in question_data["sub_questions"]:
                             keys.append(question_data["code"] + "[" 
@@ -115,7 +115,7 @@ class SurveyStructure:
             for key_base in group[1]:
                 question_data = self[key_base]
                 if question_data["sub_questions"]:
-                    if len(question_data["sub_questions"]) == 1:
+                    if question_data["sub_questions"][0]["code"] == "other":
                         keys.append(question_data["code"])
                         for subquestion in question_data["sub_questions"]:
                             keys.append(question_data["code"] + "_" 
