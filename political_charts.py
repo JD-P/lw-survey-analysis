@@ -196,7 +196,13 @@ def plot_issues(affiliation=None):
 
     ax1.axvline(0, linestyle='-', color='#ffffff', linewidth=3)
 
-    fig.suptitle('Opinions on Political Issues: {}'.format(affiliation), color='#555555')
+
+    if affiliation is 'Overall':
+      sample_size = survey['ComplexAffiliation'].value_counts().sum()
+    else:
+      sample_size = len(survey[survey['ComplexAffiliation'] == affiliation])
+
+    fig.suptitle('Opinions on Political Issues: {} (Size: {})'.format(affiliation, sample_size), color='#555555')
     fig.tight_layout()
     fig.subplots_adjust(top=0.87)
 
