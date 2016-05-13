@@ -20,7 +20,7 @@ def diff_diffable(diffable):
     d2014 = [float(line.split(":")[1].strip().split()[1][:-1]) / 100 
              for line in d2014.split("\n") if line]
     diff_nums = (np.array(d2016) - np.array(d2014)) * 100
-    conv = lambda s: "+" + s if float(s) > 0 else s
+    conv = lambda s: "+" + s + "%" if float(s) > 0 else s + "%"
     diff_num_strs = [conv(str(num)) for num in diff_nums]
     outlines = [': '.join([str(value) for value in outline]) 
                 for outline in tuple(zip(labels, diff_num_strs))]
