@@ -15,15 +15,24 @@ def diff_diffable(diffable):
     the printable representation of the diff."""
     (d2016, d2014) = diffable.split("\n\n")
     labels = [line.split(":")[0] for line in d2016.split("\n") if line]
-    d2016 = [float(line.split(":")[1].strip().split()[1]) 
+    c2016 = [float(line.split(":")[1].strip().split()[1]) 
              for line in d2016.split("\n") if line]
-    d2014 = [float(line.split(":")[1].strip().split()[1][:-1]) / 100 
+    c2014 = [float(line.split(":")[1].strip().split()[1][:-1]) / 100 
              for line in d2014.split("\n") if line]
-    diff_nums = (np.array(d2016) - np.array(d2014)) * 100
+    diff_nums = (np.array(c2016) - np.array(c2014)) * 100
+    diff_nums = [round(diff_num, 3) for diff_num in diff_nums]
+    totals = [line.split(":")[1].strip().split()[0] 
+              for line in d2016.split("\n") if line]
+    percentages = [
+        str(
+            round(
+                float(line.split(":")[1].strip().split()[1][:-1]) * 100, 3)) + "%"
+                   for line in d2016.split("\n") if line]
     conv = lambda s: "+" + s + "%" if float(s) > 0 else s + "%"
     diff_num_strs = [conv(str(num)) for num in diff_nums]
-    outlines = [': '.join([str(value) for value in outline]) 
-                for outline in tuple(zip(labels, diff_num_strs))]
+    outline_nums = [' '.join([str(value) for value in outline]) 
+                    for outline in tuple(zip(diff_num_strs, totals, percentages))]
+    outlines = [': '.join(outline) for outline in zip(labels, outline_nums)]
     return '\n'.join(outlines)
 
 [print(diff_diffable(diffable), end="\n\n") for diffable in diffables]  
