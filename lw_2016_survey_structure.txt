@@ -1,0 +1,895 @@
+class	type/scale	name	relevance	text	help	language	validation	mandatory	other	default	same_default	allowed_filetypes	alphasort	answer_width	array_filter	array_filter_exclude	array_filter_style	assessment_value	category_separator	choice_title	code_filter	commented_checkbox	commented_checkbox_auto	date_format	date_max	date_min	display_columns	display_rows	dropdown_dates	dropdown_dates_minute_step	dropdown_dates_month_style	dropdown_prefix	dropdown_prepostfix	dropdown_separators	dropdown_size	dualscale_headerA	dualscale_headerB	em_validation_q	em_validation_q_tip	em_validation_sq	em_validation_sq_tip	equals_num_value	exclude_all_others	exclude_all_others_auto	hidden	hide_tip	input_boxes	location_city	location_country	location_defaultcoordinates	location_mapheight	location_mapservice	location_mapwidth	location_mapzoom	location_nodefaultfromip	location_postal	location_state	max_answers	max_filesize	max_num_of_files	max_num_value	max_num_value_n	maximum_chars	min_answers	min_num_of_files	min_num_value	min_num_value_n	multiflexible_checkbox	multiflexible_max	multiflexible_min	multiflexible_step	num_value_int_only	numbers_only	other_comment_mandatory	other_numbers_only	other_replace_text	page_break	parent_order	prefix	printable_help	public_statistics	random_group	random_order	rank_title	repeat_headings	reverse	samechoiceheight	samelistheight	scale_export	show_comment	show_grand_total	show_title	show_totals	showpopups	slider_accuracy	slider_default	slider_layout	slider_max	slider_middlestart	slider_min	slider_rating	slider_reset	slider_separator	slider_showminmax	statistics_graphtype	statistics_showgraph	statistics_showmap	suffix	text_input_width	time_limit	time_limit_action	time_limit_countdown_message	time_limit_disable_next	time_limit_disable_prev	time_limit_message	time_limit_message_delay	time_limit_message_style	time_limit_timer_style	time_limit_warning	time_limit_warning_2	time_limit_warning_2_display_time	time_limit_warning_2_message	time_limit_warning_2_style	time_limit_warning_display_time	time_limit_warning_message	time_limit_warning_style	thousands_separator	use_dropdown
+S		sid		554193																																																																																																																												
+S		owner_id		2																																																																																																																												
+S		admin		namespace																																																																																																																												
+S		active		Y																																																																																																																												
+S		expires		2016-04-30 07:21:26																																																																																																																												
+S		adminemail		root@localhost																																																																																																																												
+S		anonymized		N																																																																																																																												
+S		format		G																																																																																																																												
+S		savetimings		Y																																																																																																																												
+S		template		OBORMOT_TEMPLATE_1																																																																																																																												
+S		language		en																																																																																																																												
+S		datestamp		Y																																																																																																																												
+S		usecookie		N																																																																																																																												
+S		allowregister		N																																																																																																																												
+S		allowsave		Y																																																																																																																												
+S		autonumber_start		35																																																																																																																												
+S		autoredirect		N																																																																																																																												
+S		allowprev		Y																																																																																																																												
+S		printanswers		Y																																																																																																																												
+S		ipaddr		Y																																																																																																																												
+S		refurl		Y																																																																																																																												
+S		datecreated		2016-03-22																																																																																																																												
+S		publicstatistics		N																																																																																																																												
+S		publicgraphs		N																																																																																																																												
+S		listpublic		N																																																																																																																												
+S		htmlemail		N																																																																																																																												
+S		sendconfirmation		Y																																																																																																																												
+S		tokenanswerspersistence		N																																																																																																																												
+S		assessments		N																																																																																																																												
+S		usecaptcha		N																																																																																																																												
+S		usetokens		N																																																																																																																												
+S		bounce_email		your-email@example.net																																																																																																																												
+S		tokenlength		15																																																																																																																												
+S		showxquestions		Y																																																																																																																												
+S		showgroupinfo		B																																																																																																																												
+S		shownoanswer		N																																																																																																																												
+S		showqnumcode		N																																																																																																																												
+S		bounceprocessing		N																																																																																																																												
+S		showwelcome		Y																																																																																																																												
+S		showprogress		Y																																																																																																																												
+S		questionindex		2																																																																																																																												
+S		nokeyboard		N																																																																																																																												
+S		alloweditaftercompletion		N																																																																																																																												
+S		googleanalyticsstyle		0																																																																																																																												
+SL		surveyls_title		LessWrong Diaspora 2016 Survey		en																																																																																																																										
+SL		surveyls_welcometext		<p>   This is the 2016 LessWrong Diaspora Survey. The last survey was conducted in late 2014. In the last two years or so most of the community has moved away from LessWrong proper into 'diaspora' communities on a wide variety of websites and chatrooms. Because of this we've decided to expand the scope of who our survey targets to explicitly include the entire LessWrong community on site and off.</p>  <p>   The largest motivation for running this years survey is to gauge where the community is at and what various factions would want from a successor community to the original LessWrong. <a href="http://lesswrong.com/user/Elo">Elo</a> is currently coordinating <a href="http://lesswrong.com/user/vaniver">Vaniver's</a> <a href="http://lesswrong.com/lw/n0l/lesswrong_20/">LessWrong 2.0</a> project and this survey is intended to help him and other efforts which should be coming soon. If you would like to be put on a mailing list to hear more (we will not spam you and we will not give your email address to a third party) you can give us your email address for this purpose at the end of the survey.</p>  <p>   <strong><span style="font-size:36px;">You may skip any question you don't want to answer. Some questions are explicitly marked 'bonus' or 'optional' meaning they are especially skippable without significantly impacting your overall survey results. </span></strong></p>  <p>    </p>  <p>   <strong><span style="font-size:36px;">If you find yourself fatigued by the length of the survey feel free to take a break and come back, or skip every question and move straight to the end to turn in what you have.</span></strong></p>  <p>    </p>  <p>   <strong><span style="font-size:36px;">Happy Surveying!</span></strong></p>  		en																																																																																																																										
+SL		surveyls_endtext		<p>   Thanks for taking the LessWrong Diaspora 2016 Survey!</p>  <p>   If you have any questions about the survey, please contact jd@fortforecast.com</p>  <p>   Otherwise, you can close this page or click the link below to be taken back to LessWrong:</p>  		en																																																																																																																										
+SL		surveyls_url		http://www.lesswrong.com		en																																																																																																																										
+SL		surveyls_urldescription		Take me back to LessWrong		en																																																																																																																										
+SL		surveyls_email_invite_subj		Invitation to participate in a survey		en																																																																																																																										
+SL		surveyls_email_invite		Dear {FIRSTNAME},  you have been invited to participate in a survey.  The survey is titled: "{SURVEYNAME}"  "{SURVEYDESCRIPTION}"  To participate, please click on the link below.  Sincerely,  {ADMINNAME} ({ADMINEMAIL})  ---------------------------------------------- Click here to do the survey: {SURVEYURL}  If you do not want to participate in this survey and don't want to receive any more invitations please click the following link: {OPTOUTURL}  If you are blacklisted but want to participate in this survey and want to receive invitations please click the following link: {OPTINURL}		en																																																																																																																										
+SL		surveyls_email_remind_subj		Reminder to participate in a survey		en																																																																																																																										
+SL		surveyls_email_remind		Dear {FIRSTNAME},  Recently we invited you to participate in a survey.  We note that you have not yet completed the survey, and wish to remind you that the survey is still available should you wish to take part.  The survey is titled: "{SURVEYNAME}"  "{SURVEYDESCRIPTION}"  To participate, please click on the link below.  Sincerely,  {ADMINNAME} ({ADMINEMAIL})  ---------------------------------------------- Click here to do the survey: {SURVEYURL}  If you do not want to participate in this survey and don't want to receive any more invitations please click the following link: {OPTOUTURL}		en																																																																																																																										
+SL		surveyls_email_register_subj		Survey registration confirmation		en																																																																																																																										
+SL		surveyls_email_register		Dear {FIRSTNAME},  You, or someone using your email address, have registered to participate in an online survey titled {SURVEYNAME}.  To complete this survey, click on the following URL:  {SURVEYURL}  If you have any questions about this survey, or if you did not register to participate and believe this email is in error, please contact {ADMINNAME} at {ADMINEMAIL}.		en																																																																																																																										
+SL		surveyls_email_confirm_subj		Confirmation of your participation in our survey		en																																																																																																																										
+SL		surveyls_email_confirm		Dear {FIRSTNAME},  this email is to confirm that you have completed the survey titled {SURVEYNAME} and your response has been saved. Thank you for participating.  If you have any further questions about this email, please contact {ADMINNAME} on {ADMINEMAIL}.  Sincerely,  {ADMINNAME}		en																																																																																																																										
+SL		surveyls_dateformat		7		en																																																																																																																										
+SL		email_admin_notification_subj		Response submission for survey {SURVEYNAME}		en																																																																																																																										
+SL		email_admin_notification		Hello,  A new response was submitted for your survey '{SURVEYNAME}'.  Click the following link to reload the survey: {RELOADURL}  Click the following link to see the individual response: {VIEWRESPONSEURL}  Click the following link to edit the individual response: {EDITRESPONSEURL}  View statistics by clicking here: {STATISTICSURL}		en																																																																																																																										
+SL		email_admin_responses_subj		Response submission for survey {SURVEYNAME} with results		en																																																																																																																										
+SL		email_admin_responses		Hello,  A new response was submitted for your survey '{SURVEYNAME}'.  Click the following link to reload the survey: {RELOADURL}  Click the following link to see the individual response: {VIEWRESPONSEURL}  Click the following link to edit the individual response: {EDITRESPONSEURL}  View statistics by clicking here: {STATISTICSURL}   The following answers were given by the participant: {ANSWERTABLE}		en																																																																																																																										
+G	G0	Privacy	1			en																																																																																																																										
+Q	Y	GeneralPrivacy	1	Can we include your survey data in a public dataset?	Your survey data  will be completely anonymous; no name will be attached. The plan is  to make most of the survey data public, so that people can run their own analyses on it. However, if you prefer to keep the data private, it will be visible only to myself (John David Pressman), Elo on LessWrong, and our hosting provider Logos01 on freenode.	en		Y	N		1																																																																																															1																						
+Q	Y	ResearchConsent	1	Do you consent to having your survey responses being used as part of a research paper?	 If this survey generates interesting psychometric research, someone might try to get a  journal article out of it. If so, we will need your explicit consent to have (an aggregate of) your anonymous data published.	en		Y	N		1																																																																																															1																						
+G	G1	Demographic Information	1			en																																																																																																																										
+Q	N	Age	1	Age		en			N		1																																																																																															1			12																			
+Q	L	BirthSex	1	Sex - What sex were you assigned at birth?	<br />  	en			Y		1																1																																																																															1					1																	
+SQ	0	other	1	Other		en																																																																																																																										
+A	0	A1		Male		en																																																																																																																										
+A	0	A2		Female		en																																																																																																																										
+Q	L	Gender	1	Gender - With what gender do you primarily identify?	<br />  	en			Y		1																1																																																																															1					1																	
+SQ	0	other	1	Other		en																																																																																																																										
+A	0	A1		F (cisgender)		en																																																																																																																										
+A	0	A2		F (transgender MtF)		en																																																																																																																										
+A	0	A3		M (cisgender)		en																																																																																																																										
+A	0	A4		M (transgender FtM)		en																																																																																																																										
+Q	L	Country	1	Country - If multiple possible answers, please choose the one you most identify with. Twelve popular answers are given below; otherwise please write your country into "Other" in the same format as the answers given		en			Y		1																1																																															1																																1					1																	
+SQ	0	other	1	Other		en																																																																																																																										
+A	0	A1		United States		en																																																																																																																										
+A	0	A2		United Kingdom		en																																																																																																																										
+A	0	A3		Canada		en																																																																																																																										
+A	0	A4		Australia		en																																																																																																																										
+A	0	A5		Germany		en																																																																																																																										
+A	0	A6		Russia		en																																																																																																																										
+A	0	A7		Finland		en																																																																																																																										
+A	0	A8		New Zealand		en																																																																																																																										
+A	0	A9		India		en																																																																																																																										
+A	0	A10		Brazil		en																																																																																																																										
+A	0	A11		France		en																																																																																																																										
+A	0	A12		Israel		en																																																																																																																										
+Q	L	Race	1	Race - With what race do you most identify? "Hispanic" is a term mostly used in the US referring to people whose ethnic background is from Mexico, Central  America, and South America.		en			Y		1																1																																																																															1					1																	
+SQ	0	other	1	Other		en																																																																																																																										
+A	0	A1		Asian (East Asian)		en																																																																																																																										
+A	0	A2		Asian (Indian subcontinent)		en																																																																																																																										
+A	0	A3		Middle Eastern		en																																																																																																																										
+A	0	A4		Black		en																																																																																																																										
+A	0	A5		White (non-Hispanic)		en																																																																																																																										
+A	0	A6		Hispanic		en																																																																																																																										
+G	G2	Sex, Relationships	1			en																																																																																																																										
+Q	L	SexualOrientation	1	What is your sexual orientation?		en			Y		1																1																																																																															1					1																	
+SQ	0	other	1	Other		en																																																																																																																										
+A	0	A1		Heterosexual		en																																																																																																																										
+A	0	A2		Homosexual		en																																																																																																																										
+A	0	A3		Bisexual		en																																																																																																																										
+Q	Y	Asexuality	1	Are you asexual?		en			N		1																																																																																															1																						
+Q	L	RelationshipStyle	1	What is your preferred relationship style?		en			Y		1																1																																																																															1					1																	
+SQ	0	other	1	Other		en																																																																																																																										
+A	0	A1		Prefer monogomous		en																																																																																																																										
+A	0	A2		Prefer polyamorous		en																																																																																																																										
+A	0	A3		Uncertain/no preference		en																																																																																																																										
+Q	L	NumberPartners	1	Number of Partners	(for example, 0 if you are single, 1 if you are in a monogamous relationship, higher numbers for polyamorous relationships)	en			N		1																1																																																																															1					1																	
+A	0	A1		0		en																																																																																																																										
+A	0	A2		1		en																																																																																																																										
+A	0	A3		2		en																																																																																																																										
+A	0	A4		3		en																																																																																																																										
+A	0	A5		4		en																																																																																																																										
+A	0	A6		5		en																																																																																																																										
+A	0	A7		Lots and lots		en																																																																																																																										
+Q	L	RelationshipGoals	1	Relationship Goals		en			N		1																1																																																																															1					1																	
+A	0	A1		...and seeking more relationship partners		en																																																																																																																										
+A	0	A2		...and possibly open to more relationship partners		en																																																																																																																										
+A	0	A3		...and currently not looking for more relationship partners		en																																																																																																																										
+Q	Y	Married	1	Are you married?		en			N		1																																																																																															1																						
+Q	L	LivingWith	1	Who do you currently live with most of the time?<br />  		en			Y		1																1																																																																															1					1																	
+SQ	0	other	1	Other		en																																																																																																																										
+A	0	A1		Alone		en																																																																																																																										
+A	0	A2		With parents and/or guardians		en																																																																																																																										
+A	0	A3		With partner and/or children		en																																																																																																																										
+A	0	A4		With roommates		en																																																																																																																										
+Q	L	Children	1	How many children do you have?		en			N		1																1																																																																															1					1																	
+A	0	A1		0		en																																																																																																																										
+A	0	A2		1		en																																																																																																																										
+A	0	A3		2		en																																																																																																																										
+A	0	A4		3		en																																																																																																																										
+A	0	A5		4		en																																																																																																																										
+A	0	A6		5		en																																																																																																																										
+A	0	A7		6		en																																																																																																																										
+A	0	A8		Lots and lots		en																																																																																																																										
+Q	L	MoreChildren	1	Are you planning on having more children?	Answer yes if you don't have children but want some, or if you do have children but want more. Answer "yes" even if you do not want the children just yet.	en			N		1																1																																																																															1					1																	
+A	0	A1		Yes		en																																																																																																																										
+A	0	A2		Uncertain		en																																																																																																																										
+A	0	A3		No		en																																																																																																																										
+G	G3	Employment, Occupation, Education	1			en																																																																																																																										
+Q	M	WorkStatus	1	What do you currently do?		en			N		1							1									1																																																																															1																						
+SQ	0	1	1	Student		en																																																																																																																										
+SQ	0	2	1	Academics (on the teaching side)		en																																																																																																																										
+SQ	0	3	1	Self-employed		en																																																																																																																										
+SQ	0	4	1	Independently wealthy		en																																																																																																																										
+SQ	0	5	1	Non-profit work		en																																																																																																																										
+SQ	0	6	1	For-profit work		en																																																																																																																										
+SQ	0	7	1	Government work		en																																																																																																																										
+SQ	0	8	1	Homemaker		en																																																																																																																										
+SQ	0	9	1	Unemployed 		en																																																																																																																										
+Q	L	Profession	1	In what area do you currently work or study?	If more than one, please choose most important.	en			Y		1																1																																																																															1					1																	
+SQ	0	other	1	Other		en																																																																																																																										
+A	0	1		Philosophy		en																																																																																																																										
+A	0	2		Finance / Economics		en																																																																																																																										
+A	0	3		Statistics		en																																																																																																																										
+A	0	4		Computers (AI)		en																																																																																																																										
+A	0	5		Computers (other academic, computer science)		en																																																																																																																										
+A	0	6		Computers (practical: IT, programming, etc.)		en																																																																																																																										
+A	0	7		Physics		en																																																																																																																										
+A	0	8		Biology		en																																																																																																																										
+A	0	9		Medicine		en																																																																																																																										
+A	0	10		Mathematics		en																																																																																																																										
+A	0	11		Neuroscience		en																																																																																																																										
+A	0	12		Other "hard science"		en																																																																																																																										
+A	0	13		Psychology		en																																																																																																																										
+A	0	14		Other "social science"		en																																																																																																																										
+A	0	15		Engineering		en																																																																																																																										
+A	0	16		Business		en																																																																																																																										
+A	0	17		Law		en																																																																																																																										
+A	0	18		Art		en																																																																																																																										
+Q	L	EducationCredentials	1	What is your highest education credential earned?		en			Y		1																1																																																																															1					1																	
+SQ	0	other	1	Other		en																																																																																																																										
+A	0	1		None		en																																																																																																																										
+A	0	2		High School		en																																																																																																																										
+A	0	3		2 year degree		en																																																																																																																										
+A	0	4		Bachelor's		en																																																																																																																										
+A	0	5		Master's		en																																																																																																																										
+A	0	6		JD/MD/other professional degree		en																																																																																																																										
+A	0	7		PhD		en																																																																																																																										
+G	G4	IQ And Other Numbers That Purport To Measure Your Intelligence (Bonus Section)	1	These questions were among the least popular on the 2014 survey. No pressure if you don't have the available information or would rather not say, just move on.		en																																																																																																																										
+Q	N	IQ	1	IQ - Please give the score you got on your <strong>most recent PROFESSIONAL, SCIENTIFIC IQ test - no Internet tests, please!</strong> All tests should have the standard average of  100 and stdev of 15.		en			N		1																																																																																															1			12																			
+Q	N	IQAge	1	IQ Age - At what age, in years, did you take the IQ test above?		en			N		1																																																																																															1			12																			
+Q	S	IQType	1	IQ Type - Please give a short  description of the IQ test you took, for example "It was Wechsler Adult  Intelligence Scale administered at my school". If you don't remember or  don't know how to describe the test, leave this blank.		en			N		1																																								300		500	11																																																				1	1		12		1																	
+Q	N	SAT	1	SAT scores out of 1600 - American students take the SATs before going to college. In olden days, the test was scored out of 1600. if you have an SAT score out of 1600, please put it here; otherwise leave blank.		en			N		1																																																																																															1			12																			
+Q	N	SAT2	1	SAT scores out of 2400 - American students take the SATs before going to college. Nowadays, the test is scored out of 2400. If you have an SAT score out of 2400, please put it here; otherwise leave blank.		en			N		1																																																																																															1			12																			
+Q	N	ACT	1	ACT score out of 36 - Some American students take the ACTs before going to college. If you have an ACT score out of 36, please put it here; otherwise leave blank.		en			N		1																																																																																															1			12																			
+G	G5	Politics, Religion, Ethics	1			en																																																																																																																										
+Q	L	PoliticsShort	1	Given that no label can completely describe a person's political views, with which of these labels do you MOST identify?		en			N		1																1																																																																															1					1																	
+A	0	1		Libertarian, for example like the US Libertarian Party: socially permissive, minimal/no taxes, minimal/no distribution of wealth		en																																																																																																																										
+A	0	2		Conservative, for example the US Republican Party and UK Tories: traditional values, low taxes, low redistribution of wealth		en																																																																																																																										
+A	0	3		Liberal, for example the US Democratic  Party or the UK Labour Party: socially permissive, more taxes, more redistribution of wealth		en																																																																																																																										
+A	0	4		Social democratic, for example Scandinavian countries: socially permissive, high taxes, major redistribution of wealth		en																																																																																																																										
+A	0	5		Communist, for example the old Soviet Union: complete state control of many facets of life		en																																																																																																																										
+Q	L	ReligiousViews	1	How would you describe your religious views?		en			N		1																1																																																																															1					1																	
+A	0	1		Committed theist		en																																																																																																																										
+A	0	2		Lukewarm theist		en																																																																																																																										
+A	0	3		Deist/Pantheist/etc.		en																																																																																																																										
+A	0	4		Agnostic		en																																																																																																																										
+A	0	5		Atheist but spiritual		en																																																																																																																										
+A	0	6		Atheist and not spiritual		en																																																																																																																										
+Q	L	ReligionType	((ReligiousViews.NAOK == "1" or ReligiousViews.NAOK == "2" or ReligiousViews.NAOK == "3" or ReligiousViews.NAOK == "4" or ReligiousViews.NAOK == "5"))	Which best describes the religion you believe?	If you do not believe any religion, skip this question.	en			Y		1																1																																																																															1					1																	
+SQ	0	other	1	Other		en																																																																																																																										
+A	0	1		Christian (Catholic)		en																																																																																																																										
+A	0	2		Christian (Other non-Protestant, eg Eastern Orthodox)		en																																																																																																																										
+A	0	3		Christian (Protestant)		en																																																																																																																										
+A	0	4		Christian (Mormon)		en																																																																																																																										
+A	0	5		Hindu		en																																																																																																																										
+A	0	6		Buddhist		en																																																																																																																										
+A	0	7		Traditional Chinese		en																																																																																																																										
+A	0	8		Muslim		en																																																																																																																										
+A	0	9		Unitarian Universalism or similar		en																																																																																																																										
+A	0	10		Jewish		en																																																																																																																										
+A	0	11		Mixed/Other		en																																																																																																																										
+Q	L	FamilyReligion	1	How would you describe the religious views of your family when you were growing up?		en			Y		1																1																																																																															1					1																	
+SQ	0	other	1	Other		en																																																																																																																										
+A	0	1		Committed theist		en																																																																																																																										
+A	0	2		Lukewarm theist		en																																																																																																																										
+A	0	3		Deist/Pantheist/etc		en																																																																																																																										
+A	0	4		Agnostic		en																																																																																																																										
+A	0	5		Atheist but spiritual		en																																																																																																																										
+A	0	6		Atheist and not spiritual		en																																																																																																																										
+A	0	7		Mixed / Other		en																																																																																																																										
+Q	L	ReligiousBackground	1	What is your family's religious background, as of the last time your family practiced a religion?		en			Y		1																1																																																																															1					1																	
+SQ	0	other	1	Other		en																																																																																																																										
+A	0	1		Christian (Catholic)		en																																																																																																																										
+A	0	2		Christian (Other non-Protestant, eg Eastern Orthodox)		en																																																																																																																										
+A	0	3		Christian (Protestant)		en																																																																																																																										
+A	0	4		Christian (Mormon)		en																																																																																																																										
+A	0	5		Hindu		en																																																																																																																										
+A	0	6		Buddhist		en																																																																																																																										
+A	0	7		Traditional Chinese		en																																																																																																																										
+A	0	8		Muslim		en																																																																																																																										
+A	0	9		Unitarian Universalism or similar		en																																																																																																																										
+A	0	10		Jewish		en																																																																																																																										
+A	0	11		Mixed/Other		en																																																																																																																										
+Q	L	MetaEthics	1	With which of these meta-ethical views do you MOST identify? (Bonus Question)		en			N		1																1																																																																															1					1																	
+A	0	1		Non-cognitivism: Moral statements don't  express propositions and can neither be true nor false. "Murder is  wrong" means something like "Boo murder!".		en																																																																																																																										
+A	0	2		Error theory: Moral statements have a  truth-value, but attempt to describe features of the world that don't  exist. "Murder is wrong" and "Murder is right" are both false statements  because moral rightness and wrongness aren't features that exist.		en																																																																																																																										
+A	0	3		Subjectivism: Some moral statements are  true, but not universally, and the truth of a moral statement is  determined by non-universal opinions or prescriptions, and there is no  non-attitudinal determinant of rightness and wrongness. "Murder is  wrong" means something like "My culture has judged murder to be wrong"  or "I've judged murder to be wrong".		en																																																																																																																										
+A	0	4		Substantive realism: Some moral statements  are true, and the truth of a moral statement is determined by  mind-independent moral properties. "Murder is wrong" means that murder  has an objective mind-independent property of wrongness that we discover  by empirical investigation, intuition, or some other method.		en																																																																																																																										
+A	0	5		Constructivism: Some moral statements are  true, and the truth of a moral statement is determined by whether an  agent would accept it if they were undergoing a process of rational  deliberation. "Murder is wrong" can mean something like "Societal  agreement to the rule 'do not murder' is instrumentally rational".		en																																																																																																																										
+G	G6	Experience With LessWrong	1			en																																																																																																																										
+Q	L	ReferredBy	1	How Did You Find LessWrong?		en			Y		1																1																																															1																																1					1																	
+SQ	0	other	1	Other		en																																																																																																																										
+A	0	1		Been here since it was started in the Overcoming Bias days		en																																																																																																																										
+A	0	2		Referred by a link		en																																																																																																																										
+A	0	3		HPMOR		en																																																																																																																										
+A	0	4		Overcoming Bias		en																																																																																																																										
+A	0	5		Referred by a friend		en																																																																																																																										
+A	0	6		Referred by a search engine		en																																																																																																																										
+A	0	7		Referred by other fiction		en																																																																																																																										
+A	0	8		Slate Star Codex		en																																																																																																																										
+A	0	9		Reddit		en																																																																																																																										
+A	0	10		Common Sense Atheism		en																																																																																																																										
+A	0	11		Hacker News		en																																																																																																																										
+A	0	12		Gwern		en																																																																																																																										
+Q	L	LessWrongUse	1	How do you use Less Wrong?		en			N		1																1																																																																															1					1																	
+A	0	1		I lurk, but never registered an account		en																																																																																																																										
+A	0	2		I've registered an account, but never posted		en																																																																																																																										
+A	0	3		I've posted a comment, but never a top-level post		en																																																																																																																										
+A	0	4		I've posted in Discussion, but not Main		en																																																																																																																										
+A	0	5		I've posted in Main		en																																																																																																																										
+Q	L	LWUseFrequency	1	How often do you comment on LessWrong?		en			N		1																1																																																																															1					1																	
+A	0	1		I have commented more than once a week for the past year.		en																																																																																																																										
+A	0	2		I have commented more than once a month for the past year but less than once a week.		en																																																																																																																										
+A	0	3		I have commented but less than once a month for the past year.		en																																																																																																																										
+A	0	4		I have not commented this year.		en																																																																																																																										
+Q	!	LWLastPosted	1	How Long Since You Last Posted On LessWrong?		en			N		1																																																																																															1					1																	
+A	0	1		I wrote one today.		en																																																																																																																										
+A	0	2		Within the last three days.		en																																																																																																																										
+A	0	3		Within the last week.		en																																																																																																																										
+A	0	4		Within the last month.		en																																																																																																																										
+A	0	5		Within the last three months.		en																																																																																																																										
+A	0	6		Within the last six months.		en																																																																																																																										
+A	0	7		Within the last year.		en																																																																																																																										
+A	0	8		Within the last five years.		en																																																																																																																										
+A	0	9		Longer than five years.		en																																																																																																																										
+A	0	10		I've never posted on LW.		en																																																																																																																										
+Q	L	Sequences	1	 About how much of  the Sequences - the collection of Eliezer Yudkowsky's original posts -  have you read? You can find a list of them <a href="http://wiki.lesswrong.com/wiki/Sequences">here</a>.		en			N		1																1																																																																															1					1																	
+A	0	1		Never knew they existed until this moment		en																																																																																																																										
+A	0	2		Knew they existed, but never looked at them		en																																																																																																																										
+A	0	3		Some, but less than 25%		en																																																																																																																										
+A	0	4		About 25%		en																																																																																																																										
+A	0	5		About 50%		en																																																																																																																										
+A	0	6		About 75%		en																																																																																																																										
+A	0	7		All or almost all		en																																																																																																																										
+Q	L	Meetups	1	Do you attend Less Wrong meetups?		en			N		1																1																																																																															1					1																	
+A	0	1		Yes, regularly		en																																																																																																																										
+A	0	2		Yes, once or a few times		en																																																																																																																										
+A	0	3		No		en																																																																																																																										
+Q	L	Community	1	Is physical interaction with the Less Wrong community otherwise a part of your everyday life, for example do you live with other Less Wrongers, or you are close friends and frequently go out with them?		en			N		1																1																																																																															1					1																	
+A	0	1		Yes, all the time		en																																																																																																																										
+A	0	2		Yes, sometimes		en																																																																																																																										
+A	0	3		No		en																																																																																																																										
+Q	L	Romance	1	Have you ever been in a romantic relationship with someone you met through the Less Wrong community?		en			N		1																1																																																																															1					1																	
+A	0	1		Yes		en																																																																																																																										
+A	0	2		I didn’t meet them through the community but they’re part of the community now		en																																																																																																																										
+A	0	3		No		en																																																																																																																										
+G	G7	Roko's Basilisk (Bonus Section)	1			en																																																																																																																										
+Q	L	RokoKnowledge	1	Do you know what Roko's Basilisk thought experiment is?		en			N		1																1																																																																															1					1																	
+A	0	1		Yes		en																																																																																																																										
+A	0	2		No but I've heard of it		en																																																																																																																										
+A	0	3		No		en																																																																																																																										
+Q	L	RokoKnowledgeSource	((RokoKnowledge.NAOK == "1" or RokoKnowledge.NAOK == "2"))	Where did you read Roko's argument for the Basilisk?		en			Y		1																1																																																																															1					1																	
+SQ	0	other	1	Other		en																																																																																																																										
+A	0	1		Roko's post on LessWrong		en																																																																																																																										
+A	0	2		Reddit		en																																																																																																																										
+A	0	3		XKCD		en																																																																																																																										
+A	0	4		LessWrong Wiki		en																																																																																																																										
+A	0	5		A news article		en																																																																																																																										
+A	0	6		Word of mouth		en																																																																																																																										
+A	0	7		RationalWiki		en																																																																																																																										
+Q	L	BasiliskCorrectness	((RokoKnowledge.NAOK == "1" or RokoKnowledge.NAOK == "2"))	<span class="author-g-dq57u6qs43jx4u9x">Do you think Roko's argument for the Basilisk is correct?</span>		en			N		1																1																																																																															1					1																	
+A	0	1		Yes		en																																																																																																																										
+A	0	2		Yes but I don't think it's logical conclusions apply for other reasons		en																																																																																																																										
+A	0	3		No		en																																																																																																																										
+Q	L	BasiliskDanger	((RokoKnowledge.NAOK == "1" or RokoKnowledge.NAOK == "2"))	Do you think Basilisk-like thought experiments are dangerous?		en			N		1																1																																																																															1					1																	
+A	0	1		Yes, I think they're dangerous for decision theory reasons		en																																																																																																																										
+A	0	2		Yes I think they're dangerous for social reasons (eg. A cult might use them)		en																																																																																																																										
+A	0	3		Yes I think they're dangerous for decision theory and social reasons		en																																																																																																																										
+A	0	4		Yes I think they're socially dangerous because they make everybody involved look foolish		en																																																																																																																										
+A	0	5		Yes I think they're dangerous for other reasons		en																																																																																																																										
+A	0	6		No		en																																																																																																																										
+Q	L	BasiliskAnxiety	((RokoKnowledge.NAOK == "1" or RokoKnowledge.NAOK == "2"))	Have you ever felt any sort of anxiety about the Basilisk?		en			N		1																1																																																																															1					1																	
+A	0	1		Yes		en																																																																																																																										
+A	0	2		Yes but only because I worry about everything		en																																																																																																																										
+A	0	3		No		en																																																																																																																										
+Q	!	BAnxietyDegree	((RokoKnowledge.NAOK == "1" or RokoKnowledge.NAOK == "2"))	What is the longest span of time you've spent worrying about the Basilisk?		en			N		1																																																																																															1					1																	
+A	0	1		I haven't		en																																																																																																																										
+A	0	2		A few seconds		en																																																																																																																										
+A	0	3		A minute		en																																																																																																																										
+A	0	4		An hour		en																																																																																																																										
+A	0	5		A day		en																																																																																																																										
+A	0	6		Two days		en																																																																																																																										
+A	0	7		Three days		en																																																																																																																										
+A	0	8		A week		en																																																																																																																										
+A	0	9		A month		en																																																																																																																										
+A	0	10		One to three months		en																																																																																																																										
+A	0	11		Three to six months		en																																																																																																																										
+A	0	12		Six to nine months		en																																																																																																																										
+A	0	13		Nine months to a year		en																																																																																																																										
+A	0	14		Over a year		en																																																																																																																										
+A	0	15		Years		en																																																																																																																										
+Q	L	BasiliskAnxietyNow	((RokoKnowledge.NAOK == "1" or RokoKnowledge.NAOK == "2"))	Are you <em>currently</em> worrying about the Basilisk?		en			N		1																1																																																																															1					1																	
+A	0	1		Yes		en																																																																																																																										
+A	0	2		Yes but only because I worry about everything		en																																																																																																																										
+A	0	3		No		en																																																																																																																										
+G	G8	Mental Health (Bonus Section)	1			en																																																																																																																										
+Q	L	Depression	1	Have you ever been diagnosed with depression?		en			N		1																1																																																																															1					1																	
+A	0	1		 No		en																																																																																																																										
+A	0	2		 Not formally, but I personally believe I have (or had) it		en																																																																																																																										
+A	0	3		 Yes, I was formally diagnosed by a doctor or other mental health professional		en																																																																																																																										
+Q	L	OCD	1	Have you ever been diagnosed with obsessive compulsive disorder?		en			N		1																1																																																																															1					1																	
+A	0	1		No		en																																																																																																																										
+A	0	2		Not formally, but I personally believe I have (or had) it		en																																																																																																																										
+A	0	3		Yes, I was formally diagnosed by a doctor or other mental health professional		en																																																																																																																										
+Q	L	ASD	1	Have you ever been diagnosed with any autism spectrum disorder?		en			N		1																1																																																																															1					1																	
+A	0	1		No		en																																																																																																																										
+A	0	2		Not formally, but I personally believe I have (or had) it		en																																																																																																																										
+A	0	3		Yes, I was formally diagnosed by a doctor or other mental health professional		en																																																																																																																										
+Q	L	ADHD	1	Have you ever been diagnosed with any variant of attention deficit disorder?		en			N		1																1																																																																															1					1																	
+A	0	1		No		en																																																																																																																										
+A	0	2		Not formally, but I personally believe I have (or had) it		en																																																																																																																										
+A	0	3		Yes, I was formally diagnosed by a doctor or other mental health professional		en																																																																																																																										
+Q	L	BipolarDisorder	1	Have you ever been diagnosed with bipolar disorder?		en			N		1																1																																																																															1					1																	
+A	0	1		No		en																																																																																																																										
+A	0	2		Not formally, but I personally believe I have (or had) it		en																																																																																																																										
+A	0	3		Yes, I was formally diagnosed by a doctor or other mental health professional		en																																																																																																																										
+Q	L	AnxietyDisorder	1	Have you ever been  diagnosed with any anxiety disorder, eg panic disorder, generalized  anxiety disorder, social anxiety disorder?		en			N		1																1																																																																															1					1																	
+A	0	1		No		en																																																																																																																										
+A	0	2		Not formally, but I personally believe I have (or had) it		en																																																																																																																										
+A	0	3		Yes, I was formally diagnosed by a doctor or other mental health professional		en																																																																																																																										
+Q	L	BPD	1	Have you ever been diagnosed with borderline personality disorder?		en			N		1																1																																																																															1					1																	
+A	0	1		No		en																																																																																																																										
+A	0	2		Not formally, but I personally believe I have (or had) it		en																																																																																																																										
+A	0	3		Yes, I was formally diagnosed by a doctor or other mental health professional		en																																																																																																																										
+Q	L	Schizophrenia	1	Have you ever been diagnosed with schizophrenia?		en			N		1																1																																																																															1					1																	
+A	0	1		No		en																																																																																																																										
+A	0	2		Not formally, but I personally believe I have (or had) it		en																																																																																																																										
+A	0	3		Yes, I was formally diagnosed by a doctor or other mental health professional		en																																																																																																																										
+Q	L	SubstanceUseDisorder	1	Have you ever been diagnosed with substance use disorder?		en			N		1																1																																																																															1					1																	
+A	0	1		No		en																																																																																																																										
+A	0	2		Not formally, but I personally believe I have (or had) it		en																																																																																																																										
+A	0	3		Yes, I was formally diagnosed by a doctor or other mental health professional		en																																																																																																																										
+Q	L	SubstanceUseWonder	1	Have you ever wondered whether you might have a substance abuse problem?		en			N		1																1																																																																															1					1																	
+A	0	1		Yes		en																																																																																																																										
+A	0	2		Yes but only because I worry about everything		en																																																																																																																										
+A	0	3		No		en																																																																																																																										
+Q	L	SubstanceUseWorry	1	Have your friends and family ever expressed concern that you are abusing substances?		en			N		1																1																																																																															1					1																	
+A	0	1		Yes		en																																																																																																																										
+A	0	2		Yes but only because they worry about everything		en																																																																																																																										
+A	0	3		Yes but only because they're suspicious of pharmaceutical medication		en																																																																																																																										
+A	0	4		No		en																																																																																																																										
+G	G9	What were the biggest problems with LessWrong at its peak?	1	What do you think were the biggest problems LessWrong had (or has) when it was at its best?		en																																																																																																																										
+Q	M	PeakPhilosophyIssues	1	Philosophical Issues		en			N		1							1									1																																																																															1																						
+SQ	0	1	1	Over Reliance On The Sequences.		en																																																																																																																										
+SQ	0	2	1	Focus On AI.		en																																																																																																																										
+SQ	0	3	1	Focus On Cryonics.		en																																																																																																																										
+SQ	0	4	1	Criticism Of The Scientific Method.		en																																																																																																																										
+SQ	0	6	1	Too Much Jargon.		en																																																																																																																										
+SQ	0	7	1	Too Focused On Abstract Junk.		en																																																																																																																										
+SQ	0	8	1	I Wasn't Around For Its Peak. 		en																																																																																																																										
+SQ	0	9	1	[Write in below]		en																																																																																																																										
+SQ	0	10	1	[Write in below]		en																																																																																																																										
+Q	S	PeakPhilWriteInOne	((PeakPhilosophyIssues_9.NAOK == "Y"))	Write in one:		en			N		1																																								300		500	11																																																				1	1		12		1																	
+Q	S	PeakPhilWriteInTwo	((PeakPhilosophyIssues_10.NAOK == "Y"))	Write in two:		en			N		1																																								300		500	11																																																				1	1		12		1																	
+Q	M	PeakCommunityIssues	1	Community Issues		en			N		1							1									1																																																																															1																						
+SQ	0	1	1	Not Enough In Person Interaction.		en																																																																																																																										
+SQ	0	2	1	Overly High Standards For Content Submission.		en																																																																																																																										
+SQ	0	3	1	Failure to cite sources.		en																																																																																																																										
+SQ	0	4	1	Can't Find Things Quickly Enough To Maintain Interest.		en																																																																																																																										
+SQ	0	5	1	Lame Forum Software.		en																																																																																																																										
+SQ	0	6	1	Too Autistic.		en																																																																																																																										
+SQ	0	7	1	Too Tolerant Of Trolls/Cranks.		en																																																																																																																										
+SQ	0	8	1	Too Tolerant Of Laziness.		en																																																																																																																										
+SQ	0	9	1	Too Tolerant Of Creepy People.		en																																																																																																																										
+SQ	0	10	1	Too Tolerant Of Neoreaction.		en																																																																																																																										
+SQ	0	11	1	Too Tolerant Of Progressivism.		en																																																																																																																										
+SQ	0	12	1	Literally A Cult. 		en																																																																																																																										
+SQ	0	13	1	I Wasn't Around For Its Peak. 		en																																																																																																																										
+SQ	0	14	1	[Write in below]		en																																																																																																																										
+SQ	0	15	1	[Write in below]		en																																																																																																																										
+Q	S	PeakCommWriteInOne	((PeakCommunityIssues_14.NAOK == "Y"))	Write in one:		en			N		1																																								300		500	11																																																				1	1		12		1																	
+Q	S	PeakCommWriteInTwo	((PeakCommunityIssues_15.NAOK == "Y"))	Write in two:		en			N		1																																								300		500	11																																																				1	1		12		1																	
+G	G10	What are the biggest problems with LessWrong now?	1	What do you think are the biggest problems LessWrong has now?		en																																																																																																																										
+Q	M	PhilosophyIssuesNow	1	Philosophical Issues		en			N		1							1									1																																																																															1																						
+SQ	0	1	1	Over Reliance On The Sequences.		en																																																																																																																										
+SQ	0	2	1	Focus On AI.		en																																																																																																																										
+SQ	0	3	1	Focus On Cryonics.		en																																																																																																																										
+SQ	0	4	1	Criticism Of The Scientific Method.		en																																																																																																																										
+SQ	0	5	1	Too Much Jargon.		en																																																																																																																										
+SQ	0	6	1	Too Focused On Abstract Junk.		en																																																																																																																										
+SQ	0	7	1	[Write in below]		en																																																																																																																										
+SQ	0	8	1	[Write in below]		en																																																																																																																										
+Q	S	NowPhilWriteInOne	((PhilosophyIssuesNow_7.NAOK == "Y"))	Write in one:		en			N		1																																								300		500	11																																																				1	1		12		1																	
+Q	S	NowPhilWriteInTwo	((PhilosophyIssuesNow_8.NAOK == "Y"))	Write in two:		en			N		1																																								300		500	11																																																				1	1		12		1																	
+Q	M	CommunityIssuesNow	1	Community Issues		en			N		1							1									1																																																																															1																						
+SQ	0	1	1	No New Content		en																																																																																																																										
+SQ	0	2	1	No New *Good* Content		en																																																																																																																										
+SQ	0	3	1	Can't Find Things Quickly Enough To Maintain Interest		en																																																																																																																										
+SQ	0	4	1	Lame Forum Software		en																																																																																																																										
+SQ	0	5	1	Decline from new people coming in who don't understand the culture		en																																																																																																																										
+SQ	0	6	1	Decline from evaporative cooling (http://lesswrong.com/lw/lr/evaporative_cooling_of_group_beliefs/)		en																																																																																																																										
+SQ	0	7	1	Decline from dunning kruger where competent refrain from posting what they feel to be sub par content (and by extension, posting content at all) but incompetent don't 		en																																																																																																																										
+SQ	0	8	1	Not Enough In Person Interaction		en																																																																																																																										
+SQ	0	9	1	Overly High Standards For Content Submission		en																																																																																																																										
+SQ	0	10	1	Failure to cite sources		en																																																																																																																										
+SQ	0	11	1	Too Autistic		en																																																																																																																										
+SQ	0	12	1	Too Tolerant Of Trolls/Cranks		en																																																																																																																										
+SQ	0	13	1	Too Tolerant Of Laziness		en																																																																																																																										
+SQ	0	14	1	Too Tolerant Of Creepy People		en																																																																																																																										
+SQ	0	15	1	Too Tolerant Of Neoreaction		en																																																																																																																										
+SQ	0	16	1	Too Tolerant Of Progressivism		en																																																																																																																										
+SQ	0	17	1	Literally A Cult 		en																																																																																																																										
+SQ	0	18	1	[Write in below]		en																																																																																																																										
+SQ	0	19	1	[Write in below]		en																																																																																																																										
+Q	S	NowCIssueWriteInOne	((CommunityIssuesNow_18.NAOK == "Y"))	Write in one:		en			N		1																																								300		500	11																																																				1	1		12		1																	
+Q	S	NowCIssueWriteInTwo	((CommunityIssuesNow_19.NAOK == "Y"))	Write in two:		en			N		1																																								300		500	11																																																				1	1		12		1																	
+G	G11	What would you want from a successor?	1	What changes and features would you want to see from a successor to the original LessWrong?		en																																																																																																																										
+Q	F	SuccessorPhilosophy	1	Philosophically		en			N		1																																																																																															1																						
+SQ	0	1	1	Attention Paid To Outside Sources		en																																																																																																																										
+SQ	0	2	1	Self Improvement Focus		en																																																																																																																										
+SQ	0	3	1	AI Focus		en																																																																																																																										
+SQ	0	4	1	Political		en																																																																																																																										
+SQ	0	5	1	Academic/Formal		en																																																																																																																										
+SQ	0	6	1	[Write in your own]		en																																																																																																																										
+SQ	0	7	1	[Write in your own]		en																																																																																																																										
+SQ	0	8	1	[Write in your own]		en																																																																																																																										
+A	0	A1		More		en																																																																																																																										
+A	0	A2		Same		en																																																																																																																										
+A	0	A3		Less		en																																																																																																																										
+Q	S	PhilosophyWriteIn1	((SuccessorPhilosophy_6.NAOK == "A1" or SuccessorPhilosophy_6.NAOK == "A2" or SuccessorPhilosophy_6.NAOK == "A3"))	Write in one:		en			N		1																																								300		500	11																																																				1	1		12		1																	
+Q	S	PhilosophyWriteIn2	((SuccessorPhilosophy_7.NAOK == "A1" or SuccessorPhilosophy_7.NAOK == "A2" or SuccessorPhilosophy_7.NAOK == "A3"))	Write in two:		en			N		1																																								300		500	11																																																				1	1		12		1																	
+Q	S	PhilosophyWriteIn3	((SuccessorPhilosophy_8.NAOK == "A1" or SuccessorPhilosophy_8.NAOK == "A2" or SuccessorPhilosophy_8.NAOK == "A3"))	Write in three:		en			N		1																																								300		500	11																																																				1	1		12		1																	
+Q	F	SuccessorCommunity	1	Community		en			N		1																																																																																															1																						
+SQ	0	1	1	Intense Environment		en																																																																																																																										
+SQ	0	2	1	Focused On 'Real World' Action		en																																																																																																																										
+SQ	0	3	1	Experts		en																																																																																																																										
+SQ	0	4	1	Data Driven/Testing Of Ideas		en																																																																																																																										
+SQ	0	5	1	Social		en																																																																																																																										
+SQ	0	6	1	[Write in your own]		en																																																																																																																										
+SQ	0	7	1	[Write in your own]		en																																																																																																																										
+SQ	0	8	1	[Write in your own]		en																																																																																																																										
+A	0	A1		More		en																																																																																																																										
+A	0	A2		Same		en																																																																																																																										
+A	0	A3		Less		en																																																																																																																										
+Q	S	CommunityWriteIn1	((SuccessorCommunity_6.NAOK == "A1" or SuccessorCommunity_6.NAOK == "A2" or SuccessorCommunity_6.NAOK == "A3"))	Write in one:		en			N		1																																								300		500	11																																																				1	1		12		1																	
+Q	S	CommunityWriteIn2	((SuccessorCommunity_7.NAOK == "A1" or SuccessorCommunity_7.NAOK == "A2" or SuccessorCommunity_7.NAOK == "A3"))	Write in two:		en			N		1																																								300		500	11																																																				1	1		12		1																	
+Q	S	CommunityWriteIn3	((SuccessorCommunity_8.NAOK == "A1" or SuccessorCommunity_8.NAOK == "A2" or SuccessorCommunity_8.NAOK == "A3"))	Write in three:		en			N		1																																								300		500	11																																																				1	1		12		1																	
+G	G12	Where do you hang out now?	1			en																																																																																																																										
+Q	M	ActiveMemberships	1	I'm Currently An Active Member Of		en			Y		1							1									1																																																																															1																						
+SQ	0	1	1	LessWrong		en																																																																																																																										
+SQ	0	2	1	LessWrong Meetups		en																																																																																																																										
+SQ	0	3	1	LessWrong Facebook Group		en																																																																																																																										
+SQ	0	4	1	LessWrong Slack		en																																																																																																																										
+SQ	0	5	1	SlateStarCodex		en																																																																																																																										
+SQ	0	6	1	Rationalist Tumblr		en																																																																																																																										
+SQ	0	7	1	Rationalist Facebook		en																																																																																																																										
+SQ	0	8	1	Rationalist Twitter		en																																																																																																																										
+SQ	0	9	1	Effective Altruism Hub		en																																																																																																																										
+SQ	0	10	1	FortForecast		en																																																																																																																										
+SQ	0	11	1	Good Judgement(TM) Open		en																																																																																																																										
+SQ	0	12	1	PredictionBook		en																																																																																																																										
+SQ	0	13	1	Omnilibrium		en																																																																																																																										
+SQ	0	14	1	Hacker News		en																																																																																																																										
+SQ	0	15	1	#lesswrong on freenode 		en																																																																																																																										
+SQ	0	16	1	#slatestarcodex on freenode		en																																																																																																																										
+SQ	0	17	1	#hplusroadmap on freenode		en																																																																																																																										
+SQ	0	18	1	#chapelperilous on freenode		en																																																																																																																										
+SQ	0	19	1	/r/rational		en																																																																																																																										
+SQ	0	20	1	/r/HPMOR		en																																																																																																																										
+SQ	0	21	1	/r/SlateStarCodex		en																																																																																																																										
+SQ	0	22	1	One or more private 'rationalist' groups 		en																																																																																																																										
+SQ	0	other	1	Other		en																																																																																																																										
+Q	L	ComingBack	1	Would you consider rejoining LessWrong?		en			N		1																1																																																																															1					1																	
+A	0	1		I never left		en																																																																																																																										
+A	0	2		Yes		en																																																																																																																										
+A	0	3		Yes, but only under certain conditions		en																																																																																																																										
+A	0	4		No		en																																																																																																																										
+Q	Q	RejoinConditions	((ComingBack.NAOK == "3"))	If you would only rejoin under certain conditions, what would those be?		en			N		1																																																																																															1			12																			
+SQ	0	1	1	[Write in your own]		en																																																																																																																										
+SQ	0	2	1	[Write in your own]		en																																																																																																																										
+SQ	0	3	1	[Write in your own]		en																																																																																																																										
+SQ	0	4	1	[Write in your own]		en																																																																																																																										
+SQ	0	5	1	[Write in your own]		en																																																																																																																										
+G	G13	Interests And Media	1			en																																																																																																																										
+Q	F	BlogsRead	1	Do You Read These Blogs		en			N		1																																																																																															1																						
+SQ	0	1	1	LessWrong		en																																																																																																																										
+SQ	0	2	1	SlateStarCodex (Scott Alexander)		en																																																																																																																										
+SQ	0	3	1	Overcoming Bias (Robin Hanson)		en																																																																																																																										
+SQ	0	4	1	Minding Our Way (Nate Soares)		en																																																																																																																										
+SQ	0	5	1	Agenty Duck (Brienne Yudkowsky)		en																																																																																																																										
+SQ	0	6	1	Eliezer Yudkowsky's Facebook Page		en																																																																																																																										
+SQ	0	7	1	Luke Muehlhauser (Eponymous)		en																																																																																																																										
+SQ	0	8	1	Gwern.net (Gwern Branwen)		en																																																																																																																										
+SQ	0	9	1	Siderea (Sibylla Bostoniensis)		en																																																																																																																										
+A	0	A1		Regular Reader		en																																																																																																																										
+A	0	A2		Sometimes		en																																																																																																																										
+A	0	A3		Rarely		en																																																																																																																										
+A	0	A4		Almost Never		en																																																																																																																										
+A	0	A5		Never		en																																																																																																																										
+A	0	A6		Never Heard Of It		en																																																																																																																										
+Q	F	BlogsRead2	1			en			N		1																																																																																															1																						
+SQ	0	1	1	Ribbon Farm (Venkatesh Rao)		en																																																																																																																										
+SQ	0	2	1	Bayesed And Confused (Michael Rupert)		en																																																																																																																										
+SQ	0	3	1	The Unit Of Caring (Anonymous)		en																																																																																																																										
+SQ	0	4	1	GiveWell Blog (Multiple Authors)		en																																																																																																																										
+SQ	0	5	1	Thing Of Things (Ozy Frantz)		en																																																																																																																										
+SQ	0	6	1	The Last Psychiatrist (Anonymous)		en																																																																																																																										
+SQ	0	7	1	Hotel Concierge (Anonymous)		en																																																																																																																										
+SQ	0	8	1	The View From Hell (Sister Y)		en																																																																																																																										
+SQ	0	9	1	Xenosystems (Nick Land)		en																																																																																																																										
+A	0	A1		Regular Reader		en																																																																																																																										
+A	0	A2		Sometimes		en																																																																																																																										
+A	0	A3		Rarely		en																																																																																																																										
+A	0	A4		Almost Never		en																																																																																																																										
+A	0	A5		Never		en																																																																																																																										
+A	0	A6		Never Heard Of It		en																																																																																																																										
+Q	Q	BlogsReadWriteIn	1	Are there any noteworthy blogs you read that we missed above?		en			N		1																																																																																															1			12																			
+SQ	0	SQ001	1	[Write in your own]		en																																																																																																																										
+SQ	0	SQ2	1	[Write in your own]		en																																																																																																																										
+SQ	0	SQ3	1	[Write in your own]		en																																																																																																																										
+SQ	0	SQ4	1	[Write in your own]		en																																																																																																																										
+Q	F	StoriesRead	1	Have You Read These Stories?		en			N		1																																																																																															1																						
+SQ	0	1	1	Harry Potter And The Methods Of Rationality (Eliezer Yudkowsky)		en																																																																																																																										
+SQ	0	2	1	Significant Digits (Alexander D)		en																																																																																																																										
+SQ	0	3	1	Three Worlds Collide (Eliezer Yudkowsky)		en																																																																																																																										
+SQ	0	4	1	The Fable of the Dragon-Tyrant (Nick Bostrom)		en																																																																																																																										
+SQ	0	5	1	The World of Null-A (A. E. van Vogt)		en																																																																																																																										
+SQ	0	6	1	Synthesis (Sharon Mitchell)		en																																																																																																																										
+SQ	0	7	1	Worm (Wildbow)		en																																																																																																																										
+SQ	0	8	1	Pact (Wildbow)		en																																																																																																																										
+SQ	0	9	1	Twig (Wildbow)		en																																																																																																																										
+A	0	A1		Whole Thing		en																																																																																																																										
+A	0	A2		Partially And Intend To Finish		en																																																																																																																										
+A	0	A3		Partially And Abandoned		en																																																																																																																										
+A	0	A4		Never		en																																																																																																																										
+A	0	A5		Never Heard Of It		en																																																																																																																										
+Q	F	StoriesRead2	1			en			N		1																																																																																															1																						
+SQ	0	1	1	Ra (Sam Hughes)		en																																																																																																																										
+SQ	0	2	1	My Little Pony: Friendship Is Optimal (Iceman)		en																																																																																																																										
+SQ	0	3	1	Friendship Is Optimal: Caelum Est Conterrens (Chatoyance)		en																																																																																																																										
+SQ	0	4	1	Ender's Game (Orson Scott Card)		en																																																																																																																										
+SQ	0	5	1	The Diamond Age (Neal Stephenson)		en																																																																																																																										
+SQ	0	6	1	Consider Phlebas (Iain Banks)		en																																																																																																																										
+SQ	0	7	1	The Metamorphosis Of Prime Intellect (Roger Williams)		en																																																																																																																										
+SQ	0	8	1	Accelerando (Charles Stross)		en																																																																																																																										
+SQ	0	9	1	A Fire Upon The Deep (Vernor Vinge)		en																																																																																																																										
+A	0	A1		Whole Thing		en																																																																																																																										
+A	0	A2		Partially And Intend To Finish		en																																																																																																																										
+A	0	A3		Partially And Abandoned		en																																																																																																																										
+A	0	A4		Never		en																																																																																																																										
+A	0	A5		Never Heard Of It		en																																																																																																																										
+G	G14	Machine Intelligence Research Institute	1			en																																																																																																																										
+Q	L	MIRIKnowledge	1	Do you know what the Machine Intelligence Research Institute is?		en			N		1																1																																																																															1					1																	
+A	0	A1		Yes		en																																																																																																																										
+A	0	A2		No but I've heard of it		en																																																																																																																										
+A	0	A3		No		en																																																																																																																										
+Q	L	ReadMIRIPaper	1	Have you ever read a paper from the Machine Intelligence Research Institute?		en			N		1																1																																																																															1					1																	
+A	0	A1		Yes		en																																																																																																																										
+A	0	A2		Partially		en																																																																																																																										
+A	0	A3		No		en																																																																																																																										
+Q	Y	MIRIJob	1	Would you consider working for the Machine Intelligence Research Institute?		en			N		1																																																																																															1																						
+Q	Y	AIBoxing	1	Do you think you're trustworthy enough not to let an AI out of the box?		en			N		1																																																																																															1																						
+Q	L	AIBoxingPractice	1	Have you ever practiced not letting an AI out of the box?		en			N		1																1																																																																															1					1																	
+A	0	1		Yes with Eliezer's Ruleset		en																																																																																																																										
+A	0	2		Yes with Tuxedage's Ruleset		en																																																																																																																										
+A	0	3		Yes with a different ruleset		en																																																																																																																										
+A	0	4		No but I've been the AI		en																																																																																																																										
+A	0	5		No		en																																																																																																																										
+Q	5	MIRIMission	1	On a scale of one to five (where one is "Strongly disagree" and five is "Strongly agree"), rate how much you agree with this statement: "MIRI's mission of  doing mathematical research relevant to friendly self-improving  artificial intelligence is very important."		en			N		1																																																																																															1																						
+Q	5	MIRIEffectiveness	1	On a scale of one to five (where one is "Strongly disagree" and five is "Strongly agree"), rate how much you agree with this statement: "Whether or not I  agree with MIRI's goals, I believe MIRI is a well-run organization that  pursues its goals effectively."		en			N		1																																																																																															1																						
+G	G15	Center For Applied Rationality (Bonus Section)	1			en																																																																																																																										
+Q	L	CFARKnowledge	1	Do you know what the Center For Applied Rationality is?		en			N		1																1																																																																															1					1																	
+A	0	A1		Yes		en																																																																																																																										
+A	0	A2		No but I've heard of it		en																																																																																																																										
+A	0	A3		No		en																																																																																																																										
+Q	L	CFARAttendance	1	Have you attended CFAR?		en			N		1																1																																																																															1					1																	
+A	0	1		No, and I don't plan to		en																																																																																																																										
+A	0	2		No, and I would like to		en																																																																																																																										
+A	0	3		I have attended a paid or volunteer program with CFAR		en																																																																																																																										
+A	0	4		I have led a program at CFAR		en																																																																																																																										
+Q	L	HowDifferent	1	Think about your current set of skills, your habits, the things you spend your time on, how you interact with other people, the intellectual questions that you find engaging, the goals you’re aiming towards, and the challenges that you’re currently facing going forward. Next, think about how you were one year ago on each of these dimensions. How different are you now from how you were one year ago?		en			N		1																1																																																																															1					1																	
+A	0	1		Not at all different		en																																																																																																																										
+A	0	2		Slightly different		en																																																																																																																										
+A	0	3		Somewhat different		en																																																																																																																										
+A	0	4		Very different		en																																																																																																																										
+A	0	5		Extremely different 		en																																																																																																																										
+Q	S	WhatDifferent	1	(optional) In about one sentence, what is one difference that stands out as being particularly large or significant?		en			N		1																																								300		500	11																																																				1	1		12		1																	
+Q	T	ChangesToRoutines	1	(Optional) Can you think of any changes that you’ve made in the past month to your daily routines or habits in order to make things go better? These can be tiny changes (e.g., adjusted the curtains on my bedroom window so that less light comes in while I’m sleeping) or large ones. Spend about 60 seconds recalling as many examples of these kinds of changes as you can and listing them here. (If you want to skip this question, leave it blank. If you spend the 60 seconds and no specific examples come to mind, write "none.")		en			N		1																																																																																															1			12		1																	
+Q	L	CFAROpinion	1	<p>   What's your overall opinion of the Center For Applied Rationality?</p>  		en			N		1																1																																																																															1					1																	
+A	0	1		Positive		en																																																																																																																										
+A	0	2		Mostly Positive		en																																																																																																																										
+A	0	3		No strong opinion		en																																																																																																																										
+A	0	4		Mostly Negative		en																																																																																																																										
+A	0	5		Negative		en																																																																																																																										
+G	G16	Effective Altruism (Bonus Section)	1			en																																																																																																																										
+Q	L	EAKnowledge	1	Do you know what Effective Altruism is?		en			N		1																1																																																																															1					1																	
+A	0	A1		Yes		en																																																																																																																										
+A	0	A2		No but I've heard of it		en																																																																																																																										
+A	0	A3		No		en																																																																																																																										
+Q	Y	EAIdentity	1	Do you self-identify as an Effective Altruist?		en			N		1																																																																																															1																						
+Q	Y	EACommunity	1	Do you participate in the Effective Altruism community?		en			N		1																																																																																															1																						
+Q	Y	EADonations	1	Has Effective Altruism caused you to make donations you otherwise wouldn't?		en			N		1																																																																																															1																						
+Q	L	EAAnxiety	1	Have you ever had any kind of moral anxiety over Effective Altruism?		en			N		1																1																																																																															1					1																	
+A	0	1		Yes		en																																																																																																																										
+A	0	2		Yes but only because I worry about everything		en																																																																																																																										
+A	0	3		No		en																																																																																																																										
+Q	L	EAOpinion	1	What's your overall opinion of Effective Altruism?		en			N		1																1																																																																															1					1																	
+A	0	1		Positive		en																																																																																																																										
+A	0	2		Mostly Positive		en																																																																																																																										
+A	0	3		No strong opinion		en																																																																																																																										
+A	0	4		Mostly Negative		en																																																																																																																										
+A	0	5		Negative		en																																																																																																																										
+G	G17	Politics (Bonus Section)	1	If you're not into politics, skip this part and go on to the next section. You can also choose to skip any individual question if you don't know what it's asking or don't have a strong opinion.		en																																																																																																																										
+Q	L	ComplexAffiliation	1	With which of these political positions do you most identify?		en			Y		1																1																																																																															1					1																	
+SQ	0	other	1	Other		en																																																																																																																										
+A	0	1		Progressive		en																																																																																																																										
+A	0	2		Communist		en																																																																																																																										
+A	0	3		Socialist		en																																																																																																																										
+A	0	4		Conservative		en																																																																																																																										
+A	0	5		Fascist		en																																																																																																																										
+A	0	6		Neoreactionary		en																																																																																																																										
+A	0	7		Social Democrat		en																																																																																																																										
+A	0	8		Moderate		en																																																																																																																										
+A	0	9		Pragmatist		en																																																																																																																										
+A	0	10		Anarchist		en																																																																																																																										
+A	0	11		Libertarian		en																																																																																																																										
+A	0	12		Left-Libertarian		en																																																																																																																										
+A	0	13		Objectivist		en																																																																																																																										
+A	0	14		Monarchist		en																																																																																																																										
+A	0	15		Futarchist		en																																																																																																																										
+A	0	16		Totalitarian		en																																																																																																																										
+Q	L	Voting	1	Did you vote in your country's last major national election?		en			N		1																1																																																																															1					1																	
+A	0	A1		Yes		en																																																																																																																										
+A	0	A2		No		en																																																																																																																										
+A	0	A3		My country does not hold elections		en																																																																																																																										
+Q	L	AmericanParties	1	If you are an American, what party are you registered with?		en			N		1																1																																																																															1					1																	
+A	0	1		Democratic Party		en																																																																																																																										
+A	0	2		Republican Party		en																																																																																																																										
+A	0	3		Libertarian Party		en																																																																																																																										
+A	0	4		Other third party		en																																																																																																																										
+A	0	5		Not registered for a party		en																																																																																																																										
+A	0	6		(option for non-Americans who want an option)		en																																																																																																																										
+Q	5	PoliticalInterest	1	On a scale from 1  (not interested at all) to 5 (extremely interested), how would you  describe your level of interest in politics?		en			N		1																																																																																															1																						
+Q	F	AbortionLaws	1	How would you describe your opinion on abortion laws?		en			N		1																																																																																															1																						
+SQ	0	SQ001	1	Abortion		en																																																																																																																										
+A	0	A1		Pro-Life		en																																																																																																																										
+A	0	A2		Lean Pro-Life		en																																																																																																																										
+A	0	A3		No strong opinion		en																																																																																																																										
+A	0	A4		Lean Pro-Choice		en																																																																																																																										
+A	0	A5		Pro-Choice		en																																																																																																																										
+Q	F	Immigration	1	How would you describe your opinion on immigration?		en			N		1																																																																																															1																						
+SQ	0	SQ001	1	Immigration		en																																																																																																																										
+A	0	A1		Should be more open		en																																																																																																																										
+A	0	A2		Lean more open		en																																																																																																																										
+A	0	A3		No strong opinion		en																																																																																																																										
+A	0	A4		Lean more restricted		en																																																																																																																										
+A	0	A5		Should be more restricted		en																																																																																																																										
+Q	F	Taxes	1	How would you describe your opinion on taxes in your country?		en			N		1																																																																																															1																						
+SQ	0	SQ001	1	Taxes		en																																																																																																																										
+A	0	A1		Should be lower		en																																																																																																																										
+A	0	A2		Lean towards lower		en																																																																																																																										
+A	0	A3		No strong opinion		en																																																																																																																										
+A	0	A4		Lean towards higher		en																																																																																																																										
+A	0	A5		Should be higher		en																																																																																																																										
+Q	F	MinimumWage	1	How would you describe your opinion on minimum wage laws in your country?		en			N		1																																																																																															1																						
+SQ	0	SQ001	1	Minimum Wage		en																																																																																																																										
+A	0	A1		Should be lower or eliminated		en																																																																																																																										
+A	0	A2		Lean towards lower or eliminated		en																																																																																																																										
+A	0	A3		No strong opinion		en																																																																																																																										
+A	0	A4		Lean towards higher		en																																																																																																																										
+A	0	A5		Should be higher		en																																																																																																																										
+Q	F	Feminism	1	How would you describe your opinion of feminism, as you understand the term? See also http://en.wikipedia.org/wiki/Feminism for more information		en			N		1																																																																																															1																						
+SQ	0	SQ001	1	Feminism		en																																																																																																																										
+A	0	A1		Very unfavorable		en																																																																																																																										
+A	0	A2		Unfavorable		en																																																																																																																										
+A	0	A3		No strong opinion		en																																																																																																																										
+A	0	A4		Favorable		en																																																																																																																										
+A	0	A5		Very favorable		en																																																																																																																										
+Q	F	SocialJustice	1	How would you describe your opinion of social justice, as you understand the term? See also http://en.wikipedia.org/wiki/Social_justice for more information		en			N		1																																																																																															1																						
+SQ	0	SQ001	1	Social Justice		en																																																																																																																										
+A	0	A1		Very unfavorable		en																																																																																																																										
+A	0	A2		Unfavorable		en																																																																																																																										
+A	0	A3		No strong opinion		en																																																																																																																										
+A	0	A4		Favorable		en																																																																																																																										
+A	0	A5		Very favorable		en																																																																																																																										
+Q	F	HumanBiodiversity	1	How would you  describe your opinion of the idea of "human biodiversity", as you  understand the term? No Wiki page available, but essentially it is the  belief that there are important genetic differences between human  populations and that therefore ideas generally considered racist, such  as different races having different average intelligence or personality  traits, are in fact scientifically justified		en			N		1																																																																																															1																						
+SQ	0	SQ001	1	Human Biodiversity		en																																																																																																																										
+A	0	A1		Very unfavorable		en																																																																																																																										
+A	0	A2		Unfavorable		en																																																																																																																										
+A	0	A3		No strong opinion		en																																																																																																																										
+A	0	A4		Favorable		en																																																																																																																										
+A	0	A5		Very favorable		en																																																																																																																										
+Q	F	BasicIncome	1	How would you describe your opinion of a Basic Income Guarantee in your country? See http://en.wikipedia.org/wiki/Basic_Income_Guarantee for more information.		en			N		1																																																																																															1																						
+SQ	0	SQ001	1	Basic Income		en																																																																																																																										
+A	0	A1		Strongly oppose		en																																																																																																																										
+A	0	A2		Oppose		en																																																																																																																										
+A	0	A3		No strong opinion		en																																																																																																																										
+A	0	A4		Support		en																																																																																																																										
+A	0	A5		Strongly support		en																																																																																																																										
+Q	F	GreatStagnation	1	Do you believe we  are currently in or entering a "Great Stagnation", as proposed by Tyler  Cowen and Peter Thiel, during which technological growth slows  drastically? See http://en.wikipedia.org/wiki/The_Great_Stagnation for more information		en			N		1																																																																																															1																						
+SQ	0	SQ001	1	Great Stagnation		en																																																																																																																										
+A	0	A1		Strongly doubt		en																																																																																																																										
+A	0	A2		Doubt		en																																																																																																																										
+A	0	A3		No strong opinion		en																																																																																																																										
+A	0	A4		Believe		en																																																																																																																										
+A	0	A5		Strongly believe		en																																																																																																																										
+G	G18	Calibration Questions	1	"Calibration" is the practice of knowing how certain you are, even when  you're not certain. For example, a bookie who says they're 90% certain  of the outcome of each of a hundred horse races, and who is right about  ninety out of those hundred horse races - is perfectly calibrated.  In these questions, you will be asked a question and then asked to give a  calibration percent. The percent represents your probability that the  answer is right. Suppose the question is "What country is the city of  Paris located in?" and you are absolutely sure it is France. In that  case, your calibration percent is 100 - you are 100% sure it is France.  But suppose you think there's a fifty-fifty chance it's either France or  Germany. In that case, you might still answer France, but your  calibration percent is only 50 - you are only 50% sure it's France. Or  suppose you have no idea, so you pick a country totally at random. In  that case, you might think that if there are about one hundred possible  countries, and it could be any of them, there's only about a 1% chance  you're right. Therefore, you would put down a calibration percent of 1. Please answer on a scale from 0% (definitely false) to 100% (definitely true). Do not include the percent sign in your answer. For your convenience, 0% will be interpreted as "epsilon" and 100% as "100 minus epsilon". Do **NOT** give your answer in the form of a decimal between 0 and 1 unless you deliberately mean for it to be interpreted as a very small percent. For example, 0.5 will be interpreted as 0.5%, that is, a one in two hundred chance,**NOT** as 50%. Wikipedia will be considered the authoritative source (where applicable) in case of any dispute as to the answers of these questions.		en																																																																																																																										
+Q	L	InstructionsConfirm	1	Do you understand the instructions above?		en			N		1																1																																																																															1					1																	
+A	0	1		Yes, I understand I should answer in percentages between 0 and 100		en																																																																																																																										
+A	0	2		No, I don't read instructions and am going to ruin the survey results for everyone		en																																																																																																																										
+Q	Q	CalibrationQuestions	1			en			N		1																																																																																															1			12																			
+SQ	0	1	1	Are you smiling right now? 		en																																																																																																																										
+SQ	0	2	1	Without checking a source, estimate your subjective probability that the answer you just gave is correct.		en																																																																																																																										
+SQ	0	3	1	Which is heavier, a virus or a prion? 		en																																																																																																																										
+SQ	0	4	1	Without checking a source, estimate your subjective probability that the answer you just gave is correct.		en																																																																																																																										
+SQ	0	5	1	I'm thinking of a number between one and ten, what is it? 		en																																																																																																																										
+SQ	0	6	1	Without checking a source, estimate your subjective probability that the answer you just gave is correct.		en																																																																																																																										
+SQ	0	7	1	What year was the fast food chain "Dairy Queen" founded? (Within five years)		en																																																																																																																										
+SQ	0	8	1	Without checking a source, estimate your subjective probability that the answer you just gave is correct.		en																																																																																																																										
+SQ	0	9	1	Alexander Hamilton appears on how many distinct denominations of US Currency?		en																																																																																																																										
+SQ	0	10	1	Without checking a source, estimate your subjective probability that the answer you just gave is correct.		en																																																																																																																										
+SQ	0	11	1	Without counting, how many keys on a standard IBM keyboard released after 1986, within ten? 		en																																																																																																																										
+SQ	0	12	1	Without checking a source, estimate your subjective probability that the answer you just gave is correct.		en																																																																																																																										
+SQ	0	13	1	What's the diameter of a standard soccerball, in cm within 2? 		en																																																																																																																										
+SQ	0	14	1	Without checking a source, estimate your subjective probability that the answer you just gave is correct.		en																																																																																																																										
+SQ	0	15	1	How many calories in a reese's peanut butter cup within 20?		en																																																																																																																										
+SQ	0	16	1	Without checking a source, estimate your subjective probability that the answer you just gave is correct.		en																																																																																																																										
+G	G19	Probabilities	1	Each of these questions will ask you for a probability.  Please use the same rules for this section as you did for the  probabilities above - numbers between 0 and 100, no percent sign. If you  want you may add decimals, for example 99.99.  There is no obligation to do research for these questions; this survey is long enough already and it would be incredibly painful to have to find good information about each one. If you really really want to research, you may do so using any resource EXCEPT the answers to previous Less Wrong surveys and discussion about this current Less Wrong survey.		en																																																																																																																										
+Q	K	ProbabilityQuestions	1			en			N		1																																																																																												|			1			12																			
+SQ	0	1	1	Please give the  obvious answer to this question, so I can automatically throw away all  surveys that don't follow the rules: What is the probability of a fair  coin coming up heads? 		en																																																																																																																										
+SQ	0	2	1	What is the probability that the Many Worlds interpretation of quantum mechanics is more or less correct?		en																																																																																																																										
+SQ	0	3	1	What is the probability that non-human, non-Earthly intelligent life exists in the observable universe?		en																																																																																																																										
+SQ	0	4	1	...in the Milky Way galaxy?		en																																																																																																																										
+SQ	0	5	1	What is the  probability that supernatural events (including God, ghosts, magic, etc) have occurred since the beginning of the universe?		en																																																																																																																										
+SQ	0	6	1	What is the probability that there is a god, defined as a supernatural intelligent entity who created the universe?		en																																																																																																																										
+SQ	0	7	1	What is the probability that any of humankind's revealed religions is more or less correct?		en																																																																																																																										
+SQ	0	8	1	What is the  probability that an average person cryonically frozen today will be  successfully restored to life at some future time, conditional on no  global catastrophe destroying civilization before then?		en																																																																																																																										
+SQ	0	9	1	What is the  probability that at least one person living at this moment will reach an  age of one thousand years, conditional on no global catastrophe  destroying civilization in that time?		en																																																																																																																										
+SQ	0	10	1	What is the probability that our universe is a simulation?		en																																																																																																																										
+SQ	0	11	1	What is the  probability that significant global warming is occurring or will soon  occur, and is primarily caused by human actions?		en																																																																																																																										
+SQ	0	12	1	What is the  probability that the human race will make it to 2100 without any  catastrophe that wipes out more than 90% of humanity?		en																																																																																																																										
+G	G20	Futurology	1			en																																																																																																																										
+Q	X	CryonicsText	1	Cryonics (Section Header)		en			N		1																																																																																															1					1																	
+Q	L	Cryonics	1	Are you signed up for cryonics?		en			N		1																1																																																																															1					1																	
+A	0	1		Yes - signed up or just finishing up paperwork		en																																																																																																																										
+A	0	2		No - would like to sign up but unavailable in my area		en																																																																																																																										
+A	0	3		No - would like to sign up but haven't gotten around to it		en																																																																																																																										
+A	0	4		No - would like to sign up but can't afford it		en																																																																																																																										
+A	0	5		No - still considering it		en																																																																																																																										
+A	0	6		No - and do not want to sign up for cryonics		en																																																																																																																										
+A	0	7		Never thought about it / don't understand		en																																																																																																																										
+Q	L	CryonicsNow	1	Do you think cryonics, as currently practiced by Alcor/Cryonics Institute will work?		en			N		1																1																																																																															1					1																	
+A	0	A1		Yes		en																																																																																																																										
+A	0	A2		Maybe		en																																																																																																																										
+A	0	A3		No		en																																																																																																																										
+Q	L	CryonicsPossibility	1	Do you think cryonics works in principle?		en			N		1																1																																																																															1					1																	
+A	0	A1		Yes		en																																																																																																																										
+A	0	A2		Maybe		en																																																																																																																										
+A	0	A3		No		en																																																																																																																										
+Q	X	SingularityText	1	Singularity (Section Header)		en			N		1																																																																																															1					1																	
+Q	N	SingularityYear	1	By what year do you think the Singularity will occur? Answer such that you think, conditional on the Singularity occurring, there is an even chance of the Singularity falling before or after this year. If you think a  singularity is so unlikely you don't even want to condition on it, leave this question blank.		en			N		1																																																																																															1			12																			
+Q	O	SingularityHealth	1	Have you ever made any kind of personal health change with the goal of living to see the singularity? (If multiple please separate with commas.)		en			N		1																																																																																															1																						
+SQ	0	comment	1	Comment		en																																																																																																																										
+A	0	A1		Yes (Please write in what below.)		en																																																																																																																										
+A	0	A2		No		en																																																																																																																										
+Q	X	SuperbabiesText	1	Superbabies (Section Header)		en			N		1																																																																																															1					1																	
+Q	Y	ModifyOffspring	1	Would you ever consider having your child genetically modified for any reason?		en			N		1																																																																																															1																						
+Q	L	GeneticTreament	1	Would you be willing to have your child genetically modified to prevent them from getting an inheritable disease?		en			N		1																1																																																																															1					1																	
+A	0	A1		Yes		en																																																																																																																										
+A	0	A2		Depends on the disease		en																																																																																																																										
+A	0	A3		No		en																																																																																																																										
+Q	L	GeneticImprovement	1	Would you be willing to have your child genetically modified for improvement purposes? (eg. To heighten their intelligence or reduce their risk of schizophrenia.)		en			N		1																1																																																																															1					1																	
+A	0	1		Yes 		en																																																																																																																										
+A	0	2		Maybe a little		en																																																																																																																										
+A	0	3		Depends on the strength of the improvements		en																																																																																																																										
+A	0	4		No		en																																																																																																																										
+Q	L	GeneticCosmetic	1	Would you be willing to have your child genetically modified for cosmetic reasons? (eg. To make them taller or have a certain eye color.)		en			N		1																1																																																																															1					1																	
+A	0	1		Yes		en																																																																																																																										
+A	0	2		Maybe a little		en																																																																																																																										
+A	0	3		Depends on the strength of the improvements		en																																																																																																																										
+A	0	4		No		en																																																																																																																										
+Q	L	GeneticOpinionD	1	What's your overall opinion of other people genetically modifying their children for disease prevention purposes?		en			N		1																1																																																																															1					1																	
+A	0	1		Positive		en																																																																																																																										
+A	0	2		Mostly Positive		en																																																																																																																										
+A	0	3		No strong opinion		en																																																																																																																										
+A	0	4		Mostly Negative		en																																																																																																																										
+A	0	5		Negative		en																																																																																																																										
+Q	L	GeneticOpinionI	1	What's your overall opinion of other people genetically modifying their children for improvement purposes?		en			N		1																1																																																																															1					1																	
+A	0	1		Positive		en																																																																																																																										
+A	0	2		Mostly Positive		en																																																																																																																										
+A	0	3		No strong opinion		en																																																																																																																										
+A	0	4		Mostly Negative		en																																																																																																																										
+A	0	5		Negative		en																																																																																																																										
+Q	L	GeneticOpinionC	1	What's your overall opinion of other people genetically modifying their children for cosmetic reasons?		en			N		1																1																																																																															1					1																	
+A	0	1		Positive		en																																																																																																																										
+A	0	2		Mostly Positive		en																																																																																																																										
+A	0	3		No strong opinion		en																																																																																																																										
+A	0	4		Mostly Negative		en																																																																																																																										
+A	0	5		Negative		en																																																																																																																										
+G	G21	Technological Unemployment (Futurology Part 2)	1			en																																																																																																																										
+Q	Y	LudditeFallacy	1	Do you think the <a href="https://en.wikipedia.org/wiki/Luddite_fallacy#The_Luddite_fallacy">Luddite's Fallacy</a> is an actual fallacy?		en			N		1																																																																																															1																						
+Q	N	UnemploymentYear	1	By what year do you think the majority of people in your country will have trouble finding employment for automation related reasons? If you think this is something that will never happen leave this question blank.		en			N		1																																																																																															1			12																			
+Q	Y	EndOfWork	1	Do you think the "end of work" would be a good thing?		en			N		1																																																																																															1																						
+Q	M	EndOfWorkConcerns	1	If machines end all or almost all employment, what are your biggest worries? Pick two.		en			Y		1							1									1																																																																															1																						
+SQ	0	1	1	People will just idle about in destructive ways		en																																																																																																																										
+SQ	0	2	1	People need work to be fulfilled and if we eliminate work we'll all feel deep existential angst		en																																																																																																																										
+SQ	0	3	1	The rich are going to take all the resources for themselves and leave the rest of us to starve or live in poverty		en																																																																																																																										
+SQ	0	4	1	The machines won't need us, and we'll starve to death or be otherwise liquidated		en																																																																																																																										
+SQ	0	other	1	Other		en																																																																																																																										
+Q	X	XRiskTextDisplay	1	The next question isn't exactly related to technological unemployment, but making a part three for one question seemed impractical.		en			N		1																																																																																															1					1																	
+Q	L	XRiskType	1	Which disaster do you think is most likely to wipe out greater than 90% of humanity before the year 2100?		en			Y		1																1																																																																															1					1																	
+SQ	0	other	1	Other		en																																																																																																																										
+A	0	1		Nuclear war		en																																																																																																																										
+A	0	2		Asteroid strike		en																																																																																																																										
+A	0	3		Unfriendly AI		en																																																																																																																										
+A	0	4		Nanotech / grey goo		en																																																																																																																										
+A	0	5		Pandemic (natural)		en																																																																																																																										
+A	0	6		Pandemic (bioengineered)		en																																																																																																																										
+A	0	7		Environmental collapse (including global warming)		en																																																																																																																										
+A	0	8		Economic / political collapse		en																																																																																																																										
+G	G22	Charity (Bonus Section)	1			en																																																																																																																										
+Q	N	Income	1	What is your approximate annual income in US dollars (non-Americans: convert at www.xe.com)? Obviously you don't need to answer this question if you don't want to. Please don't include commas or dollar signs.		en			N		1																																																																																															1			12																			
+Q	N	IncomeCharityPortion	1	How much money, in number of dollars, have you donated to charity over the past year? (non-Americans: convert to dollars at http://www.xe.com/ ). Please don't include commas or dollar signs in your answer. For example, 4000		en			N		1																																																																																															1			12																			
+Q	N	XriskCharity	1	How much money have you donated to charities aiming to reduce existential risk (other than MIRI/CFAR) in the past year?		en			N		1																																																																																															1			12																			
+Q	K	CharityDonations	1	How much have you donated in US dollars to the following charities in the past year? (Non-americans: convert to dollars at http://www.xe.com/) Please don't include commas or dollar signs in your answer. Options starting with "any" aren't the name of a charity but a category of charity.		en			N		1																																																																																												|			1			12																			
+SQ	0	1	1	Against Malaria Foundation		en																																																																																																																										
+SQ	0	2	1	Schistosomiasis Control Initiative		en																																																																																																																										
+SQ	0	3	1	Deworm the World Initiative 		en																																																																																																																										
+SQ	0	4	1	GiveDirectly		en																																																																																																																										
+SQ	0	5	1	Any kind of animal rights charity		en																																																																																																																										
+SQ	0	6	1	Any kind of bug rights charity		en																																																																																																																										
+SQ	0	7	1	Machine Intelligence Research Institute		en																																																																																																																										
+SQ	0	8	1	Any charity combating nuclear existential risk		en																																																																																																																										
+SQ	0	9	1	Any charity combating global warming		en																																																																																																																										
+SQ	0	10	1	Center For Applied Rationality		en																																																																																																																										
+SQ	0	11	1	Strategies for Engineered Negligible Senescence Research Foundation		en																																																																																																																										
+SQ	0	12	1	Wikipedia		en																																																																																																																										
+SQ	0	13	1	Internet Archive		en																																																																																																																										
+SQ	0	14	1	Any campaign for political office		en																																																																																																																										
+SQ	0	15	1	Other		en																																																																																																																										
+Q	L	Vegetarian	1	Do you follow any dietary restrictions related to animal products?		en			N		1																1																																																																															1					1																	
+A	0	1		Yes, I am vegan		en																																																																																																																										
+A	0	2		Yes, I am vegetarian		en																																																																																																																										
+A	0	3		Yes, I restrict meat some other way (pescetarian, flexitarian, try to only eat ethically sourced meat)		en																																																																																																																										
+A	0	4		No		en																																																																																																																										
+G	G23	Wrapping Up	1			en																																																																																																																										
+Q	Y	PreviousSurvey	1	Have you taken a previous LessWrong Survey?		en			N		1																																																																																															1																						
+Q	S	EmailAddress	1	Would you like to be put on a mailing list to hear about future developments in revitalizing LessWrong or new 'rationalist' communities? If yes put in your email address below. (This is optional and will not be published in the public survey results.)		en			N		1																																								300		500	11																																																				1	1		12		1																	
