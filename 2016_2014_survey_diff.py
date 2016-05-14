@@ -29,7 +29,7 @@ def diff_diffable(diffable):
     diff_num_strs = [conv("%.3f" % num) for num in diff_nums]
     outline_nums = [' '.join([str(value) for value in outline]) 
                     for outline in tuple(zip(diff_num_strs, totals, percentages))]
-    outlines = [': '.join(outline) for outline in zip(labels, outline_nums)]
+    outlines = [': '.join(outline) + "  " for outline in zip(labels, outline_nums)]
     return '\n'.join(outlines)
 
 [print(diff_diffable(diffable), end="\n\n") for diffable in diffables]  
