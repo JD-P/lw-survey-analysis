@@ -20,16 +20,13 @@ def diff_diffable(diffable):
     c2014 = [float(line.split(":")[1].strip().split()[1][:-1]) / 100 
              for line in d2014.split("\n") if line]
     diff_nums = (np.array(c2016) - np.array(c2014)) * 100
-    diff_nums = [round(diff_num, 3) for diff_num in diff_nums]
     totals = [line.split(":")[1].strip().split()[0] 
               for line in d2016.split("\n") if line]
-    percentages = [
-        str(
-            round(
-                float(line.split(":")[1].strip().split()[1][:-1]) * 100, 3)) + "%"
+    percentages = [("%.3f" % 
+                   (float(line.split(":")[1].strip().split()[1]) * 100)) + "%"
                    for line in d2016.split("\n") if line]
     conv = lambda s: "+" + s + "%" if float(s) > 0 else s + "%"
-    diff_num_strs = [conv(str(num)) for num in diff_nums]
+    diff_num_strs = [conv("%.3f" % num) for num in diff_nums]
     outline_nums = [' '.join([str(value) for value in outline]) 
                     for outline in tuple(zip(diff_num_strs, totals, percentages))]
     outlines = [': '.join(outline) for outline in zip(labels, outline_nums)]
