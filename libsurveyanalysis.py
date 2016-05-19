@@ -387,17 +387,17 @@ def analyze_key(key, connection, structure, conditions, view, no_null=False):
             cursor.execute("select " + code + " from " + view + ";")
             subquestion_rows = cursor.fetchall()
             data = [value[0] for value in subquestion_rows if value[0]]
-            key_printout +=("Sum:" + str(sum(data)) + end)
+            key_printout +=("Sum:" + " " + str(sum(data)) + end)
             try:
-                key_printout +=("Mean:" + str(statistics.mean(data)) + end)
+                key_printout +=("Mean:" + " " + str(statistics.mean(data)) + end)
             except statistics.StatisticsError:
                 key_printout +=("Mean: No datapoints in set.")
             try:
-                key_printout +=("Median:"+ str(statistics.median(data)) + end)
+                key_printout +=("Median:"+ " " + str(statistics.median(data)) + end)
             except statistics.StatisticsError:
                 key_printout +=("Mode: No datapoints in set.")
             try:
-                key_printout +=("Mode:" + str(statistics.mode(data)) + end)
+                key_printout +=("Mode:" + " " + str(statistics.mode(data)) + end)
             except statistics.StatisticsError:
                 key_printout +=("Mode:" + "All values found equally likely." + end)
     elif question_data["dtype"] == "5":
