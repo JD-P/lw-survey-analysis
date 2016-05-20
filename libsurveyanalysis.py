@@ -236,6 +236,10 @@ def analyze_key(key, connection, structure, conditions, view, no_null=False):
             key_printout +=("Mode: " + str(statistics.mode(data)) + end)
         except statistics.StatisticsError:
             key_printout +=("Mode: " + "All values found equally likely." + end)
+        try:
+            key_printout +=("Stdev: " + str(statistics.stdev(data)) + end)
+        except statistics.StatisticsError:
+            key_printout +=("Stdev: Couldn't calculate standard deviation.")
     elif question_data["dtype"] == "Y":
         # Binary Question
         answers = ("Yes", "No")
@@ -402,6 +406,10 @@ def analyze_key(key, connection, structure, conditions, view, no_null=False):
                 key_printout +=("Mode:" + " " + str(statistics.mode(data)) + end)
             except statistics.StatisticsError:
                 key_printout +=("Mode:" + "All values found equally likely." + end)
+            try:
+                key_printout +=("Stdev: " + str(statistics.stdev(data)) + end)
+            except statistics.StatisticsError:
+                key_printout +=("Stdev: Couldn't calculate standard deviation.")
     elif question_data["dtype"] == "5":
         # Five point rating scale
         answers = (1.0, 2.0, 3.0, 4.0, 5.0)
