@@ -20,13 +20,15 @@ groups = structure.groups()
 keys = sum([group[1] for group in groups], [])
 view = "data"
 
-conditions = (["(age > 0 AND age <= 122)",
-               "(65 < IQ AND IQ < 250)",
-               "(SAT <= 1600 AND SAT > 0)",
-               "(SAT2 <= 2400 AND SAT2 > 0)",
-               "(ACT <= 36 AND ACT > 0)"] + 
-              ["(ProbabilityQuestions_{} >=0".format(str(i + 1)) +
-               "AND ProbabilityQuestions_{} <= 100)".format(str(i + 1)) 
+conditions = (["((age > 0 AND age <= 122) OR (age IS NULL) OR (age = 'N/A'))",
+               "((65 < IQ AND IQ < 250) OR (IQ IS NULL) OR (IQ = 'N/A'))",
+               "((SAT <= 1600 AND SAT > 0) OR (SAT IS NULL) OR (SAT ='N/A'))",
+               "((SAT2 <= 2400 AND SAT2 > 0) OR (SAT2 IS NULL) OR (SAT2 = 'N/A'))",
+               "((ACT <= 36 AND ACT > 0) OR (ACT IS NULL) OR (ACT = 'N/A'))"] + 
+              ["((ProbabilityQuestions_{} >=0 ".format(str(i + 1)) +
+               "AND ProbabilityQuestions_{} <= 100)".format(str(i + 1)) +
+               " OR (ProbabilityQuestions_{} IS NULL)".format(str(i + 1)) + 
+               " OR (ProbabilityQuestions_{} = 'N/A'))".format(str(i + 1))
                for i in range(12)])
     
 if arguments.filter:
@@ -41,6 +43,13 @@ else:
 def replace(num_match):
     num_string = num_match.group()
     return " " + str(round(float(num_string) * 100, 3)) + "%\n"
+
+cursor.execute("select count(*) from data;")
+total_respondents = cursor.fetchone()[0]
+cursor.execute("select count(*) from " + view + ";")
+sample_size = cursor.fetchone()[0]
+print("Total survey respondents:", total_respondents)
+print("Respondent surveys used:", sample_size, end="\n\n")
 
 output = re.sub(" (0\.[0-9]+)\n| (0\.[0-9]+)\n", 
                 replace, output)
