@@ -39,6 +39,7 @@ print("<tr>\n",
       "<th>Worried</th>\n",
       "<th>Worried But They Worry About Everything</th>\n",
       "<th>Combined Worry</th>\n",
+      "<td>Sample Size</th>=n",
       "</tr>\n")
 
 cursor.execute("SELECT count(*) FROM data WHERE BasiliskAnxiety NOT NULL;")
@@ -53,7 +54,8 @@ print("  <tr>\n")
 print("    <td>Baseline</td>\n",
       "    <td>{}%</td>\n".format(str(round(base_yes / sample_size,3) * 100)),
       "    <td>{}%</td>\n".format(str(round(base_yes_but / sample_size,3) * 100)),
-      "    <td>{}%</td>\n".format(str(round((base_yes + base_yes_but) / sample_size,3) * 100)))
+      "    <td>{}%</td>\n".format(str(round((base_yes + base_yes_but) / sample_size,3) * 100)),
+      "    <td>{}</td>\n".format(sample_size))
 print("  </tr>\n")
 
 mental_health_keys = ["ASD", "OCD", "AnxietyDisorder", "Schizophrenia"]
@@ -75,7 +77,8 @@ for key in mental_health_keys:
     print("    <td>{}</td>\n".format(key),
           "    <td>{}%</td>\n".format(str(round(key_yes_count / sample_size,3) * 100)),
           "    <td>{}%</td>\n".format(str(round(key_yes_base_rate_count / sample_size,3) * 100)),
-          "    <td>{}%</td>\n".format(str(round(combined_count / sample_size,3) * 100)))
+          "    <td>{}%</td>\n".format(str(round(combined_count / sample_size,3) * 100)),
+          "    <td>{}</td>\n".format(sample_size))
     print("  </tr>\n")
 print("</table>")
 
