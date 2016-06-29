@@ -57,7 +57,19 @@ for row in cursor.fetchall():
 affiliations = list(set(affiliations))
 affiliations.sort()
 print(end="\n")
-print("Charity donations by political affilation:", end="\n")
+print("<table>\n")
+print("<caption>\n", 
+      "Charity Donations By Political Affilation",
+      "</caption>\n")
+print("<tr>\n")
+print("<th>Affiliation</th>\n")
+print("<th>Income</th>\n")
+print("<th>Charity Contributions</th>\n")
+print("<th>% Income Donated To Charity</th>\n")
+print("<th>Total Survey Charity %</th>\n")
+print("<th>Sample Size</th>\n")
+print("</tr>\n")
+
 for affiliation in affiliations:
     cursor.execute("select " + ",".join(keys) 
                    + " from data where ComplexAffiliation == ?;", (affiliation,))
@@ -81,16 +93,18 @@ for affiliation in affiliations:
                     affil_charity += charity
     if len(affil_rows) < arguments.restricted:
         continue
-    print(end="\n")
-    print("Sample size:", len(affil_rows)) # Naive sample size
     # ^ A better version would only count those members who actually answered the
     # charity section.
-    print("Total income for political affiliation '" + affiliation + "':", affil_income)
-    print("Total charity contributions for political affiliation '" 
-          + affiliation + "':", affil_charity)
-    print("Fraction of income donated to charity:", affil_charity / affil_income)
-    print("Portion of total charity contributions for all survey respondents:",
-          affil_charity / charity_total)
+    print("<tr>\n")
+    print("<td>{}</td>\n".format(affiliation))
+    print("<td>{}</td>\n".format(affil_income))
+    print("<td>{}</td>\n".format(affil_charity))
+    print("<td>{}%</td>\n".format(round((affil_charity / affil_income) * 100, 3)))
+    print("<td>{}%</td>\n".format(round((affil_charity / charity_total) * 100, 3)))
+    print("<td>{}</td>\n".format(len(affil_rows))) # Naive sample size
+    print("</tr>\n")
+print("</table>\n")
+
 #Sanity checking the above figures, if sanity check flag is on
 if arguments.sanity:
     # We start by creating lists of the values in each column which we can perform
@@ -299,21 +313,34 @@ def calc_con_by_community(condition):
         counts[i] = (community_name, sample_size, condition_count)
     return counts
 
+print("<table>\n")
+print("<caption>",
+      "Number Of Effective Altruists In The Diaspora Communities",
+      "</caption>\n")
+print("<tr>\n")
+print("<th>Community</th>\n")
+print("<th>Count</th>\n")
+print("<th>% In Community</th>\n")
+print("<th>Sample Size</th>\n")
+print("</tr>\n")
+
 EA_communities = calc_con_by_community('EAIdentity="Yes"')
-print("Number of Effective Altruists in the diaspora communities:", end="\n\t")
+
 for community in sorted(EA_communities.keys()):
     (community_name, sample_size, EAs) = EA_communities[community]
     if sample_size >= arguments.restricted:
-        print("Sample Size:", sample_size, end="\n\t\t")
+        pass
     else:
         continue
-    print(community_name + ":", EAs, end="\n\t\t")
-    print("Fraction of Effective Altruists in", community_name + ":",
-          EAs / sample_size, end="\n\n\t")
-print("\n")
+    print("<tr>\n")
+    print("<td>{}</td>\n".format(community_name))
+    print("<td>", EAs, "</td>\n")
+    print("<td>{}%</td>\n".format(round((EAs / sample_size) * 100, 3)))
+    print("<td>{}</td>\n".format(sample_size))
+    print("</tr>\n")
+print("</table>\n")
 
 # EA versus political affiliation
-print("Effective Altruist donations by political affiliation:",end="\n\t")
 # EA Donation statistics by political affiliation
 cursor.execute("select ComplexAffiliation from data;")
 # Concatenate the single valued rows, grab their unique values with set() and then
@@ -324,6 +351,18 @@ for row in cursor.fetchall():
         affiliations += row
 affiliations = list(set(affiliations))
 affiliations.sort()
+
+print("<table>\n")
+print("<caption>", 
+      "Effective Altruist Donations By Political Affiliation",
+      "</caption>\n")
+print("<tr>\n")
+print("<th>Affiliation</th>\n")
+print("<th>EA Income</th>\n")
+print("<th>EA Charity</th>\n")
+print("<th>Sample Size</th>\n")
+print("</tr>\n")
+
 for affiliation in affiliations:
     cursor.execute("select " + ",".join(keys) 
                    + ' from data where ComplexAffiliation == ? ' + 
@@ -348,11 +387,15 @@ for affiliation in affiliations:
                     affil_charity += charity
     if len(affil_rows) < arguments.restricted:
         continue
-    print("Sample size:", len(affil_rows), end="\n\t\t") # Naive sample size
+    
     # ^ A better version would only count those members who actually answered the
     # charity section.
-    print("Total EA income for political affiliation '" + affiliation + 
-          "':", affil_income, end="\n\t\t")
-    print("Total EA charity contributions for political affiliation '" 
-          + affiliation + "':", affil_charity, end="\n\n\t")
+    print("<tr>\n")
+    print("<td>{}</td>\n".format(affiliation))
+    print("<td>{}</td>\n".format(affil_income))
+    print("<td>{}</td>\n".format(affil_charity))
+    print("<td>{}</td>\n".format(len(affil_rows)))# Naive sample size
+    print("</tr>\n")
+print("</table>")
+
 # EA and Xrisk
