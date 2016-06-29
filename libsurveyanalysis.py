@@ -197,6 +197,16 @@ def _count_answers(rows, question_data, cursor, view, no_null=False):
         answers_dict[subquestion["label"]] = (count, fraction)
     return answers_dict
 
+class Report:
+    """Create a general analysis report of the survey results.
+
+    The report is structured as a set of dictionary keys to which individual
+    survey results are attached."""
+    def __init__(self, structure, sample_size):
+        self._report_dict = {}.fromkeys(structure.keys())
+        self._report_dict["sample_size"] = sample_size
+            
+
 def analyze_key(key, connection, structure, conditions, view, no_null=False):
     """The core of general_analysis.py packed into a reusable function. Returns
     the printable representation of the key analysis.
@@ -204,15 +214,9 @@ def analyze_key(key, connection, structure, conditions, view, no_null=False):
     key - The key to analyze.
     connection - The database connection to pull rows from.
     structure - The survey structure file to use."""
-    key_printout = ""
     cursor = connection.cursor()
     question_data = structure[key]
-    end = "\n\t"
-    if question_data["label"]:
-        key_printout +=(question_data["label"] + ":" + end)
-    else:
-        key_printout +=(key + ":" + end)
-    end = "\n\t\t"
+    result = {}
     if question_data["dtype"] == "N":
         # Numeric question. eg. Age.
         if key in conditions:
@@ -223,23 +227,23 @@ def analyze_key(key, connection, structure, conditions, view, no_null=False):
         data_wrapped = cursor.fetchall()
         data = [float(value[0]) for value in data_wrapped if value[0]]
 
-        key_printout +=("Sum: " + str(sum(data)) + end)
+        result["sum"] = sum(data)
         try:
-            key_printout +=("Mean: " + str(statistics.mean(data)) + end)
+            result["mean"] = statistics.mean(data)
         except statistics.StatisticsError:
-            key_printout +=("Mean: No datapoints in set.")
+            result["mean"] = None
         try:
-            key_printout +=("Median: " + str(statistics.median(data)) + end)
+            result["median"] = statistics.median(data)
         except statistics.StatisticsError:
-            key_printout +=("Median: No datapoints in set.")
+            result["median"] = None
         try:
-            key_printout +=("Mode: " + str(statistics.mode(data)) + end)
+            result["mode"] = statistics.mode(data)
         except statistics.StatisticsError:
-            key_printout +=("Mode: " + "All values found equally likely." + end)
+            result["mode"] = None
         try:
-            key_printout +=("Stdev: " + str(statistics.stdev(data)) + end)
+            result["stdev"] = statistics.stdev(data)
         except statistics.StatisticsError:
-            key_printout +=("Stdev: Couldn't calculate standard deviation.")
+            result["stdev"] = None
     elif question_data["dtype"] == "Y":
         # Binary Question
         answers = ("Yes", "No")
@@ -249,21 +253,15 @@ def analyze_key(key, connection, structure, conditions, view, no_null=False):
             data = [value[0] for value in question_rows if value[0] and 
                     value[0] != "N/A"]
             for answer in answers:
-                key_printout +=(answer + ": " +
-                      str(data.count(answer)) + " " + 
-                      str(round(data.count(answer) / len(data), 3))
-                      + end)
+                result[answer + "_count"] = data.count(answer)
+                result[answer + "_fraction"] = data.count(answer) / len(data)
         else:
             data = [value[0] for value in question_rows]
             for answer in answers:
-                key_printout +=(answer + ": " +
-                      str(data.count(answer)) + " " + 
-                      str(round(data.count(answer) / len(data), 3))
-                      + end)
-            key_printout +=("N/A: " +
-                  str(data.count("N/A")) + " " + 
-                  str(round(data.count("N/A") / len(data), 3))
-                  + end)
+                result[answer + "_count"] = data.count(answer)
+                result[answer + "_fraction"] = data.count(answer) / len(data)
+            result["N/A_count"] = data.count("N/A") 
+            result["N/A_fraction"] = data.count("N/A") / len(data)
     elif question_data["dtype"] == "L":
         # Radio button
         answers = question_data["answers"]
@@ -274,28 +272,33 @@ def analyze_key(key, connection, structure, conditions, view, no_null=False):
                                           cursor, view, True)
             for answer in answers:
                 (count, fraction) = answer_counts[answer["label"]]
-                key_printout += (answer["label"] + ":" + " " + str(count) + " " + str(fraction) + end)
+                result[answer["label"] + "_count"] = count 
+                result[answer["label"] + "_fraction"] = fraction
             for subquestion in question_data["sub_questions"]:
                 (count, fraction) = answer_counts[subquestion["label"]]
-                key_printout += (subquestion["label"] + ":" + " " + str(count) + " " + str(fraction) + end)
+                result[subquestion["label"] + "_count"] = count 
+                result[subquestion["label"] + "_fraction"] = fraction
         else:
             answer_counts = _count_answers(question_rows, question_data, cursor, view)
             for answer in answers:
                 (count, fraction) = answer_counts[answer["label"]]
-                key_printout += (answer["label"] + ":" + " " + str(count) + " " + str(fraction) + end)
+                result[answer["label"] + "_count"] = count
+                result[answer["label"] + "_fraction"] = fraction
             for subquestion in question_data["sub_questions"]:
                 (count, fraction) = answer_counts[subquestion["label"]]
-                key_printout += (subquestion["label"] + ":" + " " + str(count) + " " + str(fraction) + end)
+                result[subquestion["label"] + "_count"] = count 
+                result[subquestion["label"] + "_fraction"] = fraction
             if "N/A" in answer_counts:
                 (count, fraction) = answer_counts["N/A"]
-                key_printout +=("N/A:" + " " + str(count) + " " + str(fraction) + end)
+                result["N/A_count"] =  count
+                result["N/A_fraction"] = fraction
             else:
                 (count, fraction) = answer_counts[None]
-                key_printout +=("None:" + " " + str(count) + " " + str(fraction) + end)
+                result["None_count"] count 
+                result["None_fraction"] = fraction
     elif question_data["dtype"] == "M":
         # Multiple choice with checkbox/binary answers
         for subquestion in question_data["sub_questions"]:
-            key_printout += (subquestion["label"] + ":" + end)
             code = question_data["code"] + "_" + subquestion["code"]
             cursor.execute("select " + code + " from " + view + ";")
             subquestion_rows = cursor.fetchall()
@@ -306,8 +309,10 @@ def analyze_key(key, connection, structure, conditions, view, no_null=False):
                     data.count("Yes") / len(data),
                     data.count("No"),
                     data.count("No") / len(data))
-                key_printout +=("Yes: " + str(count1) + " " + str(fraction1) + end)
-                key_printout +=("No: " + str(count2) + " " + str(fraction2) + end)
+                result[subquestion["label"] + "_yes_count"] = count1
+                result[subquestion["label"] + "_yes_fraction"] = fraction1
+                result[subquestion["label"] + "_no_count"] = count2 
+                result[subquestion["label"] + "_no_fraction"] = fraction2
             else:
                 data = [value[0] for value in subquestion_rows]
                 (count1, fraction1, 
@@ -319,9 +324,13 @@ def analyze_key(key, connection, structure, conditions, view, no_null=False):
                      data.count("No") / len(data),
                      data.count("N/A"),
                      data.count("N/A") / len(data))
-                key_printout +=("Yes: " + str(count1) +  " " + str(fraction1) + end)
-                key_printout +=("No: " + str(count2) + " " + str(fraction2) + end)
-                key_printout +=("N/A: " + str(count3) + " " + str(fraction3) + end)
+                result[subquestion["label"] + "_yes_count"] = count1 
+                result[subquestion["label"] + "_yes_fraction"] = fraction1
+                result[subquestion["label"] + "_no_count"] = count2
+                result[subquestion["label"] + "_no_fraction"] = fraction2
+                result[subquestion["label"] + "_na_count"] = count3
+                result[subquestion["label"] + "_na_fraction"] = fraction3
+                
     elif question_data["dtype"] == "F":
         # Multiple choice with multiple answers
         for subquestion in question_data["sub_questions"]:
@@ -337,7 +346,7 @@ def analyze_key(key, connection, structure, conditions, view, no_null=False):
                         data.count(answer["label"]),
                         data.count(answer["label"]) / len(data)
                     )
-                    key_printout += (answer["label"] + ":" + " " + str(count) + " " + str(fraction) + end)
+                    result[answer["label"] count fraction
             else:
                 data = [value[0] for value in subquestion_rows]
                 for answer in answers:
@@ -345,7 +354,7 @@ def analyze_key(key, connection, structure, conditions, view, no_null=False):
                         data.count(answer["label"]),
                         data.count(answer["label"]) / len(data)
                     )
-                    key_printout += (answer["label"] + ":" + " " + str(count) + " " + str(fraction) + end)
+                    result[answer["label"] count fraction
                 if "N/A" in data:
                     (count, fraction) = (
                         data.count("N/A"),
@@ -437,10 +446,11 @@ def analyze_keys(keys, connection, structure, conditions, view, no_null=False):
     subquestions. You can get a list of such keys using the .keys() call of a 
     survey structure object."""
     full_printout = ""
+    report = {}.fromkeys(structure.keys())
     for group in structure.groups():
         group_keys = group[1]
         for key in group_keys:
             if key in keys:
-                full_printout += analyze_key(key, connection, structure, 
-                                             conditions, view, no_null=no_null)
-    return full_printout
+                report["key"] = analyze_key(key, connection, structure, 
+                                            conditions, view, no_null=no_null)
+    return report
