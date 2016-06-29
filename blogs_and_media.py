@@ -16,6 +16,20 @@ arguments = parser.parse_args()
 db_conn = sqlite3.connect(arguments.database)
 cursor = db_conn.cursor()
 
+conditions = (["((age > 0 AND age <= 122) OR (age IS NULL) OR (age = 'N/A'))",
+               "((65 < IQ AND IQ < 250) OR (IQ IS NULL) OR (IQ = 'N/A'))",
+               "((SAT <= 1600 AND SAT > 0) OR (SAT IS NULL) OR (SAT ='N/A'))",
+               "((SAT2 <= 2400 AND SAT2 > 0) OR (SAT2 IS NULL) OR (SAT2 = 'N/A'))",
+               "((ACT <= 36 AND ACT > 0) OR (ACT IS NULL) OR (ACT = 'N/A'))"] + 
+              ["((ProbabilityQuestions_{} >=0 ".format(str(i + 1)) +
+               "AND ProbabilityQuestions_{} <= 100)".format(str(i + 1)) +
+               " OR (ProbabilityQuestions_{} IS NULL)".format(str(i + 1)) + 
+               " OR (ProbabilityQuestions_{} = 'N/A'))".format(str(i + 1))
+               for i in range(12)])
+    
+cursor.execute("CREATE TEMP VIEW filtered AS select * from data where " +
+               ' AND '.join(conditions) + ";")
+
 keys = ["Age","BirthSex","Gender","Country","Race","SexualOrientation",
         "Asexuality","RelationshipStyle","NumberPartners","RelationshipGoals",
         "Married","LivingWith","Children","MoreChildren","WorkStatus_1",
@@ -56,7 +70,7 @@ stories_read_answers = {"Whole Thing":1,
                         None:0}
 
 
-cursor.execute("select " + ','.join(keys) + " from data;")
+cursor.execute("select " + ','.join(keys) + " from filtered;")
 
 rows = cursor.fetchall()
 observations = rows[:]
@@ -67,7 +81,7 @@ filtered_columns = [field[1] for field in enumerate(columns)
 
 conversion_dict = {}.fromkeys(columns, None)
 for column in filtered_columns:
-    cursor.execute("select distinct " + column + " from data;")
+    cursor.execute("select distinct " + column + " from filtered;")
     answers = [value[0] for value in cursor.fetchall() if value[0]]
     try:
         answers[0]
