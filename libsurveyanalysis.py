@@ -199,7 +199,7 @@ def _count_answers(rows, question_data, cursor, view, no_null=False):
 
 
 def _count_answers(data, answer_set):
-    """Return the count, fraction of all answers, for each given answer in a an
+    """Return the count, fraction of all answers, for each given answer in an
     answer set."""
     return_set = {}
     for answer in answer_set:
@@ -476,7 +476,6 @@ def analyze_keys(keys, connection, structure, conditions, view, no_null=False):
     you would just give "ExampleKey" and let the analysis program handle 
     subquestions. You can get a list of such keys using the .keys() call of a 
     survey structure object."""
-    full_printout = ""
     report = {}.fromkeys(structure.keys())
     for group in structure.groups():
         group_keys = group[1]
