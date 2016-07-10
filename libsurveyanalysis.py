@@ -197,36 +197,51 @@ def _count_answers(rows, question_data, cursor, view, no_null=False):
         answers_dict[subquestion["label"]] = (count, fraction)
     return answers_dict
 
-class Report:
-    """Create a general analysis report of the survey results.
 
-    The report is structured as a set of dictionary keys to which individual
-    survey results are attached."""
-    def __init__(self, structure, sample_size):
-        self._report_dict = {}.fromkeys(structure.keys())
-        self._report_dict["sample_size"] = sample_size
-            
+def _count_answers(data, answer_set):
+    """Return the count, fraction of all answers, for each given answer in a an
+    answer set."""
+    return_set = {}
+    for answer in answer_set:
+        return_set[answer] = []
+        return_set[answer].append(data.count(answer))
+        return_set[answer].append(data.count(answer) / len(data))
 
-def analyze_key(key, connection, structure, conditions, view, no_null=False):
-    """The core of general_analysis.py packed into a reusable function. Returns
-    the printable representation of the key analysis.
+class KeyAnalyzer:
+    def __init__(self, connection, structure, conditions, view, no_null=False):
+        self._connection = connection
+        self._structure = structure
+        self._conditions = conditions
+        self._view = view
+        self._no_null = no_null
+        
+    def analyze_key(key):
+        """The core of general_analysis.py packed into a reusable function. Returns
+        the printable representation of the key analysis.
 
-    key - The key to analyze.
-    connection - The database connection to pull rows from.
-    structure - The survey structure file to use."""
-    cursor = connection.cursor()
-    question_data = structure[key]
-    result = {}
-    if question_data["dtype"] == "N":
-        # Numeric question. eg. Age.
-        if key in conditions:
-            condition = conditions[key]
+        key - The key to analyze.
+        connection - The database connection to pull rows from.
+        structure - The survey structure file to use."""
+        cursor = self._connection.cursor()
+        question_data = self._structure[key]
+        result = {}
+        if question_data["dtype"] == "!":
+            analyzer = getattr(self, "_analyze_exclamation")
+        else:
+            analyzer = getattr(self, "_analyze_" + question_data["dtype"])
+        if key in self._conditions:
+            condition = self._conditions[key]
+        return analyzer(key, self._view, condition, cursor)
+    
+    def _analyze_N(self, key, view, question_data, cursor, condition=False,
+                   no_null=False):
+        """Analyze a numeric question. eg. Age."""
+        if condition:
             cursor.execute("select " + key + " from " + view  + " " + condition + ";")
         else:
             cursor.execute("select " + key + " from " + view + ";")
         data_wrapped = cursor.fetchall()
         data = [float(value[0]) for value in data_wrapped if value[0]]
-
         result["sum"] = sum(data)
         try:
             result["mean"] = statistics.mean(data)
@@ -244,8 +259,11 @@ def analyze_key(key, connection, structure, conditions, view, no_null=False):
             result["stdev"] = statistics.stdev(data)
         except statistics.StatisticsError:
             result["stdev"] = None
-    elif question_data["dtype"] == "Y":
-        # Binary Question
+        return result
+            
+    def _analyze_Y(self, key, view, question_data, cursor, condition=False,
+                   no_null=False):
+        """Analyze a binary yes or no question."""
         answers = ("Yes", "No")
         cursor.execute("select " + key + " from " + view + ";")
         question_rows = cursor.fetchall()
@@ -262,8 +280,11 @@ def analyze_key(key, connection, structure, conditions, view, no_null=False):
                 result[answer + "_fraction"] = data.count(answer) / len(data)
             result["N/A_count"] = data.count("N/A") 
             result["N/A_fraction"] = data.count("N/A") / len(data)
-    elif question_data["dtype"] == "L":
-        # Radio button
+        return result
+    
+    def _analyze_L(self, key, view, question_data, cursor, condition=False,
+                   no_null=False):
+        """Analyze a radio button question. (I.E, a list of predetermined answers."""
         answers = question_data["answers"]
         cursor.execute("select " + key + " from " + view + ";")
         question_rows = cursor.fetchall()
@@ -290,14 +311,16 @@ def analyze_key(key, connection, structure, conditions, view, no_null=False):
                 result[subquestion["label"] + "_fraction"] = fraction
             if "N/A" in answer_counts:
                 (count, fraction) = answer_counts["N/A"]
-                result["N/A_count"] =  count
+                result["N/A_count"] = count
                 result["N/A_fraction"] = fraction
             else:
                 (count, fraction) = answer_counts[None]
-                result["None_count"] count 
+                result["None_count"] = count 
                 result["None_fraction"] = fraction
-    elif question_data["dtype"] == "M":
-        # Multiple choice with checkbox/binary answers
+                
+    def _analyze_M(self, key, view, question_data, cursor, condition=False,
+                   no_null=False):
+        """Analyze multiple choice question with checkbox/binary answers."""
         for subquestion in question_data["sub_questions"]:
             code = question_data["code"] + "_" + subquestion["code"]
             cursor.execute("select " + code + " from " + view + ";")
@@ -331,8 +354,9 @@ def analyze_key(key, connection, structure, conditions, view, no_null=False):
                 result[subquestion["label"] + "_na_count"] = count3
                 result[subquestion["label"] + "_na_fraction"] = fraction3
                 
-    elif question_data["dtype"] == "F":
-        # Multiple choice with multiple answers
+    def _analyze_F(self, key, view, question_data, cursor, condition=False,
+                   no_null=False):
+        """Analyze multiple choice question with multiple answers."""
         for subquestion in question_data["sub_questions"]:
             key_printout += (subquestion["label"] + ":" + end)
             answers = question_data["answers"]
@@ -346,7 +370,8 @@ def analyze_key(key, connection, structure, conditions, view, no_null=False):
                         data.count(answer["label"]),
                         data.count(answer["label"]) / len(data)
                     )
-                    result[answer["label"] count fraction
+                    result[answer["label"]] = count
+                    result[answer["label"]] = fraction
             else:
                 data = [value[0] for value in subquestion_rows]
                 for answer in answers:
@@ -354,7 +379,8 @@ def analyze_key(key, connection, structure, conditions, view, no_null=False):
                         data.count(answer["label"]),
                         data.count(answer["label"]) / len(data)
                     )
-                    result[answer["label"] count fraction
+                    result[answer["label"]] = count
+                    result[answer["label"]] = fraction
                 if "N/A" in data:
                     (count, fraction) = (
                         data.count("N/A"),
@@ -367,8 +393,10 @@ def analyze_key(key, connection, structure, conditions, view, no_null=False):
                         data.count(None) / len(data)
                     )
                     key_printout += ("None:" + " " + str(count) + " " + str(fraction) + end)
-    elif question_data["dtype"] == "!":
-        # Drop down list datatype
+                           
+    def _analyze_exclamation(self, key, view, question_data, cursor, condition=False,
+                             no_null=False):
+        """Analyze drop down list question."""
         answers = question_data["answers"]
         cursor.execute("select " + question_data["code"] + " from " + view + ";")
         question_rows = cursor.fetchall()
@@ -393,8 +421,10 @@ def analyze_key(key, connection, structure, conditions, view, no_null=False):
             else:
                 (count, fraction) = answer_counts[None]
                 key_printout +=("None:" + " " + str(count) + " " + str(fraction) + end)
-    elif question_data["dtype"] == "K":
-        # Multiple numeric questions. eg. Charity section.
+                           
+    def _analyze_K(self, key, view, question_data, cursor, condition=False,
+                   no_null=False):
+        """Analyze multiple numeric questions. eg. Charity section."""
         key_printout +=(question_data["label"] + ":" + end)
         for subquestion in question_data["sub_questions"]:
             key_printout +=(subquestion["label"] + ":" + end)
@@ -419,8 +449,10 @@ def analyze_key(key, connection, structure, conditions, view, no_null=False):
                 key_printout +=("Stdev: " + str(statistics.stdev(data)) + end)
             except statistics.StatisticsError:
                 key_printout +=("Stdev: Couldn't calculate standard deviation.")
-    elif question_data["dtype"] == "5":
-        # Five point rating scale
+                           
+    def _analyze_5(self, key, view, question_data, cursor, condition=False,
+                   no_null=False):
+        """Analyze five point rating scale question."""
         answers = (1.0, 2.0, 3.0, 4.0, 5.0)
         code = question_data["code"]
         cursor.execute("select " + code + " from " + view + ";")
@@ -433,8 +465,7 @@ def analyze_key(key, connection, structure, conditions, view, no_null=False):
         (count, fraction) = (data.count(None),
                              data.count(None) / len(data))
         key_printout += (str(answer) + ": " + str(count) + " " + str(fraction) + end)
-    key_printout += "\n\t"
-    return key_printout
+    
 
 def analyze_keys(keys, connection, structure, conditions, view, no_null=False):
     """Analyze a set of keys and return the printable representation of the 
