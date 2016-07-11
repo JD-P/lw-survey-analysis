@@ -210,3 +210,18 @@ def generate_multiple_numeric_data():
     test_data = (sub1_data, sub2_data)
     return (test_data, debug_info)
 
+def generate_five_point_rating_data():
+    """Generate test data for the five point rating question analyzer."""
+    debug_info = {}
+    debug_info["question_data"] = {"code":"fp"}
+    debug_info["test_answers"] = {1:100,
+                                  2:100,
+                                  3:100,
+                                  4:100,
+                                  5:100}
+    test_data = sum([[1] * 100,
+                     [2] * 100,
+                     [3] * 100,
+                     [4] * 100,
+                     [5] * 100],[])
+    return (test_data, debug_info)
