@@ -472,7 +472,17 @@ def analyze_keys(keys, connection, structure, conditions, view, no_null=False):
     structure keys do not contain subquestions. So instead of ExampleKey[4] 
     you would just give "ExampleKey" and let the analysis program handle 
     subquestions. You can get a list of such keys using the .keys() call of a 
-    survey structure object."""
+    survey structure object.
+
+    This function returns a report object. The report object is a dictionary 
+    which contains all the keys analyzed by analyze_keys as an intermediate format
+    that can be easily traversed and then formatted into whatever output format
+    the calling program would like.
+
+    Since the dictionary is unordered, the order of keys to print in is taken from
+    the survey structure object described above. You would call .groups() or .keys()
+    on the survey structure, and then use that ordered list to determine which keys
+    in the report to print in which order."""
     report = {}.fromkeys(structure.keys())
     key_analyzer = KeyAnalyzer(connection, structure, conditions, view, no_null)
     for group in structure.groups():
