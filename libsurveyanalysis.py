@@ -474,10 +474,10 @@ def analyze_keys(keys, connection, structure, conditions, view, no_null=False):
     subquestions. You can get a list of such keys using the .keys() call of a 
     survey structure object."""
     report = {}.fromkeys(structure.keys())
+    key_analyzer = KeyAnalyzer(connection, structure, conditions, view, no_null)
     for group in structure.groups():
         group_keys = group[1]
         for key in group_keys:
             if key in keys:
-                report["key"] = analyze_key(key, connection, structure, 
-                                            conditions, view, no_null=no_null)
+                report[key] = key_analyzer.analyze_key(key)
     return report
