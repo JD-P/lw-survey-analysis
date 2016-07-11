@@ -289,171 +289,166 @@ class KeyAnalyzer:
         cursor.execute("select " + key + " from " + view + ";")
         question_rows = cursor.fetchall()
         if no_null:
-            answer_counts = _count_answers(question_rows, question_data, 
-                                          cursor, view, True)
-            for answer in answers:
-                (count, fraction) = answer_counts[answer["label"]]
-                result[answer["label"] + "_count"] = count 
-                result[answer["label"] + "_fraction"] = fraction
-            for subquestion in question_data["sub_questions"]:
-                (count, fraction) = answer_counts[subquestion["label"]]
-                result[subquestion["label"] + "_count"] = count 
-                result[subquestion["label"] + "_fraction"] = fraction
+            answer_counts = _count_answers(question_rows, question_data,
+                                           cursor, view, no_null=True)
         else:
-            answer_counts = _count_answers(question_rows, question_data, cursor, view)
-            for answer in answers:
-                (count, fraction) = answer_counts[answer["label"]]
-                result[answer["label"] + "_count"] = count
-                result[answer["label"] + "_fraction"] = fraction
-            for subquestion in question_data["sub_questions"]:
-                (count, fraction) = answer_counts[subquestion["label"]]
-                result[subquestion["label"] + "_count"] = count 
-                result[subquestion["label"] + "_fraction"] = fraction
-            if "N/A" in answer_counts:
-                (count, fraction) = answer_counts["N/A"]
-                result["N/A_count"] = count
-                result["N/A_fraction"] = fraction
-            else:
-                (count, fraction) = answer_counts[None]
-                result["None_count"] = count 
-                result["None_fraction"] = fraction
-                
+            answer_counts = _count_answers(question_rows, question_data,
+                                           cursor, view)
+        for answer in answers:
+            (count, fraction) = answer_counts[answer["label"]]
+            result[answer["label"] + "_count"] = count
+            result[answer["label"] + "_fraction"] = fraction
+
+        # We only expect to ever see "other" as a subquestion for radio button lists
+        # TODO: This will break if I ever encounter a radio list answer named 'other'
+        # (But it'll be too onerous to fix it right this minute...)
+        result["sub_questions"] = []
+        sub_result = {}
+        # TOTEST: Make sure that this is in fact the right key
+        (count, fraction) = answer_counts["Other"]
+        sub_result["count"] = count 
+        sub_result["fraction"] = fraction
+        result["sub_questions"].append(sub_result)
+        
+        if "N/A" in answer_counts:
+            (count, fraction) = answer_counts["N/A"]
+            result["N/A_count"] = count
+            result["N/A_fraction"] = fraction
+        elif None in answer_counts:
+            (count, fraction) = answer_counts[None]
+            result["None_count"] = count 
+            result["None_fraction"] = fraction
+        return result
+    
     def _analyze_M(self, key, view, question_data, cursor, condition=False,
                    no_null=False):
         """Analyze multiple choice question with checkbox/binary answers."""
+        result["sub_questions"] = []
         for subquestion in question_data["sub_questions"]:
+            sub_result = {}
             code = question_data["code"] + "_" + subquestion["code"]
             cursor.execute("select " + code + " from " + view + ";")
             subquestion_rows = cursor.fetchall()
             if no_null:
                 data = [value[0] for value in subquestion_rows if value[0]]
-                (count1, fraction1, count2, fraction2) = (
-                    data.count("Yes"),
-                    data.count("Yes") / len(data),
-                    data.count("No"),
-                    data.count("No") / len(data))
-                result[subquestion["label"] + "_yes_count"] = count1
-                result[subquestion["label"] + "_yes_fraction"] = fraction1
-                result[subquestion["label"] + "_no_count"] = count2 
-                result[subquestion["label"] + "_no_fraction"] = fraction2
             else:
                 data = [value[0] for value in subquestion_rows]
-                (count1, fraction1, 
-                 count2, fraction2,
-                 count3, fraction3) = (
-                     data.count("Yes"),
-                     data.count("Yes") / len(data),
-                     data.count("No"),
-                     data.count("No") / len(data),
-                     data.count("N/A"),
-                     data.count("N/A") / len(data))
-                result[subquestion["label"] + "_yes_count"] = count1 
-                result[subquestion["label"] + "_yes_fraction"] = fraction1
-                result[subquestion["label"] + "_no_count"] = count2
-                result[subquestion["label"] + "_no_fraction"] = fraction2
-                result[subquestion["label"] + "_na_count"] = count3
-                result[subquestion["label"] + "_na_fraction"] = fraction3
+            (count1, fraction1, 
+             count2, fraction2,
+             count3, fraction3) = (
+                 data.count("Yes"),
+                 data.count("Yes") / len(data),
+                 data.count("No"),
+                 data.count("No") / len(data),
+                 data.count("N/A"),
+                 data.count("N/A") / len(data))
+            sub_result["yes_count"] = count1 
+            sub_result["yes_fraction"] = fraction1
+            sub_result["no_count"] = count2
+            sub_result["no_fraction"] = fraction2
+            sub_result["na_count"] = count3
+            sub_result["na_fraction"] = fraction3
+            result["sub_questions"].append(sub_result)
+        return result
                 
     def _analyze_F(self, key, view, question_data, cursor, condition=False,
                    no_null=False):
         """Analyze multiple choice question with multiple answers."""
+        result["sub_questions"] = []
         for subquestion in question_data["sub_questions"]:
-            key_printout += (subquestion["label"] + ":" + end)
+            sub_result = {}
             answers = question_data["answers"]
             code = question_data["code"] + "_" + subquestion["code"]
             cursor.execute("select " + code + " from " + view + ";")
             subquestion_rows = cursor.fetchall()
             if no_null:
                 data = [value[0] for value in subquestion_rows if value[0]]
-                for answer in answers:
-                    (count, fraction) = (
-                        data.count(answer["label"]),
-                        data.count(answer["label"]) / len(data)
-                    )
-                    result[answer["label"]] = count
-                    result[answer["label"]] = fraction
             else:
                 data = [value[0] for value in subquestion_rows]
-                for answer in answers:
-                    (count, fraction) = (
-                        data.count(answer["label"]),
-                        data.count(answer["label"]) / len(data)
-                    )
-                    result[answer["label"]] = count
-                    result[answer["label"]] = fraction
-                if "N/A" in data:
-                    (count, fraction) = (
-                        data.count("N/A"),
-                        data.count("N/A") / len(data)
-                    )
-                    key_printout += ("N/A:" + " " + str(count) + " " + str(fraction) + end)
-                else:
+            for answer in answers:
+                (count, fraction) = (
+                    data.count(answer["label"]),
+                    data.count(answer["label"]) / len(data)
+                )
+                sub_result[answer["label"] + "_count"] = count
+                sub_result[answer["label"] + "_fraction"] = fraction
+            if "N/A" in data:
+                (count, fraction) = (
+                    data.count("N/A"),
+                    data.count("N/A") / len(data)
+                )
+                sub_result["N/A_count"] = count
+                sub_result["N/A_fraction"] = fraction
+            elif None in data:
                     (count, fraction) = (
                         data.count(None),
                         data.count(None) / len(data)
                     )
-                    key_printout += ("None:" + " " + str(count) + " " + str(fraction) + end)
+                    sub_result["None_count"] = count
+                    sub_result["None_fraction"] = fraction
                            
     def _analyze_exclamation(self, key, view, question_data, cursor, condition=False,
                              no_null=False):
         """Analyze drop down list question."""
+        result = {}
         answers = question_data["answers"]
         cursor.execute("select " + question_data["code"] + " from " + view + ";")
         question_rows = cursor.fetchall()
-        key_printout += (question_data["label"] + ":" + end)
         if no_null:
-            data = [value[0] for value in question_rows if value[0]]
-            for answer in answers:
-                (count, fraction) = (data.count(answer["label"]),
-                                     data.count(answer["label"]) / len(data))
-                key_printout +=(answer["label"] + ":" + " " + str(count) 
-                                + " " + str(fraction) + end)
+            answer_counts = _count_answers(question_rows,
+                                           question_data, cursor, view, no_null)
         else:
             answer_counts = _count_answers(question_rows, 
                                            question_data, cursor, view)
             for answer in answers:
                 (count, fraction) = answer_counts[answer["label"]]
-                key_printout +=(answer["label"] + ":" + " " + str(count) 
-                                + " " + str(fraction) + end)
+                result[answer["label"] + "_count"] = count
+                result[answer["label"] + "_fraction"] = fraction
             if "N/A" in answer_counts:
                 (count, fraction) = answer_counts["N/A"]
-                key_printout +=("N/A:" + " " + str(count) + " " + str(fraction) + end)
-            else:
+                result["N/A_count"] = count
+                result["N/A_fraction"] = fraction
+            elif None in answer_counts:
                 (count, fraction) = answer_counts[None]
-                key_printout +=("None:" + " " + str(count) + " " + str(fraction) + end)
+                result["None_count"] = count
+                result["None_fraction"] = fraction
                            
     def _analyze_K(self, key, view, question_data, cursor, condition=False,
                    no_null=False):
         """Analyze multiple numeric questions. eg. Charity section."""
-        key_printout +=(question_data["label"] + ":" + end)
+        result = {}
+        result["sub_questions"] = []
         for subquestion in question_data["sub_questions"]:
-            key_printout +=(subquestion["label"] + ":" + end)
+            sub_result = {}
             code = question_data["code"] + "_" + subquestion["code"]
             cursor.execute("select " + code + " from " + view + ";")
             subquestion_rows = cursor.fetchall()
             data = [value[0] for value in subquestion_rows if value[0]]
-            key_printout +=("Sum:" + " " + str(sum(data)) + end)
+            sub_result["sum"] = sum(data)
             try:
-                key_printout +=("Mean:" + " " + str(statistics.mean(data)) + end)
+                sub_result["mean"] = statistics.mean(data)
             except statistics.StatisticsError:
-                key_printout +=("Mean: No datapoints in set.")
+                sub_result["mean"] = None
             try:
-                key_printout +=("Median:"+ " " + str(statistics.median(data)) + end)
+                sub_result["median"] = statistics.median(data)
             except statistics.StatisticsError:
-                key_printout +=("Mode: No datapoints in set.")
+                sub_result["median"] = None
             try:
-                key_printout +=("Mode:" + " " + str(statistics.mode(data)) + end)
+                sub_result["mode"] = statistics.mode(data)
             except statistics.StatisticsError:
-                key_printout +=("Mode:" + "All values found equally likely." + end)
+                sub_result["mode"] = None
             try:
-                key_printout +=("Stdev: " + str(statistics.stdev(data)) + end)
+                sub_result["stdev"] = statistics.stdev(data)
             except statistics.StatisticsError:
-                key_printout +=("Stdev: Couldn't calculate standard deviation.")
+                sub_result["stdev"] = None
+            result["sub_questions"].append(sub_result)
+        return result
                            
     def _analyze_5(self, key, view, question_data, cursor, condition=False,
                    no_null=False):
         """Analyze five point rating scale question."""
-        answers = (1.0, 2.0, 3.0, 4.0, 5.0)
+        result = {}
+        answers = (1, 2, 3, 4, 5)
         code = question_data["code"]
         cursor.execute("select " + code + " from " + view + ";")
         question_rows = cursor.fetchall()
@@ -461,11 +456,13 @@ class KeyAnalyzer:
         for answer in answers:
             (count, fraction) = (data.count(answer), 
                                  data.count(answer) / len(data))
-            key_printout += (str(answer) + ": " + str(count) + " " + str(fraction) + end)
+            result[str(answer) + "_count"] = count
+            result[str(answer) + "_fraction"] = fraction
+            
         (count, fraction) = (data.count(None),
                              data.count(None) / len(data))
-        key_printout += (str(answer) + ": " + str(count) + " " + str(fraction) + end)
-    
+        result["None_count"] = count
+        result["None_fraction"] = fraction
 
 def analyze_keys(keys, connection, structure, conditions, view, no_null=False):
     """Analyze a set of keys and return the printable representation of the 
