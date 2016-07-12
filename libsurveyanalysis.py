@@ -197,16 +197,6 @@ def _count_answers(rows, question_data, cursor, view, no_null=False):
         answers_dict[subquestion["label"]] = (count, fraction)
     return answers_dict
 
-
-def _count_answers(data, answer_set):
-    """Return the count, fraction of all answers, for each given answer in an
-    answer set."""
-    return_set = {}
-    for answer in answer_set:
-        return_set[answer] = []
-        return_set[answer].append(data.count(answer))
-        return_set[answer].append(data.count(answer) / len(data))
-
 class KeyAnalyzer:
     def __init__(self, connection, structure, conditions, view, no_null=False):
         self._connection = connection
@@ -242,6 +232,7 @@ class KeyAnalyzer:
             cursor.execute("select " + key + " from " + view + ";")
         data_wrapped = cursor.fetchall()
         data = [float(value[0]) for value in data_wrapped if value[0]]
+        result = {}
         result["sum"] = sum(data)
         try:
             result["mean"] = statistics.mean(data)
@@ -267,6 +258,7 @@ class KeyAnalyzer:
         answers = ("Yes", "No")
         cursor.execute("select " + key + " from " + view + ";")
         question_rows = cursor.fetchall()
+        result = {}
         if no_null:
             data = [value[0] for value in question_rows if value[0] and 
                     value[0] != "N/A"]
