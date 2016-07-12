@@ -52,7 +52,17 @@ def generate(database_path, json_path):
         cursor.execute("INSERT INTO test_data VALUES (" +
                        ",".join(["'{}'"] * 12).format(*row) + ");")
     connection.commit()
-        
+
+    json_outfile = open(json_path, "w")
+    json.dump([nd[1],
+               bd[1],
+               ld[1],
+               mbcd[1],
+               mamcd[1],
+               dd[1],
+               mnd[1],
+               fpd[1]], json_outfile)
+    
 def generate_numeric_data():
     """Generate random test data in the range of human ages for the 
     numeric question analyzer."""
