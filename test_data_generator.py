@@ -117,7 +117,8 @@ def generate_list_data():
                                    "answers":[{"label":"red"},
                                               {"label":"blue"},
                                               {"label":"green"},
-                                              {"label":"yellow"}]}}
+                                              {"label":"yellow"}],
+                                   "sub_questions":[]}}
     return (test_data, debug_info)
 
 def generate_multiple_binary_choice_data():
