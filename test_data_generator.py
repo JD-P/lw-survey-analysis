@@ -41,13 +41,19 @@ def generate(database_path, json_path):
     row_components.append(mnd[0][1])
     fpd = generate_five_point_rating_data()
     row_components.append(fpd[0])
+
+    for component in row_components:
+        assert len(component) == 500
     
     connection = sqlite3.connect(database_path)
     cursor = connection.cursor()
 
     cursor.execute("CREATE TABLE IF NOT EXISTS test_data (Age INT, Binary TEXT, List TEXT," +
                    " mbc_1 TEXT, mbc_2 TEXT, mamc_1 TEXT, mamc_2 TEXT, mamc_3 TEXT," +
-                   " dd TEXT, mn_1 INT, mn_2 INT, fp INT);") 
+                   " dd TEXT, mn_1 INT, mn_2 INT, fp INT);")
+    cursor.execute("select * from test_data;")
+    if cursor.fetchall():
+        quit()
     for row in zip(*row_components):
         cursor.execute("INSERT INTO test_data VALUES (" +
                        ",".join(["'{}'"] * 12).format(*row) + ");")
