@@ -4,11 +4,11 @@ import json
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--sqlite-output", help="The filepath to write sqlite db to.")
-parser.add_argument("--json-output", help="The filepath to write json debug info to.")
+parser.add_argument("sqlite_output", help="The filepath to write sqlite db to.")
+parser.add_argument("json_output", help="The filepath to write json debug info to.")
 arguments = parser.parse_args()
 
-def generate():
+def generate(database_path, json_path):
     """Generate test data for the libsurveyanalysis.
 
     There are eight columns in the table outputted by the generator, each 
@@ -20,8 +20,39 @@ def generate():
     This allows the libsurveyanalysis test suite to know that it has the correct 
     counts from the libsurveyanalysis. (Don't think too hard about how this test 
     data generator knows what the right count is.)"""
+    row_components = []
+    nd = generate_numeric_data()
+    row_components.append(nd[0])
+    bd = generate_binary_data()
+    row_components.append(bd[0])
+    ld = generate_list_data()
+    row_components.append(ld[0])
+    mbcd = generate_multiple_binary_choice_data()
+    row_components.append(mbcd[0][0])
+    row_components.append(mbcd[0][1])
+    mamcd = generate_multiple_answer_multiple_choice_data()
+    row_components.append(mamcd[0][0])
+    row_components.append(mamcd[0][1])
+    row_components.append(mamcd[0][2])
+    dd = generate_dropdown_data()
+    row_components.append(dd[0])
+    mnd = generate_multiple_numeric_data()
+    row_components.append(mnd[0][0])
+    row_components.append(mnd[0][1])
+    fpd = generate_five_point_rating_data()
+    row_components.append(fpd[0])
+    
+    connection = sqlite3.connect(database_path)
+    cursor = connection.cursor()
 
-
+    cursor.execute("CREATE TABLE IF NOT EXISTS test_data (Age INT, Binary TEXT, List TEXT," +
+                   " mbc_1 TEXT, mbc_2 TEXT, mamc_1 TEXT, mamc_2 TEXT, mamc_3 TEXT," +
+                   " dd TEXT, mn_1 INT, mn_2 INT, fp INT);") 
+    for row in zip(*row_components):
+        cursor.execute("INSERT INTO test_data VALUES (" +
+                       ",".join(["'{}'"] * 12).format(*row) + ");")
+    connection.commit()
+        
 def generate_numeric_data():
     """Generate random test data in the range of human ages for the 
     numeric question analyzer."""
@@ -84,7 +115,7 @@ def generate_multiple_binary_choice_data():
     sub1_no = 200
 
     sub2_yes = 200
-    sub1_no = 300
+    sub2_no = 300
 
     debug_info["test_answers"] = {"mbc_1":{"Yes":sub1_yes,
                                            "No":sub1_no},
@@ -225,3 +256,5 @@ def generate_five_point_rating_data():
                      [4] * 100,
                      [5] * 100],[])
     return (test_data, debug_info)
+
+generate(arguments.sqlite_output, arguments.json_output)
