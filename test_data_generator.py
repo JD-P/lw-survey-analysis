@@ -113,7 +113,11 @@ def generate_list_data():
                  (["yellow"] * yellow))
     debug_info = {"test_answers":{"red":red, "blue":blue,
                                   "green":green, "yellow":yellow},
-                  "question_data":{"code":"List"}}
+                  "question_data":{"code":"List",
+                                   "answers":[{"label":"red"},
+                                              {"label":"blue"},
+                                              {"label":"green"},
+                                              {"label":"yellow"}]}}
     return (test_data, debug_info)
 
 def generate_multiple_binary_choice_data():
