@@ -1,3 +1,4 @@
+import statistics
 from random import randrange
 import sqlite3
 import json
@@ -81,10 +82,11 @@ def generate_numeric_data():
     for i in range(500):
         row_item = randrange(13,123)
         test_data.append(row_item)
-        if row_item in debug_info["test_answers"]:
-            debug_info["test_answers"][row_item] += 1
-        else:
-            debug_info["test_answers"][row_item] = 1
+    test_answers = {"sum":sum(test_data),
+                    "mean":statistics.mean(test_data),
+                    "median":statistics.median(test_data),
+                    "mode":statistics.mode(test_data),
+                    "stdev":statistics.stdev(test_data)}
     return (test_data, debug_info)
 
 def generate_binary_data():
