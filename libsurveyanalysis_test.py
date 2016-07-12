@@ -61,6 +61,28 @@ class TestKeyAnalyzer(unittest.TestCase):
         for key in test_answers:
             self.assertTrue(test_answers[key] == test_data[key + "_count"])
             self.assertTrue((test_answers[key] / 500) == test_data[key + "_fraction"])
+
+    def test_analyze_m(self):
+        debug_info = self._debug_info[3]
+        question_data = debug_info["question_data"]
+        sub_questions = question_data["sub_questions"]
+        test_answers = debug_info["test_answers"]
+        cursor = self._connection.cursor()
+        test_data = self._analyzer._analyze_M("mbc", self._view, question_data,
+                                              cursor, False, self._no_null)
+        question_number = 0
+        print(test_answers, test_data)
+        for subquestion in sub_questions:
+            sq_code = "mbc" + "_" + subquestion["code"]
+            self.assertTrue(test_answers[sq_code]["Yes"] ==
+                            test_data["sub_questions"][question_number]["yes_count"])
+            self.assertTrue((test_answers[sq_code]["Yes"] / 500) ==
+                            test_data["sub_questions"][question_number]["yes_fraction"])
+            self.assertTrue(test_answers[sq_code]["No"] ==
+                            test_data["sub_questions"][question_number]["no_count"])
+            self.assertTrue((test_answers[sq_code]["No"] / 500) ==
+                            test_data["sub_questions"][question_number]["no_fraction"])
+            question_number += 1
             
 if __name__ == "__main__":
     unittest.main()
