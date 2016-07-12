@@ -74,7 +74,6 @@ def generate_numeric_data():
     """Generate random test data in the range of human ages for the 
     numeric question analyzer."""
     debug_info = {}
-    debug_info["test_answers"] = {}
     question_data = {}
     question_data["code"] = "Age"
     debug_info["question_data"] = question_data
@@ -87,6 +86,7 @@ def generate_numeric_data():
                     "median":statistics.median(test_data),
                     "mode":statistics.mode(test_data),
                     "stdev":statistics.stdev(test_data)}
+    debug_info["test_answers"] = test_answers
     return (test_data, debug_info)
 
 def generate_binary_data():
