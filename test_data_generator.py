@@ -58,6 +58,9 @@ def generate_numeric_data():
     numeric question analyzer."""
     debug_info = {}
     debug_info["test_answers"] = {}
+    question_data = {}
+    question_data["code"] = "Age"
+    debug_info["question_data"] = question_data
     test_data = []
     for i in range(500):
         row_item = randrange(13,123)
@@ -74,7 +77,8 @@ def generate_binary_data():
     no = randrange(50, 300)
     yes -= no
     test_data = (["Yes"] * yes) + (["No"] * no)
-    debug_info = {"test_answers":{"Yes":yes, "No":no}}
+    debug_info = {"test_answers":{"Yes":yes, "No":no},
+                  "question_data":{"code":"Binary"}}
     return (test_data, debug_info)
 
 def generate_list_data():
@@ -90,7 +94,8 @@ def generate_list_data():
                  (["green"] * green) +
                  (["yellow"] * yellow))
     debug_info = {"test_answers":{"red":red, "blue":blue,
-                                  "green":green, "yellow":yellow}}
+                                  "green":green, "yellow":yellow},
+                  "question_data":{"code":"List"}}
     return (test_data, debug_info)
 
 def generate_multiple_binary_choice_data():
@@ -197,7 +202,8 @@ def generate_dropdown_data():
                  (["green"] * green) +
                  (["yellow"] * yellow))
     debug_info = {"test_answers":{"red":red, "blue":blue,
-                                  "green":green, "yellow":yellow}}
+                                  "green":green, "yellow":yellow},
+                  "question_data":{"code":"dd"}}
     return (test_data, debug_info)
 
 def generate_multiple_numeric_data():
