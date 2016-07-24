@@ -381,6 +381,7 @@ class KeyAnalyzer:
                     )
                     sub_result["None_count"] = count
                     sub_result["None_fraction"] = fraction
+        return result
                            
     def _analyze_exclamation(self, key, view, question_data, cursor, condition=False,
                              no_null=False):
