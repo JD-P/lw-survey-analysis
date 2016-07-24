@@ -228,7 +228,10 @@ def generate_dropdown_data():
     debug_info = {"test_answers":{"red":red, "blue":blue,
                                   "green":green, "yellow":yellow},
                   "question_data":{"code":"dd",
-                                   "answers":["red","blue","green","yellow"],
+                                   "answers":[{"label":"red"},
+                                              {"label":"blue"},
+                                              {"label":"green"},
+                                              {"label":"yellow"}],
                                    "sub_questions":[]}}
     return (test_data, debug_info)
 
