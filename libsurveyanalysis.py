@@ -280,6 +280,7 @@ class KeyAnalyzer:
         answers = question_data["answers"]
         cursor.execute("select " + key + " from " + view + ";")
         question_rows = cursor.fetchall()
+        result = {}
         if no_null:
             answer_counts = _count_answers(question_rows, question_data,
                                            cursor, view, no_null=True)
@@ -315,6 +316,7 @@ class KeyAnalyzer:
     def _analyze_M(self, key, view, question_data, cursor, condition=False,
                    no_null=False):
         """Analyze multiple choice question with checkbox/binary answers."""
+        result = {}
         result["sub_questions"] = []
         for subquestion in question_data["sub_questions"]:
             sub_result = {}
@@ -346,6 +348,7 @@ class KeyAnalyzer:
     def _analyze_F(self, key, view, question_data, cursor, condition=False,
                    no_null=False):
         """Analyze multiple choice question with multiple answers."""
+        result = {}
         result["sub_questions"] = []
         for subquestion in question_data["sub_questions"]:
             sub_result = {}
