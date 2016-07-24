@@ -21,6 +21,7 @@ class TestKeyAnalyzer(unittest.TestCase):
         self._structure = lsa.SurveyStructure("lw_2016_survey_structure.txt")
         debug_infile = open("lsa_debug_info.json")
         self._debug_info = json.load(debug_infile)
+        debug_infile.close()
         self._conditions = {}
         self._view = "test_data"
         self._no_null = False
@@ -71,7 +72,6 @@ class TestKeyAnalyzer(unittest.TestCase):
         test_data = self._analyzer._analyze_M("mbc", self._view, question_data,
                                               cursor, False, self._no_null)
         question_number = 0
-        print(test_answers, test_data)
         for subquestion in sub_questions:
             sq_code = "mbc" + "_" + subquestion["code"]
             self.assertTrue(test_answers[sq_code]["Yes"] ==
@@ -83,6 +83,25 @@ class TestKeyAnalyzer(unittest.TestCase):
             self.assertTrue((test_answers[sq_code]["No"] / 500) ==
                             test_data["sub_questions"][question_number]["no_fraction"])
             question_number += 1
-            
+
+    def test_analyze_f(self):
+        debug_info = self._debug_info[4]
+        question_data = debug_info["question_data"]
+        sub_questions = question_data["sub_questions"]
+        test_answers = debug_info["test_answers"]
+        cursor = self._connection.cursor()
+        test_data = self._analyzer._analyze_F("mamc", self._view, question_data,
+                                              cursor, False, self._no_null)
+        answer_set = ["Yes", "Sorta", "No"]
+        question_number = 0
+        for subquestion in sub_questions:
+            sq_code = "mamc" + "_" + subquestion["code"]
+            for answer in answer_set:
+                self.assertTrue(test_answers[sq_code][answer] ==
+                                test_data["sub_questions"][question_number][answer + "_count"])
+                self.assertTrue((test_answers[sq_code][answer] / 500) ==
+                                test_data["sub_questions"][question_number][answer + "_fraction"])
+            question_number += 1
+                
 if __name__ == "__main__":
     unittest.main()
