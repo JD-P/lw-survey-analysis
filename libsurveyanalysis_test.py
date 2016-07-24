@@ -102,6 +102,19 @@ class TestKeyAnalyzer(unittest.TestCase):
                 self.assertTrue((test_answers[sq_code][answer] / 500) ==
                                 test_data["sub_questions"][question_number][answer + "_fraction"])
             question_number += 1
+
+    def test_analyze_exclamation(self):
+        debug_info = self._debug_info[5]
+        question_data = debug_info["question_data"]
+        test_answers = debug_info["test_answers"]
+        cursor = self._connection.cursor()
+        test_data = self._analyzer._analyze_exclamation("dd", self._view, question_data,
+                                                        cursor, False, self._no_null)
+        for key in test_answers:
+            self.assertTrue(test_data[key + "_count"] == test_answers[key])
+            self.assertTrue(test_data[key + "_fraction"] == (test_answers[key] / 500))
+
+            
                 
 if __name__ == "__main__":
     unittest.main()
