@@ -227,7 +227,9 @@ def generate_dropdown_data():
                  (["yellow"] * yellow))
     debug_info = {"test_answers":{"red":red, "blue":blue,
                                   "green":green, "yellow":yellow},
-                  "question_data":{"code":"dd"}}
+                  "question_data":{"code":"dd",
+                                   "answers":["red","blue","green","yellow"],
+                                   "sub_questions":[]}}
     return (test_data, debug_info)
 
 def generate_multiple_numeric_data():
