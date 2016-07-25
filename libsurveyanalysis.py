@@ -490,3 +490,7 @@ def analyze_keys(keys, connection, structure, conditions, view, no_null=False):
             if key in keys:
                 report[key] = key_analyzer.analyze_key(key)
     return report
+
+def percent_from_fraction(fraction):
+    """Format a percentage string for a given fractional number."""
+    return str(round(fraction * 100, 3)) + "%"
