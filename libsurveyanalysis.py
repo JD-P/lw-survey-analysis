@@ -223,7 +223,7 @@ class KeyAnalyzer:
             condition = self._conditions[key]
         else:
             condition = None
-        return analyzer(key, self._view, condition, cursor)
+        return analyzer(key, self._view, question_data, cursor, condition)
     
     def _analyze_N(self, key, view, question_data, cursor, condition=False,
                    no_null=False):
@@ -297,13 +297,14 @@ class KeyAnalyzer:
         # We only expect to ever see "other" as a subquestion for radio button lists
         # TODO: This will break if I ever encounter a radio list answer named 'other'
         # (But it'll be too onerous to fix it right this minute...)
-        result["sub_questions"] = []
-        sub_result = {}
-        # TOTEST: Make sure that this is in fact the right key
-        (count, fraction) = answer_counts["Other"]
-        sub_result["count"] = count 
-        sub_result["fraction"] = fraction
-        result["sub_questions"].append(sub_result)
+        if "Other" in answer_counts:
+            result["sub_questions"] = []
+            sub_result = {}
+            # TOTEST: Make sure that this is in fact the right key
+            (count, fraction) = answer_counts["Other"]
+            sub_result["count"] = count 
+            sub_result["fraction"] = fraction
+            result["sub_questions"].append(sub_result)
         
         if "N/A" in answer_counts:
             (count, fraction) = answer_counts["N/A"]
