@@ -205,7 +205,7 @@ class KeyAnalyzer:
         self._view = view
         self._no_null = no_null
         
-    def analyze_key(key):
+    def analyze_key(self, key):
         """The core of general_analysis.py packed into a reusable function. Returns
         the printable representation of the key analysis.
 
@@ -221,6 +221,8 @@ class KeyAnalyzer:
             analyzer = getattr(self, "_analyze_" + question_data["dtype"])
         if key in self._conditions:
             condition = self._conditions[key]
+        else:
+            condition = None
         return analyzer(key, self._view, condition, cursor)
     
     def _analyze_N(self, key, view, question_data, cursor, condition=False,
