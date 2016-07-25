@@ -409,6 +409,7 @@ class KeyAnalyzer:
                 (count, fraction) = answer_counts[None]
                 result["None_count"] = count
                 result["None_fraction"] = fraction
+        return result
                            
     def _analyze_K(self, key, view, question_data, cursor, condition=False,
                    no_null=False):
@@ -460,6 +461,7 @@ class KeyAnalyzer:
                              data.count(None) / len(data))
         result["None_count"] = count
         result["None_fraction"] = fraction
+        return result
 
 def analyze_keys(keys, connection, structure, conditions, view, no_null=False):
     """Analyze a set of keys and return the printable representation of the 
