@@ -466,6 +466,36 @@ class KeyAnalyzer:
         result["None_fraction"] = fraction
         return result
 
+    def _analyze_S(self, key, view, question_data, cursor, condition=False,
+                   no_null=False):
+        """Placeholder function for short text response inputs. These can't go 
+        into the general report because they can't be aggregated."""
+        return {}
+
+    def _analyze_Q(self, key, view, question_data, cursor, condition=False,
+                   no_null=False):
+        """Placeholder function for multiple short text response inputs. 
+        These can't go into the general report because they can't be aggregated."""
+        return {}
+
+    def _analyze_T(self, key, view, question_data, cursor, condition=False,
+                   no_null=False):
+        """Placeholder function for long text response inputs. These can't go 
+        into the general report because they can't be aggregated."""
+        return {}
+
+    def _analyze_X(self, key, view, question_data, cursor, condition=False,
+                   no_null=False):
+        """Placeholder function for section headers. These can't go into the 
+        general report because they can't be aggregated."""
+        return {}
+
+    def _analyze_O(self, key, view, question_data, cursor, condition=False,
+                   no_null=False):
+        """Placeholder function for radio button with comment. These can't
+        go into the general report because they can't be aggregated."""
+        return {}
+
 def analyze_keys(keys, connection, structure, conditions, view, no_null=False):
     """Analyze a set of keys and return the printable representation of the 
     analysis.
