@@ -114,9 +114,7 @@ class KeyFormatter:
         for calculation in calculations:
             calc_paragraph = document.new_tag("p")
             calc_paragraph.string = "{}: {}".format(calculation.title(),
-                                                   lsa.percent_from_fraction(
-                                                       result[calculation])
-                                                    )
+                                                    result[calculation])
             container.append(calc_paragraph)
         return container
 
