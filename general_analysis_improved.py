@@ -196,7 +196,7 @@ class KeyFormatter:
         container.append(answer_table)
         return container
 
-    def analyze_F(self, document, metadata, result):
+    def format_F(self, document, metadata, result):
         """Represent a multiple choice question with multiple answers."""
         container = document.new_tag("div")
         
@@ -234,7 +234,7 @@ class KeyFormatter:
         container.append(answer_table)
         return container
 
-    def analyze_S(self, document, metadata, result):
+    def format_S(self, document, metadata, result):
         """Prints a message to inform the reader that results for S-type
         questions aren't available."""
         container = document.new_tag("div")
@@ -255,7 +255,7 @@ class KeyFormatter:
 
         return container
 
-    def analyze_Q(self, document, metadata, result):
+    def format_Q(self, document, metadata, result):
         """Prints a message to inform the reader that results for S-type
         questions aren't available."""
         container = document.new_tag("div")
@@ -276,7 +276,7 @@ class KeyFormatter:
 
         return container
 
-    def analyze_T(self, document, metadata, result):
+    def format_T(self, document, metadata, result):
         """Prints a message to inform the reader that results for S-type
         questions aren't available."""
         container = document.new_tag("div")
@@ -297,7 +297,7 @@ class KeyFormatter:
 
         return container
 
-    def analyze_X(self, document, metadata, result):
+    def format_X(self, document, metadata, result):
         """Prints a message to inform the reader that results for S-type
         questions aren't available."""
         container = document.new_tag("div")
@@ -318,7 +318,7 @@ class KeyFormatter:
 
         return container
 
-    def analyze_O(self, document, metadata, result):
+    def format_O(self, document, metadata, result):
         """Prints a message to inform the reader that results for S-type
         questions aren't available."""
         container = document.new_tag("div")
