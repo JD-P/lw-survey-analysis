@@ -137,7 +137,8 @@ class KeyFormatter:
             answer_paragraph = document.new_tag("p")
             answer_paragraph.string = "{}: {} {}".format(label,
                                                          result[label + "_count"],
-                                                         result[label + "_fraction"])
+                                                         lsa.percent_from_fraction(
+                                                             result[label + "_fraction"]))
             container.append(answer_paragraph)
         return container
 
