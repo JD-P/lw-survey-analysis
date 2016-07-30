@@ -211,11 +211,13 @@ class KeyFormatter:
         answer_table = document.new_tag("table")
 
         answer_table_header = document.new_tag("th")
-
-        answers = [answer["label"] for answer in metadata["answers"]]
+        
+        columns = sum([list(zipped) for zipped in zip(
+            [answer["label"] + " (Count)" for answer in metadata["answers"]],
+            [answer["label"] + " (Percent)" for answer in metadata["answers"]])], [])
         
         answer_table_header.append(
-            mk_table_row(document, ["Question"] + answers))
+            mk_table_row(document, ["Question"] + columns))
 
         answer_table.append(answer_table_header)
         
@@ -223,10 +225,10 @@ class KeyFormatter:
             sub_qdata = metadata["sub_questions"][index[0]]
             sub_result = result["sub_questions"][index[0]]
             row_data = [sub_qdata["label"]]
-            for answer in answers:
-                row_data.append(sub_result[answer + "_count"])
+            for label in [answer["label"] for answer in metadata["answers"]]:
+                row_data.append(sub_result[label + "_count"])
                 row_data.append(
-                    lsa.percent_from_fraction(sub_result[answer + "_fraction"])
+                    lsa.percent_from_fraction(sub_result[label + "_fraction"])
                     )
             table_row = mk_table_row(document, row_data)
             answer_table.append(table_row)
