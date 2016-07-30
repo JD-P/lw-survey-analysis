@@ -325,27 +325,27 @@ class KeyFormatter:
     def format_S(self, document, metadata, result):
         """Prints a message to inform the reader that results for S-type
         questions aren't available."""
-        return generic_aggregation_error(document, metadata, result)
+        return self.generic_aggregation_error(document, metadata, result)
 
     def format_Q(self, document, metadata, result):
         """Prints a message to inform the reader that results for S-type
         questions aren't available."""
-        return generic_aggregation_error(document, metadata, result)
+        return self.generic_aggregation_error(document, metadata, result)
 
     def format_T(self, document, metadata, result):
         """Prints a message to inform the reader that results for S-type
         questions aren't available."""
-        return generic_aggregation_error(document, metadata, result)
+        return self.generic_aggregation_error(document, metadata, result)
 
     def format_X(self, document, metadata, result):
         """Prints a message to inform the reader that results for S-type
         questions aren't available."""
-        return generic_aggregation_error(document, metadata, result)
+        return self.generic_aggregation_error(document, metadata, result)
 
     def format_O(self, document, metadata, result):
         """Prints a message to inform the reader that results for S-type
         questions aren't available."""
-        return generic_aggregation_error(document, metadata, result)
+        return self.generic_aggregation_error(document, metadata, result)
 
     def generic_aggregation_error(self, document, metadata, result):
         container = document.new_tag("div")
