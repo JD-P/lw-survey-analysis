@@ -141,6 +141,15 @@ class KeyFormatter:
                                                          lsa.percent_from_fraction(
                                                              result[label + "_fraction"]))
             container.append(answer_paragraph)
+        if metadata["sub_questions"]:
+            sub_result = result["sub_questions"][0]
+            answer_paragraph = document.new_tag("p")
+            answer_paragraph.string = "{}: {} {}".format("Other",
+                                                         sub_result["count"],
+                                                         lsa.percent_from_fraction(
+                                                             sub_result["fraction"]))
+            container.append(answer_paragraph)
+            
         return container
 
     def format_M(self, document, metadata, result):
