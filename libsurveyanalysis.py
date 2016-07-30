@@ -223,7 +223,7 @@ class KeyAnalyzer:
             condition = self._conditions[key]
         else:
             condition = None
-        return analyzer(key, self._view, question_data, cursor, condition)
+        return analyzer(key, self._view, question_data, cursor, condition, self._no_null)
     
     def _analyze_N(self, key, view, question_data, cursor, condition=False,
                    no_null=False):
@@ -400,18 +400,18 @@ class KeyAnalyzer:
         else:
             answer_counts = _count_answers(question_rows, 
                                            question_data, cursor, view)
-            for answer in answers:
-                (count, fraction) = answer_counts[answer["label"]]
-                result[answer["label"] + "_count"] = count
-                result[answer["label"] + "_fraction"] = fraction
-            if "N/A" in answer_counts:
-                (count, fraction) = answer_counts["N/A"]
-                result["N/A_count"] = count
-                result["N/A_fraction"] = fraction
-            elif None in answer_counts:
-                (count, fraction) = answer_counts[None]
-                result["None_count"] = count
-                result["None_fraction"] = fraction
+        for answer in answers:
+            (count, fraction) = answer_counts[answer["label"]]
+            result[answer["label"] + "_count"] = count
+            result[answer["label"] + "_fraction"] = fraction
+        if "N/A" in answer_counts:
+            (count, fraction) = answer_counts["N/A"]
+            result["N/A_count"] = count
+            result["N/A_fraction"] = fraction
+        elif None in answer_counts:
+            (count, fraction) = answer_counts[None]
+            result["None_count"] = count
+            result["None_fraction"] = fraction
         return result
                            
     def _analyze_K(self, key, view, question_data, cursor, condition=False,
