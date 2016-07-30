@@ -228,12 +228,97 @@ class KeyFormatter:
                 row_data.append(
                     lsa.percent_from_fraction(sub_result[answer + "_fraction"])
                     )
-            table_row = mk_table_row(row_data)
+            table_row = mk_table_row(document, row_data)
             answer_table.append(table_row)
 
         container.append(answer_table)
         return container
 
+    def format_exclamation(self, document, metadata, result):
+        """Convert a result object representing a dropdown box question to HTML."""
+        container = document.new_tag("div")
+        
+        code_header = document.new_tag("h3")
+        code_header.string = metadata["code"]
+        container.append(code_header)
+
+        question_text = document.new_tag("p")
+        question_text.string = metadata["label"]
+        container.append(question_text)
+        
+        for answer in metadata["answers"]:
+            answer_paragraph = document.new_tag("p")
+            
+            a_str = "{}: {} {}".format(metadata["label"],
+                                       result[answer["label"] + "_count"],
+                                       lsa.percent_from_fraction(
+                                           result[answer["label"] + "_fraction"])
+                                       )
+            answer_paragraph.string = a_str
+            container.append(answer_paragraph)
+        return container
+
+    def format_K(self, document, metadata, result):
+        """Convert a result object representing multiple numeric questions
+        to HTML."""
+        container = document.new_tag("div")
+        
+        code_header = document.new_tag("h3")
+        code_header.string = metadata["code"]
+        container.append(code_header)
+
+        question_text = document.new_tag("p")
+        question_text.string = metadata["label"]
+        container.append(question_text)
+
+        answer_table = document.new_tag("table")
+
+        answer_table_header = document.new_tag("th")
+        
+        answers = ["sum", "mean", "median", "mode", "stdev"]
+        table_header_row = mk_table_row(
+            document,
+            ["Question"] + [answer.title() for answer in answers]
+        )
+        
+        answer_table_header.append(table_header_row)
+        answer_table.append(answer_table_header)
+        
+        for index in enumerate(metadata["sub_questions"]):
+            sub_qdata = metadata["sub_questions"][index[0]]
+            sub_result = result["sub_questions"][index[0]]
+            row_data = [sub_qdata["label"]]
+            for answer_label in answers:
+                row_data.append(sub_result[answer_label])
+            answer_table.append(mk_table_row(document, row_data))
+
+        container.append(answer_table)
+        return container
+            
+    def format_5(self, document, metadata, result):
+        """Convert a result object representing a five point rating scale to HTML."""
+        container = document.new_tag("div")
+        
+        code_header = document.new_tag("h3")
+        code_header.string = metadata["code"]
+        container.append(code_header)
+
+        question_text = document.new_tag("p")
+        question_text.string = metadata["label"]
+        container.append(question_text)
+
+        answers = (1, 2, 3, 4, 5)
+        for answer_str in [str(answer) for answer in answers]:
+            answer_paragraph = document.new_tag("p")
+            a_str = "{}: {} {}".format(answer_str,
+                                       result[answer_str + "_count"],
+                                       lsa.percent_from_fraction(
+                                           result[answer_str + "_fraction"])
+                                       )
+            answer_paragraph.string = a_str
+            container.append(answer_paragraph)
+        return container
+    
     def format_S(self, document, metadata, result):
         """Prints a message to inform the reader that results for S-type
         questions aren't available."""
@@ -350,7 +435,7 @@ def mk_table_row(document, data):
 KF = KeyFormatter(report, structure)
 document = KF.format_keys()
 
-document.pprint()
+print(document.prettify())
 
 #cursor.execute("select count(*) from data;")
 #total_respondents = cursor.fetchone()[0]
