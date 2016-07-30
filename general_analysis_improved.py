@@ -325,90 +325,29 @@ class KeyFormatter:
     def format_S(self, document, metadata, result):
         """Prints a message to inform the reader that results for S-type
         questions aren't available."""
-        container = document.new_tag("div")
-        
-        code_header = document.new_tag("h3")
-        code_header.string = metadata["code"]
-        container.append(code_header)
-
-        question_text = document.new_tag("p")
-        question_text.string = metadata["label"]
-        container.append(question_text)
-
-        error_paragraph = document.new_tag("p")
-        error_msg = ("This question was asked in such a way that it can't be " +
-                     "aggregated, and therefore can't be included in the general report.")
-        error_paragraph.string = error_msg
-        container.append(error_paragraph)
-
-        return container
+        return generic_aggregation_error(document, metadata, result)
 
     def format_Q(self, document, metadata, result):
         """Prints a message to inform the reader that results for S-type
         questions aren't available."""
-        container = document.new_tag("div")
-        
-        code_header = document.new_tag("h3")
-        code_header.string = metadata["code"]
-        container.append(code_header)
-
-        question_text = document.new_tag("p")
-        question_text.string = metadata["label"]
-        container.append(question_text)
-
-        error_paragraph = document.new_tag("p")
-        error_msg = ("This question was asked in such a way that it can't be " +
-                     "aggregated, and therefore can't be included in the general report.")
-        error_paragraph.string = error_msg
-        container.append(error_paragraph)
-
-        return container
+        return generic_aggregation_error(document, metadata, result)
 
     def format_T(self, document, metadata, result):
         """Prints a message to inform the reader that results for S-type
         questions aren't available."""
-        container = document.new_tag("div")
-        
-        code_header = document.new_tag("h3")
-        code_header.string = metadata["code"]
-        container.append(code_header)
-
-        question_text = document.new_tag("p")
-        question_text.string = metadata["label"]
-        container.append(question_text)
-
-        error_paragraph = document.new_tag("p")
-        error_msg = ("This question was asked in such a way that it can't be " +
-                     "aggregated, and therefore can't be included in the general report.")
-        error_paragraph.string = error_msg
-        container.append(error_paragraph)
-
-        return container
+        return generic_aggregation_error(document, metadata, result)
 
     def format_X(self, document, metadata, result):
         """Prints a message to inform the reader that results for S-type
         questions aren't available."""
-        container = document.new_tag("div")
-        
-        code_header = document.new_tag("h3")
-        code_header.string = metadata["code"]
-        container.append(code_header)
-
-        question_text = document.new_tag("p")
-        question_text.string = metadata["label"]
-        container.append(question_text)
-
-        error_paragraph = document.new_tag("p")
-        error_msg = ("This question was asked in such a way that it can't be " +
-                     "aggregated, and therefore can't be included in the general report.")
-        error_paragraph.string = error_msg
-        container.append(error_paragraph)
-
-        return container
+        return generic_aggregation_error(document, metadata, result)
 
     def format_O(self, document, metadata, result):
         """Prints a message to inform the reader that results for S-type
         questions aren't available."""
+        return generic_aggregation_error(document, metadata, result)
+
+    def generic_aggregation_error(self, document, metadata, result):
         container = document.new_tag("div")
         
         code_header = document.new_tag("h3")
@@ -419,11 +358,16 @@ class KeyFormatter:
         question_text.string = metadata["label"]
         container.append(question_text)
 
+        error_small = document.new_tag("small")
+        
         error_paragraph = document.new_tag("p")
         error_msg = ("This question was asked in such a way that it can't be " +
                      "aggregated, and therefore can't be included in the general report.")
         error_paragraph.string = error_msg
-        container.append(error_paragraph)
+
+        error_small.append(error_paragraph)
+        
+        container.append(error_small)
 
         return container
     
