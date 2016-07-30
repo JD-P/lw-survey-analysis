@@ -252,7 +252,7 @@ class KeyFormatter:
         for answer in metadata["answers"]:
             answer_paragraph = document.new_tag("p")
             
-            a_str = "{}: {} {}".format(metadata["label"],
+            a_str = "{}: {} {}".format(answer["label"],
                                        result[answer["label"] + "_count"],
                                        lsa.percent_from_fraction(
                                            result[answer["label"] + "_fraction"])
