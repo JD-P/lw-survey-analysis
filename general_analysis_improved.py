@@ -142,6 +142,8 @@ class KeyFormatter:
         return container
 
     def format_M(self, document, metadata, result):
+        """Take the result dictionary representing a multiple choice question
+        with checkbox/binary answers."""
         container = document.new_tag("div")
         
         code_header = document.new_tag("h3")
@@ -193,6 +195,157 @@ class KeyFormatter:
 
         container.append(answer_table)
         return container
+
+    def analyze_F(self, document, metadata, result):
+        """Represent a multiple choice question with multiple answers."""
+        container = document.new_tag("div")
+        
+        code_header = document.new_tag("h3")
+        code_header.string = metadata["code"]
+        container.append(code_header)
+
+        question_text = document.new_tag("p")
+        question_text.string = metadata["label"]
+        container.append(question_text)
+
+        answer_table = document.new_tag("table")
+
+        answer_table_header = document.new_tag("th")
+
+        answers = [answer["label"] for answer in metadata["answers"]]
+        
+        answer_table_header.append(
+            mk_table_row(document, ["Question"] + answers))
+
+        answer_table.append(answer_table_header)
+        
+        for index in enumerate(metadata["sub_questions"]):
+            sub_qdata = metadata["sub_questions"][index[0]]
+            sub_result = result["sub_questions"][index[0]]
+            row_data = [sub_qdata["label"]]
+            for answer in answers:
+                row_data.append(sub_result[answer + "_count"])
+                row_data.append(
+                    lsa.percent_from_fraction(sub_result[answer + "_fraction"])
+                    )
+            table_row = mk_table_row(row_data)
+            answer_table.append(table_row)
+
+        container.append(answer_table)
+        return container
+
+    def analyze_S(self, document, metadata, result):
+        """Prints a message to inform the reader that results for S-type
+        questions aren't available."""
+        container = document.new_tag("div")
+        
+        code_header = document.new_tag("h3")
+        code_header.string = metadata["code"]
+        container.append(code_header)
+
+        question_text = document.new_tag("p")
+        question_text.string = metadata["label"]
+        container.append(question_text)
+
+        error_paragraph = document.new_tag("p")
+        error_msg = ("This question was asked in such a way that it can't be " +
+                     "aggregated, and therefore can't be included in the general report.")
+        error_paragraph.string = error_msg
+        container.append(error_paragraph)
+
+        return container
+
+    def analyze_Q(self, document, metadata, result):
+        """Prints a message to inform the reader that results for S-type
+        questions aren't available."""
+        container = document.new_tag("div")
+        
+        code_header = document.new_tag("h3")
+        code_header.string = metadata["code"]
+        container.append(code_header)
+
+        question_text = document.new_tag("p")
+        question_text.string = metadata["label"]
+        container.append(question_text)
+
+        error_paragraph = document.new_tag("p")
+        error_msg = ("This question was asked in such a way that it can't be " +
+                     "aggregated, and therefore can't be included in the general report.")
+        error_paragraph.string = error_msg
+        container.append(error_paragraph)
+
+        return container
+
+    def analyze_T(self, document, metadata, result):
+        """Prints a message to inform the reader that results for S-type
+        questions aren't available."""
+        container = document.new_tag("div")
+        
+        code_header = document.new_tag("h3")
+        code_header.string = metadata["code"]
+        container.append(code_header)
+
+        question_text = document.new_tag("p")
+        question_text.string = metadata["label"]
+        container.append(question_text)
+
+        error_paragraph = document.new_tag("p")
+        error_msg = ("This question was asked in such a way that it can't be " +
+                     "aggregated, and therefore can't be included in the general report.")
+        error_paragraph.string = error_msg
+        container.append(error_paragraph)
+
+        return container
+
+    def analyze_X(self, document, metadata, result):
+        """Prints a message to inform the reader that results for S-type
+        questions aren't available."""
+        container = document.new_tag("div")
+        
+        code_header = document.new_tag("h3")
+        code_header.string = metadata["code"]
+        container.append(code_header)
+
+        question_text = document.new_tag("p")
+        question_text.string = metadata["label"]
+        container.append(question_text)
+
+        error_paragraph = document.new_tag("p")
+        error_msg = ("This question was asked in such a way that it can't be " +
+                     "aggregated, and therefore can't be included in the general report.")
+        error_paragraph.string = error_msg
+        container.append(error_paragraph)
+
+        return container
+
+    def analyze_O(self, document, metadata, result):
+        """Prints a message to inform the reader that results for S-type
+        questions aren't available."""
+        container = document.new_tag("div")
+        
+        code_header = document.new_tag("h3")
+        code_header.string = metadata["code"]
+        container.append(code_header)
+
+        question_text = document.new_tag("p")
+        question_text.string = metadata["label"]
+        container.append(question_text)
+
+        error_paragraph = document.new_tag("p")
+        error_msg = ("This question was asked in such a way that it can't be " +
+                     "aggregated, and therefore can't be included in the general report.")
+        error_paragraph.string = error_msg
+        container.append(error_paragraph)
+
+        return container
+    
+def mk_table_row(document, data):
+    table_row = document.new_tag("tr")
+    for item in data:
+        table_data = document.new_tag("td")
+        table_data.string = str(item)
+        table_row.append(table_data)
+    return table_row    
     
 KF = KeyFormatter(report, structure)
 document = KF.format_keys()
