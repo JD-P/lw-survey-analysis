@@ -119,7 +119,7 @@ class KeyFormatter:
         for answer in answers:
             label = answer["label"]
             answer_paragraph = document.new_tag("p")
-            answer_paragraph.string = "{}: {} {}".format(label,
+            answer_paragraph.string = "{}: {} ({})".format(label,
                                                          result[label + "_count"],
                                                          lsa.percent_from_fraction(
                                                              result[label + "_fraction"]))
@@ -127,7 +127,7 @@ class KeyFormatter:
         if metadata["sub_questions"]:
             sub_result = result["sub_questions"][0]
             answer_paragraph = document.new_tag("p")
-            answer_paragraph.string = "{}: {} {}".format("Other",
+            answer_paragraph.string = "{}: {} ({})".format("Other",
                                                          sub_result["count"],
                                                          lsa.percent_from_fraction(
                                                              sub_result["fraction"]))
