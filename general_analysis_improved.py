@@ -58,22 +58,29 @@ class KeyFormatter:
         <head>
         <title> 2016 LessWrong Survey Analysis General Report </title>
         <meta charset="UTF-8">
+        <link href="general_report.css" rel="stylesheet">
         </head>
         <body>
         </body>
         </html>"""
         document = BeautifulSoup(html_doc, "html")
         body = document.body
-        for key in self._structure.keys():
-            if key in self._report:
-                dtype = self._structure[key]['dtype']
-                result = self._report[key]
-                if dtype == "!":
-                    formatter = getattr(self, "format_exclamation")
-                else:
-                    formatter = getattr(self, "format_{}".format(dtype))
-                result_div = formatter(document, self._structure[key], result)
-                body.append(result_div)
+        for group in self._structure.groups():
+            group_header = document.new_tag("h2")
+            group_header.string = group[0]
+            body.append(group_header)
+            for key in group[1]:
+                if key in self._report:
+                    dtype = self._structure[key]['dtype']
+                    result = self._report[key]
+                    if dtype == "!":
+                        formatter = getattr(self, "format_exclamation")
+                    else:
+                        formatter = getattr(self, "format_{}".format(dtype))
+                    result_div = formatter(document, self._structure[key], result)
+                    body.append(result_div)
+            section_rule = document.new_tag("hr")
+            body.append(section_rule)
         return document
                 
     def format_Y(self, document, metadata, result):
