@@ -84,15 +84,7 @@ class KeyFormatter:
         return document
                 
     def format_Y(self, document, metadata, result):
-        container = document.new_tag("div")
-
-        code_header = document.new_tag("h3")
-        code_header.string = metadata["code"]
-        container.append(code_header)
-        
-        question_text = document.new_tag("p")
-        question_text.string = metadata["label"]
-        container.append(question_text)
+        container = self.format_setup(document, metadata, result)
 
         answers = ["Yes", "No"]
         for answer in answers:
@@ -108,15 +100,7 @@ class KeyFormatter:
     def format_N(self, document, metadata, result):
         """Take the result dictionary representing a numeric question and format
         it as HTML."""
-        container = document.new_tag("div")
-        
-        code_header = document.new_tag("h3")
-        code_header.string = metadata["code"]
-        container.append(code_header)
-
-        question_text = document.new_tag("p")
-        question_text.string = metadata["label"]
-        container.append(question_text)
+        container = self.format_setup(document, metadata, result)
         
         calculations = ["sum","mean","median","mode","stdev"]
         for calculation in calculations:
@@ -129,15 +113,7 @@ class KeyFormatter:
     def format_L(self, document, metadata, result):
         """Take the result dictionary representing a radio list and format it as
         HTML."""
-        container = document.new_tag("div")
-        
-        code_header = document.new_tag("h3")
-        code_header.string = metadata["code"]
-        container.append(code_header)
-
-        question_text = document.new_tag("p")
-        question_text.string = metadata["label"]
-        container.append(question_text)
+        container = self.format_setup(document, metadata, result)
 
         answers = metadata["answers"]
         for answer in answers:
@@ -162,15 +138,7 @@ class KeyFormatter:
     def format_M(self, document, metadata, result):
         """Take the result dictionary representing a multiple choice question
         with checkbox/binary answers."""
-        container = document.new_tag("div")
-        
-        code_header = document.new_tag("h3")
-        code_header.string = metadata["code"]
-        container.append(code_header)
-
-        question_text = document.new_tag("p")
-        question_text.string = metadata["label"]
-        container.append(question_text)
+        container = self.format_setup(document, metadata, result)
 
         answer_table = document.new_tag("table")
 
@@ -216,16 +184,8 @@ class KeyFormatter:
 
     def format_F(self, document, metadata, result):
         """Represent a multiple choice question with multiple answers."""
-        container = document.new_tag("div")
+        container = self.format_setup(document, metadata, result)
         
-        code_header = document.new_tag("h3")
-        code_header.string = metadata["code"]
-        container.append(code_header)
-
-        question_text = document.new_tag("p")
-        question_text.string = metadata["label"]
-        container.append(question_text)
-
         answer_table = document.new_tag("table")
 
         answer_table_header = document.new_tag("th")
@@ -256,15 +216,7 @@ class KeyFormatter:
 
     def format_exclamation(self, document, metadata, result):
         """Convert a result object representing a dropdown box question to HTML."""
-        container = document.new_tag("div")
-        
-        code_header = document.new_tag("h3")
-        code_header.string = metadata["code"]
-        container.append(code_header)
-
-        question_text = document.new_tag("p")
-        question_text.string = metadata["label"]
-        container.append(question_text)
+        container = self.format_setup(document, metadata, result)
         
         for answer in metadata["answers"]:
             answer_paragraph = document.new_tag("p")
@@ -281,15 +233,7 @@ class KeyFormatter:
     def format_K(self, document, metadata, result):
         """Convert a result object representing multiple numeric questions
         to HTML."""
-        container = document.new_tag("div")
-        
-        code_header = document.new_tag("h3")
-        code_header.string = metadata["code"]
-        container.append(code_header)
-
-        question_text = document.new_tag("p")
-        question_text.string = metadata["label"]
-        container.append(question_text)
+        container = self.format_setup(document, metadata, result)
 
         answer_table = document.new_tag("table")
 
@@ -317,16 +261,8 @@ class KeyFormatter:
             
     def format_5(self, document, metadata, result):
         """Convert a result object representing a five point rating scale to HTML."""
-        container = document.new_tag("div")
+        container = self.format_setup(document, metadata, result)
         
-        code_header = document.new_tag("h3")
-        code_header.string = metadata["code"]
-        container.append(code_header)
-
-        question_text = document.new_tag("p")
-        question_text.string = metadata["label"]
-        container.append(question_text)
-
         answers = (1, 2, 3, 4, 5)
         for answer_str in [str(answer) for answer in answers]:
             answer_paragraph = document.new_tag("p")
@@ -345,35 +281,43 @@ class KeyFormatter:
         return self.generic_aggregation_error(document, metadata, result)
 
     def format_Q(self, document, metadata, result):
-        """Prints a message to inform the reader that results for S-type
+        """Prints a message to inform the reader that results for Q-type
         questions aren't available."""
         return self.generic_aggregation_error(document, metadata, result)
 
     def format_T(self, document, metadata, result):
-        """Prints a message to inform the reader that results for S-type
+        """Prints a message to inform the reader that results for T-type
         questions aren't available."""
         return self.generic_aggregation_error(document, metadata, result)
 
     def format_X(self, document, metadata, result):
-        """Prints a message to inform the reader that results for S-type
+        """Prints a message to inform the reader that results for X-type
         questions aren't available."""
         return self.generic_aggregation_error(document, metadata, result)
 
     def format_O(self, document, metadata, result):
-        """Prints a message to inform the reader that results for S-type
+        """Prints a message to inform the reader that results for O-type
         questions aren't available."""
         return self.generic_aggregation_error(document, metadata, result)
 
-    def generic_aggregation_error(self, document, metadata, result):
+    def format_setup(self, document, metadata, result):
+        """Creates and sets up a container div for formatters."""
         container = document.new_tag("div")
-        
+
         code_header = document.new_tag("h3")
         code_header.string = metadata["code"]
         container.append(code_header)
-
+        
         question_text = document.new_tag("p")
         question_text.string = metadata["label"]
         container.append(question_text)
+
+        return container
+    
+    def generic_aggregation_error(self, document, metadata, result):
+        """Function used by the formatters that return an aggregate error message
+        to create their container div."""
+        container = self.format_setup(document, metadata, result)
 
         error_small = document.new_tag("small")
         
