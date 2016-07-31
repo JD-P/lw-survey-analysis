@@ -307,10 +307,15 @@ class KeyFormatter:
         code_header = document.new_tag("h3")
         code_header.string = metadata["code"]
         container.append(code_header)
+
+        question_paragraph = document.new_tag("p")
         
-        question_text = document.new_tag("p")
+        question_text = document.new_tag("b")
         question_text.string = metadata["label"]
-        container.append(question_text)
+
+        question_paragraph.append(question_text)
+        
+        container.append(question_paragraph)
 
         return container
     
