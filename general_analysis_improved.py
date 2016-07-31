@@ -89,7 +89,7 @@ class KeyFormatter:
         answers = ["Yes", "No"]
         for answer in answers:
             answer_paragraph = document.new_tag("p")
-            answer_paragraph.string = "{}: {} {}".format(answer,
+            answer_paragraph.string = "{}: {} ({})".format(answer,
                                                          result[answer + "_count"],
                                                          lsa.percent_from_fraction(
                                                              result[answer + "_fraction"]))
@@ -221,7 +221,7 @@ class KeyFormatter:
         for answer in metadata["answers"]:
             answer_paragraph = document.new_tag("p")
             
-            a_str = "{}: {} {}".format(answer["label"],
+            a_str = "{}: {} ({})".format(answer["label"],
                                        result[answer["label"] + "_count"],
                                        lsa.percent_from_fraction(
                                            result[answer["label"] + "_fraction"])
@@ -266,7 +266,7 @@ class KeyFormatter:
         answers = (1, 2, 3, 4, 5)
         for answer_str in [str(answer) for answer in answers]:
             answer_paragraph = document.new_tag("p")
-            a_str = "{}: {} {}".format(answer_str,
+            a_str = "{}: {} ({})".format(answer_str,
                                        result[answer_str + "_count"],
                                        lsa.percent_from_fraction(
                                            result[answer_str + "_fraction"])
